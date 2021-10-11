@@ -78,7 +78,7 @@ namespace WinFormsCellLifeSimulationApp {
 			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pictureBox->Location = System::Drawing::Point(0, 0);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(782, 553);
+			this->pictureBox->Size = System::Drawing::Size(880, 588);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
@@ -86,9 +86,9 @@ namespace WinFormsCellLifeSimulationApp {
 			// button_generate
 			// 
 			this->button_generate->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->button_generate->Location = System::Drawing::Point(611, 36);
+			this->button_generate->Location = System::Drawing::Point(687, 38);
 			this->button_generate->Name = L"button_generate";
-			this->button_generate->Size = System::Drawing::Size(109, 48);
+			this->button_generate->Size = System::Drawing::Size(123, 51);
 			this->button_generate->TabIndex = 1;
 			this->button_generate->Text = L"generate";
 			this->button_generate->UseVisualStyleBackColor = true;
@@ -100,13 +100,15 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			// CLSAppForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(9, 17);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(782, 553);
+			this->ClientSize = System::Drawing::Size(880, 588);
 			this->Controls->Add(this->button_generate);
 			this->Controls->Add(this->pictureBox);
+			this->Font = (gcnew System::Drawing::Font(L"Showcard Gothic", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->Name = L"CLSAppForm";
-			this->Text = L"CLSAppForm";
+			this->Text = L"Cell Life Simulation";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->EndInit();
 			this->ResumeLayout(false);
 
