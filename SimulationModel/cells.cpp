@@ -10,7 +10,7 @@ void Cell::generate()
 	this->food += options.food_generation;
 }
 
-void Cell::checkSpeed()
+void Cell::checkSpeed(Vect2D<float> &speed)
 {
 	if (speed.getAbs() > options.max_speed) {
 		const double ofMax = speed.getAbs() / options.max_speed;
@@ -101,12 +101,13 @@ CellColor Cell::getColor()
 void Cell::accelerate(Vect2D<float> speed_delta)
 {
 	speed += speed_delta;
-	checkSpeed();
+	checkSpeed(speed);
 }
 
-void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false)
+void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion)
 {
 	auto speed_delta = vectorToPoint;
+	checkSpeed(speed_delta);
 	speed_delta *= (this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius;
 	if (inversion)speed_delta *= -1;
 	accelerate(speed_delta);

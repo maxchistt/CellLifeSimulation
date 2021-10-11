@@ -46,14 +46,14 @@ namespace SimulationModel {
 			int& size = options.size;
 
 			void generate();
-			void checkSpeed();
+			void checkSpeed(structs::Vect2D<float>& speed);
 			void checkBorder();
 			void move();
 			void find();
 			void duplicate();
 			void foodDamage();
 			void accelerate(structs::Vect2D<float> speed_delta);
-			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion);
+			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false);
 
 		public:
 			virtual void seeClosest(structs::Vect2D<float> vector);
