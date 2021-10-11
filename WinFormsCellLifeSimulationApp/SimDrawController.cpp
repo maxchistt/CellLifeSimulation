@@ -90,24 +90,29 @@ Drawing::Color SimDrawController::convertColor(SimulationModel::Cells::CellColor
 
 void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 {
-	auto bmp = gcnew Bitmap(this->sim->fieldSize.x, this->sim->fieldSize.y);
-	auto graph = Graphics::FromImage(bmp);
-	for each (drawEntity ent in entities)
-	{
-		auto bmp1 = gcnew System::Drawing::Bitmap(ent.size, ent.size);
-		auto color = convertColor(ent.color);
-		for (int i = 0; i < ent.size; i++) {
-			for (int j = 0; j < ent.size; j++) {
-				if (sqrt(pow(j - ent.size / 2, 2) + pow(i - ent.size / 2, 2)) < ent.size / 2) {
-					bmp1->SetPixel(i, j, color);
+	try {
+		auto bmp = gcnew Bitmap(this->sim->fieldSize.x, this->sim->fieldSize.y);
+		auto graph = Graphics::FromImage(bmp);
+		for each (drawEntity ent in entities)
+		{
+			auto bmp1 = gcnew System::Drawing::Bitmap(ent.size, ent.size);
+			auto color = convertColor(ent.color);
+			for (int i = 0; i < ent.size; i++) {
+				for (int j = 0; j < ent.size; j++) {
+					if (sqrt(pow(j - ent.size / 2, 2) + pow(i - ent.size / 2, 2)) < ent.size / 2) {
+						bmp1->SetPixel(i, j, color);
+					}
 				}
 			}
+			graph->DrawImage(bmp1, Drawing::Point(ent.point.x - ent.size / 2, ent.point.y - ent.size / 2));
 		}
-		graph->DrawImage(bmp1, Drawing::Point(ent.point.x - ent.size / 2, ent.point.y - ent.size / 2));
+		this->pictureBox->Image = bmp;
+		this->pictureBox->Invalidate();
+		this->pictureBox->Refresh();
 	}
-	this->pictureBox->Image = bmp;
-	this->pictureBox->Invalidate();
-	this->pictureBox->Refresh();
+	catch(System::Object^ sender){
+
+	};
 }
 
 void SimDrawController::fitSimSize()

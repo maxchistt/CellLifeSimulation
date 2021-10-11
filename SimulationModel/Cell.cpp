@@ -182,8 +182,8 @@ Cell::Cell(Simulation* parentSimulation)
 	this->parentField = parentSimulation;
 	parentSimulation->add(this);
 	this->position = Vect2D<float>{
-		(float)(rand() % parentSimulation->fieldSize.x),
-		(float)(rand() % parentSimulation->fieldSize.y)
+		(float)(rand() % (parentSimulation->fieldSize.x? parentSimulation->fieldSize.x :1)),
+		(float)(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
 	};
 }
 
