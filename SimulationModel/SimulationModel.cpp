@@ -92,7 +92,7 @@ void Simulation::fillCells()
 	Cells::CellOptions opt;
 
 	for (int i = 0; i < 40; i++) {
-		if (i > 10)opt.color = i % 2 ? Cells::CellColor::ORANGE : Cells::CellColor::BLUE;
+		if (i > 20)opt.color = i % 2 ? Cells::CellColor::RED : Cells::CellColor::BLUE;
 		new Cells::Cell(this, opt);
 	}
 }

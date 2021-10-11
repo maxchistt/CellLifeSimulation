@@ -32,11 +32,13 @@ namespace SimulationModel {
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::GREEN;
-			//CellColor
+			std::vector<CellColor> colors_beware{ CellColor::GREEN };
+			std::vector<CellColor> colors_hunt{ CellColor::RED };
 		};
 
 		class Cell
 		{
+			
 		protected:
 			int food = BASIC_START_FOOD_AMOUNT;
 			structs::Vect2D<float> position{ 0,0 };
