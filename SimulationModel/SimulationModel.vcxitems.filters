@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)SimulationModel.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)cells.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Cell.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp">
@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)cells.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Cell.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)structs.h">

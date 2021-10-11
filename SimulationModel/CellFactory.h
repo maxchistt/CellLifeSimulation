@@ -1,5 +1,5 @@
 #pragma once
-#include "cells.h"
+#include "Cell.h"
 
 namespace SimulationModel {
 	namespace Cells {

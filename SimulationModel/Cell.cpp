@@ -1,4 +1,4 @@
-#include "cells.h"
+#include "Cell.h"
 #include "SimulationModel.h"
 
 using namespace SimulationModel;

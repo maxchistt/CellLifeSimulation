@@ -1,7 +1,7 @@
 #pragma once
 #include "structs.h"
 #include <vector>
-#include "cells.h"
+#include "Cell.h"
 #include "CellFactory.h"
 
 #define TIMELAPSE 10
