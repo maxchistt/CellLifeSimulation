@@ -4,58 +4,57 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
-CellOptions plant() {
-	CellOptions plant = CellOptions();
-	plant.color = CellColor::GREEN;
-	plant.max_speed = rand()%3+4;
-	plant.colors_beware.push_back(CellColor::BLUE);
-	plant.detect_radius = rand() % 3+10;
-	plant.food_generation = 0.5;
-	plant.feed_damage = 0.1;
-	plant.size = rand() % 3 + 5;
-	plant.dupl_chanse_percent = rand() % 10+ 65;
+struct Plant :CellOptions{
+	Plant() {
+			this->color = CellColor::GREEN;
+			this->max_speed = rand() % 3 + 4;
+			this->colors_beware.push_back(CellColor::BLUE);
+			this->detect_radius = rand() % 3 + 10;
+			this->food_generation = 0.5;
+			this->feed_damage = 0.1;
+			this->size = rand() % 3 + 5;
+			this->dupl_chanse_percent = rand() % 10 + 65;
+	}
+};
 
-	return plant;
-}
+struct Planter :CellOptions {
+	Planter() {
+		this->color = CellColor::BLUE;
+		this->colors_beware.push_back(CellColor::RED);
+		this->colors_hunt.push_back(CellColor::GREEN);
+		this->size = rand() % 3 + 7;
+		this->max_speed = rand() % 6 + 17;
+		this->detect_radius = rand() % 60 + 200;
+	}
+};
 
-CellOptions planter() {
-	CellOptions planter = CellOptions();
-	planter.color = CellColor::BLUE;
-	planter.colors_beware.push_back(CellColor::RED);
-	planter.colors_hunt.push_back(CellColor::GREEN);
-	planter.size = rand() % 3 +7;
-	planter.max_speed = rand() % 3+17;
-
-	return planter;
-}
-
-CellOptions hunter() {
-	CellOptions hunter = CellOptions();
-	hunter.color = CellColor::RED;
-	hunter.max_speed = rand() % 13 +50;
-	hunter.colors_hunt.push_back(CellColor::BLUE);
-	hunter.food_generation = 0;
-	hunter.feed_damage = 1.5;
-	hunter.size = rand() % 3+10;
-
-	return hunter;
-}
+struct Hunter :CellOptions {
+	Hunter() {
+		this->color = CellColor::RED;
+		this->max_speed = rand() % 13 + 50;
+		this->colors_hunt.push_back(CellColor::BLUE);
+		this->food_generation = 0;
+		this->feed_damage = 1.5;
+		this->size = rand() % 3 + 10;
+		this->detect_radius = rand() % 100 + 200;
+	}
+};
 
 void CellFactory::createStartOptions()
 {
 	for (int i = 0; i < 7; i++)
 	{
-		this->addOption(plant());
+		this->addOption(Plant());
 	}
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
-		this->addOption(planter());
+		this->addOption(Planter());
 	}
 
 	for (int i = 0; i < 2; i++)
 	{
-		this->addOption(hunter());
+		this->addOption(Hunter());
 	}
 	
 }

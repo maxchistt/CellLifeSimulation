@@ -26,21 +26,17 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 {
 	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-
 	for (auto it = sim->cells.begin(); it != sim->cells.end(); it++) {
 		Cell* cell_to_find = *it;
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
-
 		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find || todo == doType::nothing) {
 			continue;
 		}
 		else {
 			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
-
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
 					resDistVect = curDistVect;
-
 					if (curDistVect.getAbs() < (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
 						cell_finder->iteract(cell_to_find, todo, curDistVect);
 					}
@@ -49,7 +45,6 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 					}
 				}
 			}
-
 		}
 	}
 }
@@ -85,7 +80,6 @@ void Cell::checkBorder()
 		position.y = 0;
 		speed.y = 0.5;
 	};
-
 }
 
 void Cell::move()
@@ -124,7 +118,6 @@ void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 		vector /= 2;
 		accelerateByVectTarget(vector, true);
 	}
-
 }
 
 void Cell::foodDamage()
@@ -188,7 +181,6 @@ Cell::Cell(Simulation* parentSimulation)
 {
 	this->parentField = parentSimulation;
 	parentSimulation->add(this);
-
 	this->position = Vect2D<float>{
 		(float)(rand() % parentSimulation->fieldSize.x),
 		(float)(rand() % parentSimulation->fieldSize.y)
@@ -224,7 +216,6 @@ void Cell::lifeCircle()
 		move();
 		generate();
 		foodDamage();
-
 	}
 }
 

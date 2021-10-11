@@ -21,12 +21,13 @@ namespace SimulationModel {
 	public:
 
 		friend static void Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
-		static const int timelapse = TIMELAPSE;
+		static int timelapse;
 
 		void cleardied(); 
 		void cleardied(Cells::Cell* target);
 		void update();
 		void add(Cells::Cell* cell);
+		void setTimelapse(int val = TIMELAPSE);
 
 		structs::Point2D<int> fieldSize{100,100};
 		std::vector<drawEntity> drawSimulation();

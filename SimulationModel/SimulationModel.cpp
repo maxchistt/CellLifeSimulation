@@ -4,6 +4,8 @@
 
 using namespace SimulationModel;
 
+int Simulation::timelapse = TIMELAPSE;
+
 void Simulation::cleardied()
 {
 	cleardied(nullptr);
@@ -25,12 +27,11 @@ void Simulation::cleardied(Cells::Cell* target)
 
 void Simulation::update()
 {
-
 	cells.insert(
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
 	cellsnext.clear();
-	
+
 	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
 		if (cell == nullptr || cell->isAlive() == false) {
@@ -48,14 +49,17 @@ void SimulationModel::Simulation::add(Cells::Cell* cell)
 {
 	cellsnext.push_back(cell);
 }
-;
+
+void SimulationModel::Simulation::setTimelapse(int val)
+{
+	this->timelapse = val;
+}
 
 Simulation::Simulation() :Simulation(600, 800) {}
 
 Simulation::Simulation(int x, int y)
 {
 	setSize(x, y);
-	//generateCells();
 }
 
 void Simulation::generateCells()

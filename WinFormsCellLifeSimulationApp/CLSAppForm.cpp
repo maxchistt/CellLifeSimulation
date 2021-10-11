@@ -38,6 +38,8 @@ Drawing::Color CLSAppForm::convertColor(SimulationModel::Cells::CellColor cell_c
 void CLSAppForm::OnInitMainForm()
 {
 	sim = new Simulation(pictureBox->Size.Width, pictureBox->Size.Height);
+	sim->setTimelapse(5);
+	timer1->Interval = 200;
 	timer1->Start();
 }
 
