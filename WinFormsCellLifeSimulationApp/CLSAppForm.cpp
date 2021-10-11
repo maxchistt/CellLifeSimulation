@@ -38,7 +38,6 @@ Drawing::Color CLSAppForm::convertColor(SimulationModel::Cells::CellColor cell_c
 void CLSAppForm::OnInitMainForm()
 {
 	sim = new Simulation(pictureBox->Size.Width, pictureBox->Size.Height);
-	//redraw();
 	timer1->Start();
 }
 
@@ -85,7 +84,7 @@ System::Void WinFormsCellLifeSimulationApp::CLSAppForm::timer1_Tick(System::Obje
 
 System::Void WinFormsCellLifeSimulationApp::CLSAppForm::button_generate_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	sim->fillCells();
+	sim->generateCells();
 }
 
 

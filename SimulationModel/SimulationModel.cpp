@@ -1,5 +1,6 @@
 #include "cells.h"
 #include "SimulationModel.h"
+#include "CellFactory.h"
 
 using namespace SimulationModel;
 
@@ -29,7 +30,7 @@ void Simulation::update()
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
 	cellsnext.clear();
-	//cleardied();
+	
 	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
 		if (cell == nullptr || cell->isAlive() == false) {
@@ -54,17 +55,12 @@ Simulation::Simulation() :Simulation(600, 800) {}
 Simulation::Simulation(int x, int y)
 {
 	setSize(x, y);
-	fillCells();
+	//generateCells();
 }
 
-void Simulation::fillCells()
+void Simulation::generateCells()
 {
-	Cells::CellOptions opt;
-
-	for (int i = 0; i < 40; i++) {
-		if (i > 20)opt.color = i % 2 ? Cells::CellColor::RED : Cells::CellColor::BLUE;
-		new Cells::Cell(this, opt);
-	}
+	cellFactory.generate();
 }
 
 void SimulationModel::Simulation::setSize(int x, int y)

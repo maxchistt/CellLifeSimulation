@@ -2,6 +2,7 @@
 #include "structs.h"
 #include <vector>
 #include "cells.h"
+#include "CellFactory.h"
 
 #define TIMELAPSE 10
 
@@ -16,7 +17,9 @@ namespace SimulationModel {
 	class Simulation {
 		std::vector<Cells::Cell*> cellsnext;
 		std::vector<Cells::Cell*> cells;
+		Cells::CellFactory cellFactory = Cells::CellFactory(this);
 	public:
+
 		friend static void Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 		static const int timelapse = TIMELAPSE;
 
@@ -31,7 +34,7 @@ namespace SimulationModel {
 		Simulation();
 		Simulation(int x, int y);
 
-		void fillCells();
+		void generateCells();
 		void setSize(int x, int y);
 	};
 

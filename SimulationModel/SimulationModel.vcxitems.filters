@@ -8,6 +8,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CellFactory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
@@ -15,6 +18,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)structs.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CellFactory.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

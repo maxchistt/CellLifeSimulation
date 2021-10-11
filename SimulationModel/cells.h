@@ -32,8 +32,8 @@ namespace SimulationModel {
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::GREEN;
-			std::vector<CellColor> colors_beware{ CellColor::GREEN };
-			std::vector<CellColor> colors_hunt{ CellColor::RED };
+			std::vector<CellColor> colors_beware{  };
+			std::vector<CellColor> colors_hunt{  };
 		};
 
 		class Cell
