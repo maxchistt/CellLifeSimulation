@@ -36,6 +36,7 @@ namespace SimulationModel {
 		Simulation(int x, int y);
 
 		void generateCells();
+		void generateCells(int n);
 		void setSize(int x, int y);
 	};
 

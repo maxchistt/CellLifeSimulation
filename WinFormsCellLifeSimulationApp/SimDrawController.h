@@ -27,7 +27,9 @@ namespace WinFormsCellLifeSimulationApp {
 		void setTimeSettings(int interval, int timelapse);
 		void start();
 		void stop();
+		void clear();
 		void generateCells();
+		void generateCells(int n);
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox, Windows::Forms::Timer^ timer);
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox);
 	};

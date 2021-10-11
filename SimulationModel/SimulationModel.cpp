@@ -68,6 +68,10 @@ void Simulation::generateCells()
 {
 	cellFactory.generate();
 }
+void SimulationModel::Simulation::generateCells(int n)
+{
+	cellFactory.generate(n);
+}
 
 void SimulationModel::Simulation::setSize(int x, int y)
 {

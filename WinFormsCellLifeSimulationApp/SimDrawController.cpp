@@ -21,9 +21,23 @@ void SimDrawController::stop()
 	timer->Stop();
 }
 
+void SimDrawController::clear()
+{
+	delete sim;
+	sim = new SimulationModel::Simulation();
+	fitSimSize();
+	if (!timer->Enabled)redraw();
+}
+
 void SimDrawController::generateCells()
 {
 	sim->generateCells();
+}
+
+void SimDrawController::generateCells(int n)
+{
+	sim->generateCells(n);
+	if (!timer->Enabled)redraw();
 }
 
 void SimDrawController::redraw()
@@ -110,7 +124,7 @@ void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 		this->pictureBox->Invalidate();
 		this->pictureBox->Refresh();
 	}
-	catch(System::Object^ sender){
+	catch (System::Object^ sender) {
 
 	};
 }

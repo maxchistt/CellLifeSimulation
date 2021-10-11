@@ -4,16 +4,16 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
-struct Plant :CellOptions{
+struct Plant :CellOptions {
 	Plant() {
-			this->color = CellColor::GREEN;
-			this->max_speed = rand() % 3 + 4;
-			this->colors_beware.push_back(CellColor::BLUE);
-			this->detect_radius = rand() % 3 + 10;
-			this->food_generation = 0.5;
-			this->feed_damage = 0.1;
-			this->size = rand() % 3 + 5;
-			this->dupl_chanse_percent = rand() % 10 + 65;
+		this->color = CellColor::GREEN;
+		this->max_speed = rand() % 3 + 4;
+		this->colors_beware.push_back(CellColor::BLUE);
+		this->detect_radius = rand() % 3 + 10;
+		this->food_generation = 0.5;
+		this->feed_damage = 0.1;
+		this->size = rand() % 3 + 5;
+		this->dupl_chanse_percent = rand() % 10 + 65;
 	}
 };
 
@@ -56,7 +56,7 @@ void CellFactory::createStartOptions()
 	{
 		this->addOption(Hunter());
 	}
-	
+
 }
 
 void CellFactory::createCell(CellOptions opt)
@@ -77,9 +77,13 @@ CellFactory::CellFactory(Simulation* sim)
 
 void CellFactory::generate()
 {
-	int size = rand()% 40 +1;
-	
-	for (int i = 0; i < size; i++) {
+	int size = rand() % 40 + 1;
+	generate(size);
+}
+
+void SimulationModel::Cells::CellFactory::generate(int n)
+{
+	for (int i = 0; i < n; i++) {
 		int opt_id = rand() % this->options_arr.size();
 		createCell(options_arr[opt_id]);
 	}

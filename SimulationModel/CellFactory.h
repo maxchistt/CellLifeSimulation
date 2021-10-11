@@ -13,7 +13,7 @@ namespace SimulationModel {
 		public:
 			void addOption(Cells::CellOptions option);
 			void generate();
-			
+			void generate(int n);
 			CellFactory(Simulation* sim);
 		};
 	}
