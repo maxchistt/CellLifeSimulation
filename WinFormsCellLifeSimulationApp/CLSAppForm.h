@@ -86,14 +86,14 @@ namespace WinFormsCellLifeSimulationApp {
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->actionsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->playToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->startToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->pauseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->generateToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem_add10 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem_add30 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem_add70 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->clearToolStripMenuItem_Clear = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->playToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->startToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->pauseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -103,7 +103,7 @@ namespace WinFormsCellLifeSimulationApp {
 			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pictureBox->Location = System::Drawing::Point(0, 28);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(880, 560);
+			this->pictureBox->Size = System::Drawing::Size(582, 325);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
@@ -118,7 +118,7 @@ namespace WinFormsCellLifeSimulationApp {
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->actionsToolStripMenuItem });
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(880, 28);
+			this->menuStrip1->Size = System::Drawing::Size(582, 28);
 			this->menuStrip1->TabIndex = 2;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -132,6 +132,30 @@ namespace WinFormsCellLifeSimulationApp {
 			this->actionsToolStripMenuItem->Size = System::Drawing::Size(72, 24);
 			this->actionsToolStripMenuItem->Text = L"Actions";
 			// 
+			// playToolStripMenuItem
+			// 
+			this->playToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->startToolStripMenuItem,
+					this->pauseToolStripMenuItem
+			});
+			this->playToolStripMenuItem->Name = L"playToolStripMenuItem";
+			this->playToolStripMenuItem->Size = System::Drawing::Size(152, 26);
+			this->playToolStripMenuItem->Text = L"Play";
+			// 
+			// startToolStripMenuItem
+			// 
+			this->startToolStripMenuItem->Name = L"startToolStripMenuItem";
+			this->startToolStripMenuItem->Size = System::Drawing::Size(129, 26);
+			this->startToolStripMenuItem->Text = L"Start";
+			this->startToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::startToolStripMenuItem_Click);
+			// 
+			// pauseToolStripMenuItem
+			// 
+			this->pauseToolStripMenuItem->Name = L"pauseToolStripMenuItem";
+			this->pauseToolStripMenuItem->Size = System::Drawing::Size(129, 26);
+			this->pauseToolStripMenuItem->Text = L"Pause";
+			this->pauseToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::pauseToolStripMenuItem_Click);
+			// 
 			// generateToolStripMenuItem
 			// 
 			this->generateToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
@@ -139,7 +163,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->toolStripMenuItem_add30, this->toolStripMenuItem_add70
 			});
 			this->generateToolStripMenuItem->Name = L"generateToolStripMenuItem";
-			this->generateToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->generateToolStripMenuItem->Size = System::Drawing::Size(152, 26);
 			this->generateToolStripMenuItem->Text = L"Generate";
 			// 
 			// toolStripMenuItem_add10
@@ -166,39 +190,15 @@ namespace WinFormsCellLifeSimulationApp {
 			// clearToolStripMenuItem_Clear
 			// 
 			this->clearToolStripMenuItem_Clear->Name = L"clearToolStripMenuItem_Clear";
-			this->clearToolStripMenuItem_Clear->Size = System::Drawing::Size(224, 26);
+			this->clearToolStripMenuItem_Clear->Size = System::Drawing::Size(152, 26);
 			this->clearToolStripMenuItem_Clear->Text = L"Clear";
 			this->clearToolStripMenuItem_Clear->Click += gcnew System::EventHandler(this, &CLSAppForm::clearToolStripMenuItem_Clear_Click);
-			// 
-			// playToolStripMenuItem
-			// 
-			this->playToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
-				this->startToolStripMenuItem,
-					this->pauseToolStripMenuItem
-			});
-			this->playToolStripMenuItem->Name = L"playToolStripMenuItem";
-			this->playToolStripMenuItem->Size = System::Drawing::Size(224, 26);
-			this->playToolStripMenuItem->Text = L"Play";
-			// 
-			// startToolStripMenuItem
-			// 
-			this->startToolStripMenuItem->Name = L"startToolStripMenuItem";
-			this->startToolStripMenuItem->Size = System::Drawing::Size(224, 26);
-			this->startToolStripMenuItem->Text = L"Start";
-			this->startToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::startToolStripMenuItem_Click);
-			// 
-			// pauseToolStripMenuItem
-			// 
-			this->pauseToolStripMenuItem->Name = L"pauseToolStripMenuItem";
-			this->pauseToolStripMenuItem->Size = System::Drawing::Size(224, 26);
-			this->pauseToolStripMenuItem->Text = L"Pause";
-			this->pauseToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::pauseToolStripMenuItem_Click);
 			// 
 			// CLSAppForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 17);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(880, 588);
+			this->ClientSize = System::Drawing::Size(582, 353);
 			this->Controls->Add(this->pictureBox);
 			this->Controls->Add(this->menuStrip1);
 			this->Font = (gcnew System::Drawing::Font(L"Showcard Gothic", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,

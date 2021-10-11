@@ -28,6 +28,7 @@ void Simulation::cleardied(Cells::Cell* target)
 
 void Simulation::update()
 {
+	srand(static_cast<unsigned int>(time(0)));
 	cells.insert(
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
