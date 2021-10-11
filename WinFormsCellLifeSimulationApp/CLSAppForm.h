@@ -18,11 +18,11 @@ namespace WinFormsCellLifeSimulationApp {
 	{
 	private:
 		SimDrawController^ controller;
-		
+
 	public:
 
 		void OnInitMainForm();
-		
+
 		CLSAppForm(void)
 		{
 			InitializeComponent();
@@ -75,15 +75,18 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			// pictureBox
 			// 
-			this->pictureBox->Location = System::Drawing::Point(12, 9);
+			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->pictureBox->Location = System::Drawing::Point(0, 0);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(1028, 572);
+			this->pictureBox->Size = System::Drawing::Size(782, 553);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
+			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
 			// 
 			// button_generate
 			// 
-			this->button_generate->Location = System::Drawing::Point(815, 74);
+			this->button_generate->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->button_generate->Location = System::Drawing::Point(611, 36);
 			this->button_generate->Name = L"button_generate";
 			this->button_generate->Size = System::Drawing::Size(109, 48);
 			this->button_generate->TabIndex = 1;
@@ -99,7 +102,7 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1052, 593);
+			this->ClientSize = System::Drawing::Size(782, 553);
 			this->Controls->Add(this->button_generate);
 			this->Controls->Add(this->pictureBox);
 			this->Name = L"CLSAppForm";
@@ -111,5 +114,6 @@ namespace WinFormsCellLifeSimulationApp {
 #pragma endregion
 
 	private: System::Void button_generate_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void image_resize(System::Object^ sender, System::EventArgs^ e);
 	};
 }

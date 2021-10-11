@@ -6,7 +6,7 @@ using namespace SimulationModel;
 
 void CLSAppForm::OnInitMainForm()
 {
-	controller = gcnew SimDrawController(new Simulation(), this->pictureBox,this->timer);
+	controller = gcnew SimDrawController(new Simulation(), this->pictureBox, this->timer);
 	controller->setTimeSettings(200, 5);
 	controller->start();
 }
@@ -14,6 +14,11 @@ void CLSAppForm::OnInitMainForm()
 System::Void CLSAppForm::button_generate_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	controller->generateCells();
+}
+
+System::Void CLSAppForm::image_resize(System::Object^ sender, System::EventArgs^ e)
+{
+	if (controller != nullptr)controller->fitSimSize();
 }
 
 

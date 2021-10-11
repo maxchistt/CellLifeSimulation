@@ -13,16 +13,17 @@ namespace WinFormsCellLifeSimulationApp {
 	ref class SimDrawController
 	{
 	private:
-		Simulation * sim;
-		PictureBox^ pictureBox ;
+		Simulation* sim = nullptr;
+		PictureBox^ pictureBox;
 		Timer^ timer;
 		Color convertColor(Cells::CellColor cell_color);
 		void draw(std::vector<drawEntity> entities);
-		void fitSimSize();
+
 		void redraw();
 		void connectTimer();
 		System::Void tick(System::Object^ sender, System::EventArgs^ e);
 	public:
+		void fitSimSize();
 		void setTimeSettings(int interval, int timelapse);
 		void start();
 		void stop();

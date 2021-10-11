@@ -46,7 +46,7 @@ SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::
 	this->sim = sim;
 	this->pictureBox = pictureBox;
 	this->timer = timer;
-	fitSimSize(); 
+	fitSimSize();
 	connectTimer();
 	//setTimeSettings(200, 5);
 	//start();
@@ -112,5 +112,5 @@ void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 
 void SimDrawController::fitSimSize()
 {
-	sim->setSize(pictureBox->Size.Width, pictureBox->Size.Height);
+	if (sim != nullptr)sim->setSize(pictureBox->Size.Width, pictureBox->Size.Height);
 }
