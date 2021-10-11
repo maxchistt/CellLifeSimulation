@@ -5,6 +5,11 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
+void Cell::generate()
+{
+	this->food += options.food_generation;
+}
+
 void Cell::checkSpeed()
 {
 	if (speed.getAbs() > options.max_speed) {
@@ -75,6 +80,11 @@ int Cell::getSize()
 	return size;
 }
 
+CellColor Cell::getColor()
+{
+	return this->options.color;
+}
+
 void Cell::accelerate(Vect2D<float> speed_delta)
 {
 	speed += speed_delta;
@@ -97,14 +107,18 @@ Cell::Cell(Simulation* parentSimulation)
 {
 	this->parentField = parentSimulation;
 	parentSimulation->add(this);
+
 	this->position = Vect2D<float>{
 		(float)(rand() % (parentSimulation->fieldSize.x)),
 		(float)(rand() % (parentSimulation->fieldSize.y))
 	};
+
+	//this->size = options.size;
 }
 
 Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 {
+	this->options = parentCell.options;
 	this->position = parentCell.getPosition();
 	parentCell.food /= 2;
 	this->food = parentCell.food;
@@ -112,11 +126,18 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 		(float)(rand() % (this->size * 3 + 1)),
 			(float)(rand() % (this->size * 3 + 1))
 	};
+	//this->size = options.size;
+}
+
+Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimulation)
+{
+	this->options = options;
 }
 
 void Cell::lifeCircle()
 {
 	if (isAlive()) {
+		generate();
 		find();
 		move();
 		duplicate();

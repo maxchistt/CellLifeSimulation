@@ -17,6 +17,7 @@ namespace WinFormsCellLifeSimulationApp {
 	{
 	private:
 		SimulationModel::Simulation* sim = nullptr;
+		Drawing::Color convertColor(SimulationModel::Cells::CellColor cell_color);
 	public:
 
 		void OnInitMainForm();

@@ -8,6 +8,7 @@ namespace SimulationModel {
 	struct drawEntity {
 		structs::Point2D<int> point;
 		int size{ 0 };
+		Cells::CellColor color;
 	};
 
 

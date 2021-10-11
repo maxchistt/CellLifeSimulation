@@ -106,7 +106,11 @@ std::vector<drawEntity> Simulation::drawSimulation()
 
 	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
-		drawings.push_back(drawEntity{ structs::Point2D<int>(cell->getPosition().x,cell->getPosition().y),cell->getSize() });
+		drawings.push_back(drawEntity{
+			structs::Point2D<int>(cell->getPosition().x,cell->getPosition().y),
+			cell->getSize(),
+			cell->getColor(),
+			});
 	}
 
 	return drawings;
