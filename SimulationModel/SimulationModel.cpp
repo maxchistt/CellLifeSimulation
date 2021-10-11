@@ -1,6 +1,7 @@
 #include "Cell.h"
 #include "SimulationModel.h"
 #include "CellFactory.h"
+#include <ctime> // для функции time()
 
 using namespace SimulationModel;
 
@@ -59,6 +60,7 @@ Simulation::Simulation() :Simulation(600, 800) {}
 
 Simulation::Simulation(int x, int y)
 {
+	srand(static_cast<unsigned int>(time(0)));
 	setSize(x, y);
 }
 
