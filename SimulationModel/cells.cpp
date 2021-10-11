@@ -22,7 +22,7 @@ void SimulationModel::Cells::Cell::findClosest(SimulationModel::Simulation* sim,
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
 					resDistVect = curDistVect;
 
-					if (curDistVect.getAbs() <= (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
+					if (curDistVect.getAbs() < (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
 						cell_finder->iteract(cell_to_find);
 					}
 					else {
@@ -37,10 +37,10 @@ void SimulationModel::Cells::Cell::findClosest(SimulationModel::Simulation* sim,
 
 void Cell::generate()
 {
-	this->food += options.food_generation;
+	this->food += options.food_generation / Simulation::timelapse;
 }
 
-void Cell::checkSpeed(Vect2D<float> &speed)
+void Cell::checkSpeed(Vect2D<float>& speed)
 {
 	if (speed.getAbs() > options.max_speed) {
 		const double ofMax = speed.getAbs() / options.max_speed;
@@ -71,9 +71,11 @@ void Cell::checkBorder()
 
 void Cell::move()
 {
-	position += speed;
+	auto speed_lapsed = speed;
+	speed_lapsed /= Simulation::timelapse;
+	position += speed_lapsed;
 	checkBorder();
-	speed /= options.stoping_param;
+	speed /= 1 + options.stoping_param / Simulation::timelapse;
 }
 
 void Cell::find()
@@ -88,8 +90,8 @@ void Cell::seeClosest(structs::Vect2D<float> vector)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.feed_damage * options.feeds_to_duplicate) {
-		if (rand() % 100 > options.dupl_chanse_percent)new Cell(*this);
+	if (isAlive() && food > options.foods_to_duplicate) {
+		if (rand() % (100 * Simulation::timelapse) > options.dupl_chanse_percent) new Cell(*this);
 	};
 }
 
@@ -100,7 +102,7 @@ void Cell::iteract(Cell* other)
 
 void Cell::foodDamage()
 {
-	food -= options.feed_damage;
+	food -= options.feed_damage / Simulation::timelapse;
 }
 
 bool Cell::isAlive()
@@ -143,14 +145,14 @@ void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inv
 	accelerate(speed_delta);
 }
 
-int Cell::beEaten()
+float Cell::beEaten()
 {
-	int res = isAlive() ? this->food : 0;
+	float res = isAlive() ? this->food : 0;
 	this->food -= res;
 	return res;
 }
 
-void Cell::eat(int food)
+void Cell::eat(float food)
 {
 	if (isAlive())this->food += food;
 }
@@ -161,12 +163,14 @@ Cell::Cell(Simulation* parentSimulation)
 	parentSimulation->add(this);
 
 	this->position = Vect2D<float>{
-		(float)(rand() % (parentSimulation->fieldSize.x)),
-		(float)(rand() % (parentSimulation->fieldSize.y))
+		(float)(rand() % parentSimulation->fieldSize.x),
+		(float)(rand() % parentSimulation->fieldSize.y)
 	};
-
-	//this->size = options.size;
 }
+
+float randPositionOffset(int size) {
+	return (rand() % size / 2 + size / 2) * (rand() % 10 < 5 ? 1 : -1);
+};
 
 Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 {
@@ -175,10 +179,9 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 	parentCell.food /= 2;
 	this->food = parentCell.food;
 	this->position += Vect2D<float>{
-		(float)(rand() % (this->size * 3 + 1)),
-			(float)(rand() % (this->size * 3 + 1))
+		randPositionOffset(this->size),
+			randPositionOffset(this->size)
 	};
-	//this->size = options.size;
 }
 
 Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimulation)
@@ -189,11 +192,12 @@ Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimul
 void Cell::lifeCircle()
 {
 	if (isAlive()) {
-		generate();
+		duplicate();
 		find();
 		move();
-		duplicate();
+		generate();
 		foodDamage();
+
 	}
 }
 

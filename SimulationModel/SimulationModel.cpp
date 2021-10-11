@@ -29,7 +29,7 @@ void Simulation::update()
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
 	cellsnext.clear();
-
+	//cleardied();
 	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
 		if (cell == nullptr || cell->isAlive() == false) {

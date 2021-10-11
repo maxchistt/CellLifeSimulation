@@ -3,6 +3,8 @@
 #include <vector>
 #include "cells.h"
 
+#define TIMELAPSE 10
+
 namespace SimulationModel {
 
 	struct drawEntity {
@@ -11,12 +13,12 @@ namespace SimulationModel {
 		Cells::CellColor color;
 	};
 
-
 	class Simulation {
 		std::vector<Cells::Cell*> cellsnext;
 		std::vector<Cells::Cell*> cells;
 	public:
 		friend static void Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+		static const int timelapse = TIMELAPSE;
 
 		void cleardied(); 
 		void cleardied(Cells::Cell* target);

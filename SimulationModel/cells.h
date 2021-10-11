@@ -2,16 +2,16 @@
 #include <vector>
 #include "structs.h"
 
-#define BASIC_CELL_SIZE				10;
-#define BASIC_FEED_DAMAGE			1;
-#define BASIC_FOOD_GENERATION		0.1;
-#define BASIC_START_FOOD_AMOUNT		30;
-#define BASIC_MAX_FOOD_AMOUNT		100;
-#define BASIC_MAX_SPEED				10;
-#define BASIC_DETECT_RADIUS			190;
-#define BASIC_FEEDS_TO_DUPLICATE	10;
-#define STOPING_PARAM				1.1;
-#define DUPLICATE_CHANSE_PERCENT	25;
+#define BASIC_CELL_SIZE				10
+#define BASIC_FEED_DAMAGE			1
+#define BASIC_FOOD_GENERATION		0.1
+#define BASIC_START_FOOD_AMOUNT		30
+#define BASIC_MAX_FOOD_AMOUNT		100
+#define BASIC_MAX_SPEED				10
+#define BASIC_DETECT_RADIUS			190
+#define FOODS_TO_DUPLICATE			10
+#define STOPING_PARAM				0.1
+#define DUPLICATE_CHANSE_PERCENT	1
 
 namespace SimulationModel {
 	class Simulation;
@@ -26,7 +26,7 @@ namespace SimulationModel {
 			float max_food = BASIC_MAX_FOOD_AMOUNT;
 			float max_speed = BASIC_MAX_SPEED;
 			float detect_radius = BASIC_DETECT_RADIUS;
-			int feeds_to_duplicate = BASIC_FEEDS_TO_DUPLICATE;
+			float foods_to_duplicate = FOODS_TO_DUPLICATE;
 			float stoping_param = STOPING_PARAM;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
 			int size = BASIC_CELL_SIZE;
@@ -42,7 +42,7 @@ namespace SimulationModel {
 			static void findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 
 		protected:
-			int food = BASIC_START_FOOD_AMOUNT;
+			float food = BASIC_START_FOOD_AMOUNT;
 			structs::Vect2D<float> position{ 0,0 };
 			structs::Vect2D<float> speed{ 0,0 };
 			CellOptions options;
@@ -68,8 +68,8 @@ namespace SimulationModel {
 			int getSearchRadius();
 			int getSize();
 			CellColor getColor();
-			int beEaten();
-			void eat(int food);
+			float beEaten();
+			void eat(float food);
 
 			Cell(Simulation* parentSimulation);
 			Cell(Cell& parentCell);
