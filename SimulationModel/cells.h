@@ -38,7 +38,9 @@ namespace SimulationModel {
 
 		class Cell
 		{
-			
+		public:
+			static void findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+
 		protected:
 			int food = BASIC_START_FOOD_AMOUNT;
 			structs::Vect2D<float> position{ 0,0 };

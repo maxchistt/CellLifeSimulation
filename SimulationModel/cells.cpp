@@ -5,6 +5,36 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
+void SimulationModel::Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder)
+{
+	structs::Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
+
+	for (auto it = sim->cells.begin(); it != sim->cells.end(); it++) {
+		Cells::Cell* cell_to_find = *it;
+
+		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
+			continue;
+		}
+		else {
+			structs::Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
+
+			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
+				if (curDistVect.getAbs() < resDistVect.getAbs()) {
+					resDistVect = curDistVect;
+
+					if (curDistVect.getAbs() <= (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
+						cell_finder->iteract(cell_to_find);
+					}
+					else {
+						cell_finder->seeClosest(resDistVect);
+					}
+				}
+			}
+
+		}
+	}
+}
+
 void Cell::generate()
 {
 	this->food += options.food_generation;
@@ -48,7 +78,7 @@ void Cell::move()
 
 void Cell::find()
 {
-	parentField->findClosest(this);
+	Cell::findClosest(parentField, this);
 }
 
 void Cell::seeClosest(structs::Vect2D<float> vector)

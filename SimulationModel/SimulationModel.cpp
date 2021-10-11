@@ -43,36 +43,6 @@ void Simulation::update()
 	cleardied();
 }
 
-void Simulation::findClosest(Cells::Cell* cell_finder)
-{
-	structs::Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-
-	for (auto it = cells.begin(); it != cells.end(); it++) {
-		Cells::Cell* cell_to_find = *it;
-
-		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
-			continue;
-		}
-		else {
-			structs::Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
-
-			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
-				if (curDistVect.getAbs() < resDistVect.getAbs()) {
-					resDistVect = curDistVect;
-
-					if (curDistVect.getAbs() <= (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
-						cell_finder->iteract(cell_to_find);
-					}
-					else {
-						cell_finder->seeClosest(resDistVect);
-					}
-				}
-			}
-
-		}
-	}
-}
-
 void SimulationModel::Simulation::add(Cells::Cell* cell)
 {
 	cellsnext.push_back(cell);

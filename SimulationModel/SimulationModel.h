@@ -14,14 +14,14 @@ namespace SimulationModel {
 
 	class Simulation {
 		std::vector<Cells::Cell*> cellsnext;
+		std::vector<Cells::Cell*> cells;
 	public:
+		friend static void Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+
 		void cleardied(); 
 		void cleardied(Cells::Cell* target);
 		void update();
-		void findClosest(Cells::Cell* cell_finder);
 		void add(Cells::Cell* cell);
-
-		std::vector<Cells::Cell*> cells;
 
 		structs::Point2D<int> fieldSize{100,100};
 		std::vector<drawEntity> drawSimulation();
