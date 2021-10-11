@@ -42,8 +42,6 @@ void CLSAppForm::OnInitMainForm()
 	timer1->Start();
 }
 
-
-
 void CLSAppForm::draw(Windows::Forms::PictureBox^ pictureBox, std::vector<SimulationModel::drawEntity> entities)
 {
 	auto bmp = gcnew Bitmap(sim->fieldSize.x, sim->fieldSize.y);
@@ -65,9 +63,7 @@ void CLSAppForm::draw(Windows::Forms::PictureBox^ pictureBox, std::vector<Simula
 		}
 
 
-		graph->DrawImage(bmp1, Drawing::Point(ent.point.x, ent.point.y));
-
-
+		graph->DrawImage(bmp1, Drawing::Point(ent.point.x- ent.size / 2, ent.point.y - ent.size / 2));
 	}
 
 	pictureBox->Image = bmp;
@@ -85,6 +81,11 @@ void CLSAppForm::redraw()
 System::Void WinFormsCellLifeSimulationApp::CLSAppForm::timer1_Tick(System::Object^ sender, System::EventArgs^ e)
 {
 	redraw();
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::button_generate_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	sim->fillCells();
 }
 
 

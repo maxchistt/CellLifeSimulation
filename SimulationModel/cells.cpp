@@ -20,10 +20,23 @@ void Cell::checkSpeed()
 
 void Cell::checkBorder()
 {
-	if (position.x > parentField->fieldSize.x) position.x = parentField->fieldSize.x;
-	if (position.y > parentField->fieldSize.y) position.y = parentField->fieldSize.y;
-	if (position.x < 0) position.x = 0;
-	if (position.y < 0) position.y = 0;
+	if (position.x >= parentField->fieldSize.x) {
+		position.x = parentField->fieldSize.x - 1;
+		speed.x = -0.5;
+	};
+	if (position.y >= parentField->fieldSize.y) {
+		position.y = parentField->fieldSize.y - 1;
+		speed.y = -0.5;
+	};
+	if (position.x < 0) {
+		position.x = 0;
+		speed.x = 0.5;
+	};
+	if (position.y < 0) {
+		position.y = 0;
+		speed.y = 0.5;
+	};
+
 }
 
 void Cell::move()
@@ -40,7 +53,7 @@ void Cell::find()
 
 void Cell::seeClosest(structs::Vect2D<float> vector)
 {
-	accelerate(vector);
+	accelerateByVectTarget(vector);
 }
 
 void Cell::duplicate()
@@ -89,6 +102,14 @@ void Cell::accelerate(Vect2D<float> speed_delta)
 {
 	speed += speed_delta;
 	checkSpeed();
+}
+
+void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false)
+{
+	auto speed_delta = vectorToPoint;
+	speed_delta *= (this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius;
+	if (inversion)speed_delta *= -1;
+	accelerate(speed_delta);
 }
 
 int Cell::beEaten()

@@ -45,6 +45,7 @@ namespace WinFormsCellLifeSimulationApp {
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBox;
 	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Button^ button_generate;
 
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -67,14 +68,15 @@ namespace WinFormsCellLifeSimulationApp {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox = (gcnew System::Windows::Forms::PictureBox());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button_generate = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox
 			// 
-			this->pictureBox->Location = System::Drawing::Point(23, 38);
+			this->pictureBox->Location = System::Drawing::Point(12, 9);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(962, 505);
+			this->pictureBox->Size = System::Drawing::Size(1028, 572);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			// 
@@ -83,11 +85,22 @@ namespace WinFormsCellLifeSimulationApp {
 			this->timer1->Interval = 300;
 			this->timer1->Tick += gcnew System::EventHandler(this, &CLSAppForm::timer1_Tick);
 			// 
+			// button_generate
+			// 
+			this->button_generate->Location = System::Drawing::Point(815, 74);
+			this->button_generate->Name = L"button_generate";
+			this->button_generate->Size = System::Drawing::Size(109, 48);
+			this->button_generate->TabIndex = 1;
+			this->button_generate->Text = L"generate";
+			this->button_generate->UseVisualStyleBackColor = true;
+			this->button_generate->Click += gcnew System::EventHandler(this, &CLSAppForm::button_generate_Click);
+			// 
 			// CLSAppForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1052, 593);
+			this->Controls->Add(this->button_generate);
 			this->Controls->Add(this->pictureBox);
 			this->Name = L"CLSAppForm";
 			this->Text = L"CLSAppForm";
@@ -99,5 +112,6 @@ namespace WinFormsCellLifeSimulationApp {
 
 
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void button_generate_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 }

@@ -32,6 +32,7 @@ namespace SimulationModel {
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::GREEN;
+			//CellColor
 		};
 
 		class Cell
@@ -52,6 +53,7 @@ namespace SimulationModel {
 			void duplicate();
 			void foodDamage();
 			void accelerate(structs::Vect2D<float> speed_delta);
+			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion);
 
 		public:
 			virtual void seeClosest(structs::Vect2D<float> vector);
