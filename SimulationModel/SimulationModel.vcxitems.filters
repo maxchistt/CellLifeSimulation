@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SimulationModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)cells.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)cells.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)structs.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{ee09a3a3-8a21-43ae-8aa4-69c51d0a6a06}</UniqueIdentifier>
+      <Extensions>Cells</Extensions>
+    </Filter>
+  </ItemGroup>
+</Project>

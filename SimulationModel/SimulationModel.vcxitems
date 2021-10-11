@@ -14,9 +14,13 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)cells.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)structs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)cells.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SimulationModel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp" />
   </ItemGroup>
 </Project>
