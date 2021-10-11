@@ -3,62 +3,90 @@
 
 using namespace SimulationModel;
 
-void Simulation::update()
+void Simulation::cleardied()
 {
-	// Erase deleted
+	cleardied(nullptr);
+}
+
+void Simulation::cleardied(Cells::Cell* target)
+{
 	for (auto it = cells.begin(); it != cells.end(); ) {
-		if (*it == nullptr) {
+		Cells::Cell* cell = *it;
+		if (cell == nullptr || cell == target || cell->isAlive() == false) {
 			it = cells.erase(it);
+			delete cell;
+			//++it;
 		}
 		else {
-			Cells::Cell* cell = *it;
-			cell->lifeCircle();
 			++it;
 		}
 	}
 }
 
-void Simulation::findClosest(Cells::Cell* cell_finder)
+void Simulation::update()
 {
-	structs::Vect2D<int> resDistVect(0, 0);
 
-	for (auto it = cells.begin(); it != cells.end(); ) {
-		if (*it == nullptr) {
-			it = cells.erase(it);
+	cells.insert(
+		cells.end(), cellsnext.begin(), cellsnext.end()
+	);
+
+	
+	cellsnext.clear();
+
+	// Erase deleted
+	cleardied();
+
+	for (auto it = cells.begin(); it != cells.end(); it++) {
+		Cells::Cell* cell = *it;
+		if (cell == nullptr || cell->isAlive() == false) {
+			continue;
 		}
 		else {
+			cell->lifeCircle();
+		}
+	}
+	//auto a = cells;
 
-			Cells::Cell* cell_to_find = *it;
+	cleardied();
+}
 
-			if (cell_finder != cell_to_find) {
-				structs::Vect2D<int> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
+void Simulation::findClosest(Cells::Cell* cell_finder)
+{
+	structs::Vect2D<int> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
 
-				if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
-					if ((resDistVect.getAbs() == 0) || (curDistVect.getAbs() < resDistVect.getAbs())) {
-						resDistVect = curDistVect;
+	for (auto it = cells.begin(); it != cells.end();it++ ) {
+		Cells::Cell* cell_to_find = *it;
+	
+		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
+			continue;
+		}
+		else {
+			structs::Vect2D<int> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
 
-						if (curDistVect.getAbs() <= (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
-							cell_finder->iteract(cell_to_find);
-						}
-						else {
-							cell_finder->seeClosest(resDistVect);
-						}
+			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
+				if (curDistVect.getAbs() < resDistVect.getAbs()) {
+					resDistVect = curDistVect;
+
+					if (curDistVect.getAbs() <= (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
+						cell_finder->iteract(cell_to_find);
+					}
+					else {
+						cell_finder->seeClosest(resDistVect);
 					}
 				}
 			}
 
-			++it;
 		}
 	}
 }
 
 void SimulationModel::Simulation::add(Cells::Cell* cell)
 {
-	cells.push_back(cell);
+	cellsnext.push_back(cell);
 }
 ;
 
-Simulation::Simulation():Simulation(600,800){}
+Simulation::Simulation() :Simulation(600, 800) {}
 
 Simulation::Simulation(int x, int y)
 {
@@ -82,18 +110,9 @@ std::vector<drawEntity> Simulation::drawSimulation()
 {
 	std::vector<drawEntity> drawings;
 	update();
-	// Erase deleted
-	for (auto it = cells.begin(); it != cells.end(); ) {
-		if (*it == nullptr) {
-			it = cells.erase(it);
-		}
-		else {
-			++it;
-		}
-	}
 
-	for each (Cells::Cell * cell in cells)
-	{
+	for (auto it = cells.begin(); it != cells.end();it++ ) {
+		Cells::Cell* cell = *it;
 		drawings.push_back(drawEntity{ cell->getPosition(),cell->getSize() });
 	}
 

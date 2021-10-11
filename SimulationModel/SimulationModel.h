@@ -12,7 +12,10 @@ namespace SimulationModel {
 
 
 	class Simulation {
+		std::vector<Cells::Cell*> cellsnext;
 	public:
+		void cleardied(); 
+		void cleardied(Cells::Cell* target);
 		void update();
 		void findClosest(Cells::Cell* cell_finder);
 		void add(Cells::Cell* cell);

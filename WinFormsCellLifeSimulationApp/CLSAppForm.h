@@ -43,6 +43,7 @@ namespace WinFormsCellLifeSimulationApp {
 			}
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBox;
+	private: System::Windows::Forms::Timer^ timer1;
 
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -62,7 +63,9 @@ namespace WinFormsCellLifeSimulationApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox = (gcnew System::Windows::Forms::PictureBox());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -73,7 +76,11 @@ namespace WinFormsCellLifeSimulationApp {
 			this->pictureBox->Size = System::Drawing::Size(962, 505);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
-
+			// 
+			// timer1
+			// 
+			this->timer1->Interval = 1000;
+			this->timer1->Tick += gcnew System::EventHandler(this, &CLSAppForm::timer1_Tick);
 			// 
 			// CLSAppForm
 			// 
@@ -90,5 +97,6 @@ namespace WinFormsCellLifeSimulationApp {
 #pragma endregion
 
 
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e);
 	};
 }

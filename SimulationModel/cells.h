@@ -23,25 +23,26 @@ namespace SimulationModel {
 				const int detect_radius = BASIC_DETECT_RADIUS;
 				const int feeds_to_duplicate = BASIC_FEEDS_TO_DUPLICATE;
 			};
-			CellOptions options;
-			Simulation* parentField = nullptr;
-			int size = BASIC_CELL_SIZE;
 			int food = BASIC_START_FOOD_AMOUNT;
 			structs::Vect2D<int> position{ 0,0 };
 			structs::Vect2D<int> speed{ 0,0 };
+			CellOptions options;
+			Simulation* parentField = nullptr;
+			int size = BASIC_CELL_SIZE;
+			
 			void checkSpeed();
 			void checkBorder();
 			void move();
 			void find();
 			void duplicate();
 			void foodDamage();
-			void die();
 			void accelerate(structs::Vect2D<int> speed_delta);
 
 		public:
 			virtual void seeClosest(structs::Vect2D<int> vector);
 			virtual void iteract(Cell* other);
 
+			bool isAlive();
 			structs::Vect2D<int> getPosition();
 			int getSearchRadius();
 			int getSize();
@@ -51,12 +52,7 @@ namespace SimulationModel {
 			Cell(Simulation* parentSimulation);
 			Cell(Cell& parentCell);
 
-			void lifeCircle() {
-				find();
-				move();
-				duplicate();
-				foodDamage();
-			};
+			void lifeCircle() ;
 		};
 	};
 };

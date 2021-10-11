@@ -5,13 +5,13 @@ using namespace SimulationModel;
 void CLSAppForm::OnInitMainForm()
 {
 	sim = new Simulation(pictureBox->Size.Width, pictureBox->Size.Height);
-
-	redraw();
+	//redraw();
+	timer1->Start();
 }
 
 void CLSAppForm::draw(Windows::Forms::PictureBox^ pictureBox, std::vector<SimulationModel::drawEntity> entities)
 {
-	auto bmp = gcnew Bitmap(pictureBox->Size.Width, pictureBox->Size.Height);
+	auto bmp = gcnew Bitmap(sim->fieldSize.x, sim->fieldSize.y);
 	auto graph = Graphics::FromImage(bmp);
 
 	for each (drawEntity ent in entities)
@@ -32,15 +32,21 @@ void CLSAppForm::draw(Windows::Forms::PictureBox^ pictureBox, std::vector<Simula
 
 	}
 
-
-
 	pictureBox->Image = bmp;
-	//pictureBox->Invalidate();
+	pictureBox->Invalidate();
+	pictureBox->Refresh();
 }
 
 void CLSAppForm::redraw()
 {
-	if (sim != nullptr) draw(pictureBox, sim->drawSimulation());
+	if (sim != nullptr) { 
+		draw(pictureBox, sim->drawSimulation()); 
+	}
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::timer1_Tick(System::Object^ sender, System::EventArgs^ e)
+{
+	redraw();
 }
 
 

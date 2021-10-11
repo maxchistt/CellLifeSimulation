@@ -40,30 +40,29 @@ void Cell::seeClosest(structs::Vect2D<int> vector)
 
 void Cell::duplicate()
 {
-	if (food > options.feed_damage * options.feeds_to_duplicate) {
+	if (isAlive() && food > options.feed_damage * options.feeds_to_duplicate) {
 		if (rand() % 10 > 5)new Cell(*this);
 	};
 }
 
 void Cell::iteract(Cell* other)
 {
-	eat(other->beEaten());
+	if (isAlive()) eat(other->beEaten());
 }
 
 void Cell::foodDamage()
 {
 	food -= options.feed_damage;
-	if (food <= 0)die();
+}
+
+bool Cell::isAlive()
+{
+	return this->food > 0;
 }
 
 Vect2D<int> Cell::getPosition()
 {
 	return position;
-}
-
-void Cell::die()
-{
-	delete this;
 }
 
 int Cell::getSearchRadius()
@@ -84,14 +83,14 @@ void Cell::accelerate(Vect2D<int> speed_delta)
 
 int Cell::beEaten()
 {
-	int res = this->food;
-	die();
+	int res = isAlive() ? this->food : 0;
+	this->food -= res;
 	return res;
 }
 
 void Cell::eat(int food)
 {
-	this->food += food;
+	if (isAlive())this->food += food;
 }
 
 Cell::Cell(Simulation* parentSimulation)
@@ -113,5 +112,20 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 		rand() % (this->size * 3 + 1),
 			rand() % (this->size * 3 + 1)
 	};
+}
+
+void Cell::lifeCircle()
+{
+	if (isAlive()) {
+		find();
+		move();
+		duplicate();
+		foodDamage();
+	}
+	if (!isAlive()) {
+		//parentField->cleardied();
+	}
+
+
 }
 
