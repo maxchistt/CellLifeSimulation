@@ -45,16 +45,16 @@ void Simulation::update()
 
 void Simulation::findClosest(Cells::Cell* cell_finder)
 {
-	structs::Vect2D<int> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
+	structs::Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
 
-	for (auto it = cells.begin(); it != cells.end();it++ ) {
+	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell_to_find = *it;
-	
+
 		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
 			continue;
 		}
 		else {
-			structs::Vect2D<int> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
+			structs::Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
 
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
@@ -104,9 +104,9 @@ std::vector<drawEntity> Simulation::drawSimulation()
 	std::vector<drawEntity> drawings;
 	update();
 
-	for (auto it = cells.begin(); it != cells.end();it++ ) {
+	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
-		drawings.push_back(drawEntity{ cell->getPosition(),cell->getSize() });
+		drawings.push_back(drawEntity{ structs::Point2D<int>(cell->getPosition().x,cell->getPosition().y),cell->getSize() });
 	}
 
 	return drawings;
