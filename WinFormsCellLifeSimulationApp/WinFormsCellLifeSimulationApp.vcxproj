@@ -123,11 +123,13 @@
   <ItemGroup>
     <ClCompile Include="CLSAppForm.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SimDrawController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLSAppForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="SimDrawController.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CLSAppForm.resx">

@@ -1,5 +1,6 @@
 #pragma once
 #include "SimulationModel.h"
+#include "SimDrawController.h"
 
 namespace WinFormsCellLifeSimulationApp {
 
@@ -16,13 +17,12 @@ namespace WinFormsCellLifeSimulationApp {
 	public ref class CLSAppForm : public System::Windows::Forms::Form
 	{
 	private:
-		SimulationModel::Simulation* sim = nullptr;
-		Drawing::Color convertColor(SimulationModel::Cells::CellColor cell_color);
+		SimDrawController^ controller;
+		
 	public:
 
 		void OnInitMainForm();
-		void draw(Windows::Forms::PictureBox^ pictureBox, std::vector<SimulationModel::drawEntity> entities);
-		void redraw();
+		
 		CLSAppForm(void)
 		{
 			InitializeComponent();
@@ -44,7 +44,7 @@ namespace WinFormsCellLifeSimulationApp {
 			}
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBox;
-	private: System::Windows::Forms::Timer^ timer1;
+
 	private: System::Windows::Forms::Button^ button_generate;
 
 	private: System::ComponentModel::IContainer^ components;
@@ -65,9 +65,7 @@ namespace WinFormsCellLifeSimulationApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox = (gcnew System::Windows::Forms::PictureBox());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->button_generate = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->SuspendLayout();
@@ -79,10 +77,6 @@ namespace WinFormsCellLifeSimulationApp {
 			this->pictureBox->Size = System::Drawing::Size(1028, 572);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
-			// 
-			// timer1
-			// 
-			this->timer1->Tick += gcnew System::EventHandler(this, &CLSAppForm::timer1_Tick);
 			// 
 			// button_generate
 			// 
@@ -109,8 +103,6 @@ namespace WinFormsCellLifeSimulationApp {
 		}
 #pragma endregion
 
-
-	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void button_generate_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 }
