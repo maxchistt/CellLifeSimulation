@@ -38,6 +38,8 @@ namespace SimulationModel {
 
 		class Cell
 		{
+			static enum class doType { nothing = false, beware = 1, hunt = 2 };
+			static doType howToDo(Cell* cell_finder, Cell* cell_to_find);
 		public:
 			static void findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 
@@ -60,8 +62,8 @@ namespace SimulationModel {
 			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false);
 
 		public:
-			virtual void seeClosest(structs::Vect2D<float> vector);
-			virtual void iteract(Cell* other);
+			virtual void seeClosest(structs::Vect2D<float> vector, doType how);
+			virtual void iteract(Cell* other, doType how, structs::Vect2D<float> vector = structs::Vect2D<float>{ 0,0 });
 
 			bool isAlive();
 			structs::Vect2D<float> getPosition();

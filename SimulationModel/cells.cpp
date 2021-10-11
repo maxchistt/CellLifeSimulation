@@ -5,28 +5,47 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
-void SimulationModel::Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder)
+
+Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 {
-	structs::Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
+	auto mycolor = cell_to_find->options.color;
+
+	for each (auto color in cell_finder->options.colors_beware)
+	{
+		if (color == mycolor)return doType::beware;
+	}
+
+	for each (auto color in cell_finder->options.colors_hunt)
+	{
+		if (color == mycolor)return doType::hunt;
+	}
+
+	return doType::nothing;
+}
+
+void Cell::findClosest(Simulation* sim, Cell* cell_finder)
+{
+	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
 
 	for (auto it = sim->cells.begin(); it != sim->cells.end(); it++) {
-		Cells::Cell* cell_to_find = *it;
+		Cell* cell_to_find = *it;
+		doType todo = Cell::howToDo(cell_finder, cell_to_find);
 
-		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
+		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find || todo == doType::nothing) {
 			continue;
 		}
 		else {
-			structs::Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
+			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
 
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
 					resDistVect = curDistVect;
 
 					if (curDistVect.getAbs() < (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
-						cell_finder->iteract(cell_to_find);
+						cell_finder->iteract(cell_to_find, todo, curDistVect);
 					}
 					else {
-						cell_finder->seeClosest(resDistVect);
+						cell_finder->seeClosest(curDistVect, todo);
 					}
 				}
 			}
@@ -83,9 +102,10 @@ void Cell::find()
 	Cell::findClosest(parentField, this);
 }
 
-void Cell::seeClosest(structs::Vect2D<float> vector)
+void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
 {
-	accelerateByVectTarget(vector);
+	if (how == doType::hunt)accelerateByVectTarget(vector, false);
+	else if (how == doType::beware)accelerateByVectTarget(vector, true);
 }
 
 void Cell::duplicate()
@@ -95,9 +115,16 @@ void Cell::duplicate()
 	};
 }
 
-void Cell::iteract(Cell* other)
+void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 {
-	if (isAlive()) eat(other->beEaten());
+	if (how == doType::hunt) {
+		if (isAlive()) eat(other->beEaten());
+	}
+	else {
+		vector /= 2;
+		accelerateByVectTarget(vector, true);
+	}
+
 }
 
 void Cell::foodDamage()
