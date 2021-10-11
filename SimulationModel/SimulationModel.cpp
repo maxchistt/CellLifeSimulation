@@ -15,7 +15,6 @@ void Simulation::cleardied(Cells::Cell* target)
 		if (cell == nullptr || cell == target || cell->isAlive() == false) {
 			it = cells.erase(it);
 			delete cell;
-			//++it;
 		}
 		else {
 			++it;
@@ -29,12 +28,7 @@ void Simulation::update()
 	cells.insert(
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
-
-	
 	cellsnext.clear();
-
-	// Erase deleted
-	cleardied();
 
 	for (auto it = cells.begin(); it != cells.end(); it++) {
 		Cells::Cell* cell = *it;
@@ -45,7 +39,6 @@ void Simulation::update()
 			cell->lifeCircle();
 		}
 	}
-	//auto a = cells;
 
 	cleardied();
 }

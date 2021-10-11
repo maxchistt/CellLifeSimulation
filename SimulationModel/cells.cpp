@@ -8,7 +8,7 @@ using namespace structs;
 void Cell::checkSpeed()
 {
 	if (speed.getAbs() > options.max_speed) {
-		const float ofMax = (float)(speed.getAbs()) / (float)(options.max_speed);
+		const double ofMax = speed.getAbs() / options.max_speed;
 		speed /= ofMax;
 	}
 }
@@ -25,7 +25,7 @@ void Cell::move()
 {
 	position += speed;
 	checkBorder();
-	speed /= 2;
+	speed /= 1.1;
 }
 
 void Cell::find()

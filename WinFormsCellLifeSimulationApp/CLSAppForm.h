@@ -79,7 +79,7 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			// timer1
 			// 
-			this->timer1->Interval = 1000;
+			this->timer1->Interval = 300;
 			this->timer1->Tick += gcnew System::EventHandler(this, &CLSAppForm::timer1_Tick);
 			// 
 			// CLSAppForm

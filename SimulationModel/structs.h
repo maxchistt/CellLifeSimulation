@@ -73,13 +73,6 @@ namespace structs {
 			return *this;
 		};
 
-		Vect2D<T>& operator /= (float v)
-		{
-			this->x /= v;
-			this->y /= v;
-			return *this;
-		};
-
 		Vect2D<T>& operator *= (T v)
 		{
 			this->x *= v;
