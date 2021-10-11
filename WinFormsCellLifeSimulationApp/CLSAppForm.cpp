@@ -6,7 +6,7 @@ using namespace SimulationModel;
 
 void CLSAppForm::OnInitMainForm()
 {
-	controller = gcnew SimDrawController(new Simulation(), this->pictureBox);
+	controller = gcnew SimDrawController(new Simulation(), this->pictureBox,this->timer);
 	controller->setTimeSettings(200, 5);
 	controller->start();
 }

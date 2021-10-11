@@ -46,9 +46,9 @@ SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::
 	this->sim = sim;
 	this->pictureBox = pictureBox;
 	this->timer = timer;
+	fitSimSize(); 
 	connectTimer();
-	fitSimSize();
-	setTimeSettings(200, 5);
+	//setTimeSettings(200, 5);
 	//start();
 }
 

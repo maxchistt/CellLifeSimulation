@@ -46,6 +46,7 @@ namespace WinFormsCellLifeSimulationApp {
 	private: System::Windows::Forms::PictureBox^ pictureBox;
 
 	private: System::Windows::Forms::Button^ button_generate;
+	private: System::Windows::Forms::Timer^ timer;
 
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -65,8 +66,10 @@ namespace WinFormsCellLifeSimulationApp {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox = (gcnew System::Windows::Forms::PictureBox());
 			this->button_generate = (gcnew System::Windows::Forms::Button());
+			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -87,6 +90,10 @@ namespace WinFormsCellLifeSimulationApp {
 			this->button_generate->Text = L"generate";
 			this->button_generate->UseVisualStyleBackColor = true;
 			this->button_generate->Click += gcnew System::EventHandler(this, &CLSAppForm::button_generate_Click);
+			// 
+			// timer
+			// 
+			this->timer->Interval = 200;
 			// 
 			// CLSAppForm
 			// 
