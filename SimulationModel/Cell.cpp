@@ -161,7 +161,7 @@ void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inv
 {
 	auto speed_delta = vectorToPoint;
 	speed_delta /= speed_delta.getAbs() / options.max_speed;
-	speed_delta *= pow((this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius, 2) * (((float)(options.ocuracy_percent) / 25) + 1);
+	speed_delta *= pow((this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius, 2 - (float)(options.ocuracy_percent) / 100) * (((float)(options.ocuracy_percent) / 25) + 1);
 	checkSpeed(speed_delta);
 	if (inversion)speed_delta *= -1;
 	accelerate(speed_delta);
