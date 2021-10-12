@@ -12,6 +12,7 @@
 #define FOODS_TO_DUPLICATE			10
 #define STOPING_PARAM				0.1
 #define DUPLICATE_CHANSE_PERCENT	1
+#define BASIC_OCURACY_PERCENT		70
 
 namespace SimulationModel {
 	class Simulation;
@@ -29,6 +30,7 @@ namespace SimulationModel {
 			float foods_to_duplicate = FOODS_TO_DUPLICATE;
 			float stoping_param = STOPING_PARAM;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
+			int ocuracy_percent = BASIC_OCURACY_PERCENT;
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::GREEN;
