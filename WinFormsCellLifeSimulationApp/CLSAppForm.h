@@ -17,6 +17,7 @@ namespace WinFormsCellLifeSimulationApp {
 	public ref class CLSAppForm : public System::Windows::Forms::Form
 	{
 	private:
+		Simulation* simulation;
 		SimDrawController^ controller;
 
 	public:
