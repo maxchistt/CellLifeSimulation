@@ -27,6 +27,7 @@ namespace WinFormsCellLifeSimulationApp {
 		void setTimeSettings(int interval, int timelapse);
 		void start();
 		void stop();
+		bool timerEnabled();
 		void clear();
 		void generateCells();
 		void generateCells(int n);

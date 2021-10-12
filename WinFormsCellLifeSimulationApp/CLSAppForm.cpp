@@ -8,7 +8,7 @@ void CLSAppForm::OnInitMainForm()
 {
 	controller = gcnew SimDrawController(new Simulation(), this->pictureBox, this->timer);
 	controller->setTimeSettings(200, 5);
-	//controller->start();
+	this->playPauseToolStripMenuItem->Text = L"Play";
 }
 
 System::Void CLSAppForm::image_resize(System::Object^ sender, System::EventArgs^ e)
@@ -36,14 +36,16 @@ System::Void WinFormsCellLifeSimulationApp::CLSAppForm::clearToolStripMenuItem_C
 	controller->clear();
 }
 
-System::Void WinFormsCellLifeSimulationApp::CLSAppForm::startToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::playPauseToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	controller->start();
-}
-
-System::Void WinFormsCellLifeSimulationApp::CLSAppForm::pauseToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	controller->stop();
+	if (controller->timerEnabled()) {
+		controller->stop();
+		this->playPauseToolStripMenuItem->Text = L"Play";
+	}
+	else {
+		controller->start();
+		this->playPauseToolStripMenuItem->Text = L"Pause";
+	}
 }
 
 

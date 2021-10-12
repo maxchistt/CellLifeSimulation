@@ -21,6 +21,11 @@ void SimDrawController::stop()
 	timer->Stop();
 }
 
+bool WinFormsCellLifeSimulationApp::SimDrawController::timerEnabled()
+{
+	return timer->Enabled;
+}
+
 void SimDrawController::clear()
 {
 	delete sim;
