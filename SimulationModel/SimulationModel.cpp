@@ -34,8 +34,8 @@ void Simulation::update()
 	);
 	cellsnext.clear();
 
-	for (auto it = cells.begin(); it != cells.end(); it++) {
-		Cells::Cell* cell = *it;
+	for each (auto cell in cells)
+	{
 		if (cell == nullptr || cell->isAlive() == false) {
 			continue;
 		}
@@ -84,8 +84,8 @@ std::vector<drawEntity> Simulation::drawSimulation()
 	std::vector<drawEntity> drawings;
 	update();
 
-	for (auto it = cells.begin(); it != cells.end(); it++) {
-		Cells::Cell* cell = *it;
+	for each (auto cell in cells)
+	{
 		drawings.push_back(drawEntity{
 			structs::Point2D<int>(cell->getPosition().x,cell->getPosition().y),
 			cell->getSize(),

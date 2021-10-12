@@ -26,8 +26,8 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 {
 	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-	for (auto it = sim->cells.begin(); it != sim->cells.end(); it++) {
-		Cell* cell_to_find = *it;
+	for each (auto cell_to_find in sim->cells)
+	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
 		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find || todo == doType::nothing) {
 			continue;
