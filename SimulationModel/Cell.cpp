@@ -152,7 +152,7 @@ CellColor Cell::getColor()
 
 void Cell::accelerate(Vect2D<float> speed_delta)
 {
-	speed_delta /= Simulation::timelapse;
+	speed_delta /= (float)(Simulation::timelapse);
 	speed += speed_delta;
 	checkSpeed(speed);
 }
