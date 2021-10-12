@@ -12,8 +12,14 @@ struct Plant :CellOptions {
 		this->detect_radius = rand() % 3 + 10;
 		this->food_generation = 0.5;
 		this->feed_damage = 0.1;
-		this->size = rand() % 3 + 5;
-		this->dupl_chanse_percent = rand() % 10 + 65;
+		this->size = rand() % 2 + 6;
+		this->dupl_chanse_percent = rand() % 8 + 10;
+		this->colors_beware.push_back(CellColor::GREEN);
+		if (rand() % 5 <4 ) {
+			this->size = rand() % 2 + 4;
+			this->detect_radius = rand() % 2 + 4;
+			this->max_speed = rand() % 1 + 1;
+		}
 	}
 };
 
@@ -31,18 +37,18 @@ struct Planter :CellOptions {
 struct Hunter :CellOptions {
 	Hunter() {
 		this->color = CellColor::RED;
-		this->max_speed = rand() % 13 + 50;
 		this->colors_hunt.push_back(CellColor::BLUE);
 		this->food_generation = 0;
 		this->feed_damage = 1.5;
 		this->size = rand() % 3 + 10;
+		this->max_speed = rand() % 13 + 35;
 		this->detect_radius = rand() % 100 + 200;
 	}
 };
 
 void CellFactory::createStartOptions()
 {
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 25; i++)
 	{
 		this->addOption(Plant());
 	}

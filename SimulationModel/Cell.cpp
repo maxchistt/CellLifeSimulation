@@ -105,7 +105,7 @@ void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
 void Cell::duplicate()
 {
 	if (isAlive() && food > options.foods_to_duplicate) {
-		if (rand() % (100 * Simulation::timelapse) > options.dupl_chanse_percent) new Cell(*this);
+		if (rand() % (100 * Simulation::timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }
 
@@ -152,7 +152,7 @@ CellColor Cell::getColor()
 
 void Cell::accelerate(Vect2D<float> speed_delta)
 {
-	speed_delta /= TIMELAPSE;
+	speed_delta /= Simulation::timelapse;
 	speed += speed_delta;
 	checkSpeed(speed);
 }
