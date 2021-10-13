@@ -31,18 +31,21 @@ struct Planter :CellOptions {
 struct Hunter :CellOptions {
 	Hunter() {
 		this->color = CellColor::RED;
-		this->max_speed = rand() % 13 + 50;
+		this->max_speed = rand() % 10 + 30;
 		this->colors_hunt.push_back(CellColor::BLUE);
 		this->food_generation = 0;
 		this->feed_damage = 1.5;
+		this->feed_damage = 2;
 		this->size = rand() % 3 + 10;
 		this->detect_radius = rand() % 100 + 200;
+		this->dupl_chanse_percent = 5;
+		this->foods_to_duplicate = 30;
 	}
 };
 
 void CellFactory::createStartOptions()
 {
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		this->addOption(Plant());
 	}

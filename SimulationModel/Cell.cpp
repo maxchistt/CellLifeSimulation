@@ -28,14 +28,19 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 	for (auto cell_to_find : sim->cells)
 	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
-		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find /* || todo == doType::nothing*/) {
+		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
 			continue;
 		}
 		else {
 			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
-					resDistVect = curDistVect;
+					if (todo == doType::nothing) {
+						resDistVect /= static_cast<float>(resDistVect.getAbs() / curDistVect.getAbs()) / 3;
+					}
+					else {
+						resDistVect = curDistVect;
+					}
 					if (curDistVect.getAbs() < (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
 						cell_finder->iteract(cell_to_find, todo, curDistVect);
 					}
@@ -183,7 +188,7 @@ void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inv
 	//double compression_factor = 1;
 	double stretch_factor = 1.2;
 
-	double ratio = 1.0 - (vectorToPoint.getAbs()/ this->options.detect_radius);
+	double ratio = 1.0 - (vectorToPoint.getAbs() / this->options.detect_radius);
 
 	ratio = 1.0 + (ratio - 1) / stretch_factor; //stretch
 	ratio = pow(ratio, degree); //power
