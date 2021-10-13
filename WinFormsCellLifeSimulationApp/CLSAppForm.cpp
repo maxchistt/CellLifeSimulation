@@ -1,7 +1,7 @@
 #include "CLSAppForm.h"
 #include "SimulationModel.h"
-#define SETTINGS_TIMER_MS 150
-#define SETTINGS_TIMELAPSE_PARAM 5
+#define SETTINGS_TIMER_MS 100
+#define SETTINGS_TIMELAPSE_PARAM 10
 
 using namespace WinFormsCellLifeSimulationApp;
 using namespace SimulationModel;
