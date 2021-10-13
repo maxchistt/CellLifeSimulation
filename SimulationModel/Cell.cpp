@@ -26,7 +26,7 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 {
 	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-	for each (auto cell_to_find in sim->cells)
+	for (auto cell_to_find : sim->cells)
 	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
 		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find || todo == doType::nothing) {
@@ -85,7 +85,7 @@ void Cell::checkBorder()
 void Cell::move()
 {
 	auto speed_lapsed = speed;
-	speed_lapsed /= Simulation::timelapse;
+	speed_lapsed /= (float)(Simulation::timelapse);
 	position += speed_lapsed;
 	checkBorder();
 	speed /= 1 + options.stoping_param / Simulation::timelapse;
