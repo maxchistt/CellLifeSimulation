@@ -33,7 +33,7 @@ namespace SimulationModel {
 			int ocuracy_percent = BASIC_OCURACY_PERCENT;
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
-			CellColor color = CellColor::GREEN;
+			CellColor color = CellColor::BROWN;
 			std::vector<CellColor> colors_beware{  };
 			std::vector<CellColor> colors_hunt{  };
 		};
