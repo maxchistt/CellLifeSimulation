@@ -50,7 +50,7 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 
 void Cell::generate()
 {
-	this->food += options.food_generation / Simulation::timelapse;
+	this->food += options.food_generation / parentField->timelapse;
 }
 
 void Cell::checkSpeed(Vect2D<float>& speed)
@@ -84,10 +84,10 @@ void Cell::checkBorder()
 void Cell::move()
 {
 	auto speed_lapsed = speed;
-	speed_lapsed /= (float)(Simulation::timelapse);
+	speed_lapsed /= parentField->timelapse;
 	position += speed_lapsed;
 	checkBorder();
-	speed /= 1 + options.stoping_param / Simulation::timelapse;
+	speed /= 1 + options.stoping_param / parentField->timelapse;
 }
 
 void Cell::find()
@@ -104,7 +104,7 @@ void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
 void Cell::duplicate()
 {
 	if (isAlive() && food > options.foods_to_duplicate) {
-		if (rand() % (100 * Simulation::timelapse) < options.dupl_chanse_percent) new Cell(*this);
+		if (rand() % static_cast<int>(100 * parentField->timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }
 
@@ -132,7 +132,7 @@ void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 
 void Cell::foodDamage()
 {
-	food -= options.feed_damage / Simulation::timelapse;
+	food -= options.feed_damage / parentField->timelapse;
 }
 
 bool Cell::isAlive()
@@ -162,7 +162,7 @@ CellColor Cell::getColor()
 
 void Cell::accelerate(Vect2D<float> speed_delta)
 {
-	speed_delta /= (float)(Simulation::timelapse);
+	speed_delta /= parentField->timelapse;
 	speed += speed_delta;
 	checkSpeed(speed);
 }

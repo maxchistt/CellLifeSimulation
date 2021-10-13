@@ -5,8 +5,6 @@
 
 using namespace SimulationModel;
 
-int Simulation::timelapse = TIMELAPSE;
-
 void Simulation::cleardied()
 {
 	cleardied(nullptr);

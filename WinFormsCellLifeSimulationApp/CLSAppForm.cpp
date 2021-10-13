@@ -8,7 +8,7 @@ void CLSAppForm::OnInitMainForm()
 {
 	simulation = new Simulation();
 	controller = gcnew SimDrawController(this->simulation, this->pictureBox, this->timer);
-	controller->setTimeSettings(20, 5);
+	controller->setTimeSettings(200, 5);
 	this->playPauseToolStripMenuItem->Text = L"Play";
 }
 
