@@ -12,7 +12,6 @@
 #define FOODS_TO_DUPLICATE			10
 #define STOPING_PARAM				0.1
 #define DUPLICATE_CHANSE_PERCENT	10
-#define BASIC_OCURACY_PERCENT		70
 
 namespace SimulationModel {
 	class Simulation;
@@ -30,7 +29,6 @@ namespace SimulationModel {
 			float foods_to_duplicate = FOODS_TO_DUPLICATE;
 			float stoping_param = STOPING_PARAM;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
-			int ocuracy_percent = BASIC_OCURACY_PERCENT;
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::BROWN;
@@ -49,6 +47,7 @@ namespace SimulationModel {
 			float food = BASIC_START_FOOD_AMOUNT;
 			structs::Vect2D<float> position{ 0,0 };
 			structs::Vect2D<float> speed{ 0,0 };
+			structs::Vect2D<float> acceleration{ 0,0 };
 			CellOptions options;
 			Simulation* parentField = nullptr;
 			int& size = options.size;
@@ -60,7 +59,7 @@ namespace SimulationModel {
 			void find();
 			void duplicate();
 			void foodDamage();
-			void accelerate(structs::Vect2D<float> speed_delta);
+			void accelerate();
 			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false);
 
 		public:

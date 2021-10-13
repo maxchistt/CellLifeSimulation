@@ -145,7 +145,7 @@ void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 		this->pictureBox->Refresh();
 	}
 	catch (System::Object^ sender) {
-		throw - 1;
+		//throw - 1;
 	};
 }
 

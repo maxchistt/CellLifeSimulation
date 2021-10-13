@@ -83,6 +83,7 @@ void Cell::checkBorder()
 
 void Cell::move()
 {
+	accelerate();
 	auto speed_lapsed = speed;
 	speed_lapsed /= parentField->timelapse;
 	position += speed_lapsed;
@@ -160,11 +161,13 @@ CellColor Cell::getColor()
 	return this->options.color;
 }
 
-void Cell::accelerate(Vect2D<float> speed_delta)
+void Cell::accelerate()
 {
-	speed_delta /= parentField->timelapse;
-	speed += speed_delta;
+	checkSpeed(acceleration);
+	acceleration /= parentField->timelapse;
+	speed += acceleration;
 	checkSpeed(speed);
+	acceleration *= 0;
 }
 
 void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion)
@@ -176,17 +179,24 @@ void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inv
 
 	speed_delta /= speed_delta.getAbs() / options.max_speed;
 
-	double ratio = (this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius;
-	double degree = 2.0 - static_cast<double>(options.ocuracy_percent) / 100;
-	double ratio_powered = pow(ratio, degree);
-	double close_accelerate_factor = 1.0 + (static_cast<double>(options.ocuracy_percent) / 25.0);
-	speed_delta *= ratio_powered * close_accelerate_factor;
+	double degree = 2;
+	//double compression_factor = 1;
+	double stretch_factor = 1.2;
+
+	double ratio = 1.0 - (vectorToPoint.getAbs()/ this->options.detect_radius);
+
+	ratio = 1.0 + (ratio - 1) / stretch_factor; //stretch
+	ratio = pow(ratio, degree); //power
+	//ratio = 1.0 + (ratio - 1.0) / compression_factor; //compress
+
+	speed_delta *= ratio;
 
 	checkSpeed(speed_delta);
 
 	if (inversion)speed_delta *= -1;
 
-	accelerate(speed_delta);
+	acceleration += speed_delta;
+	checkSpeed(acceleration);
 }
 
 float Cell::beEaten()
