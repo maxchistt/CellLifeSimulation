@@ -1,5 +1,7 @@
 #include "CLSAppForm.h"
 #include "SimulationModel.h"
+#define SETTINGS_TIMER_MS 150
+#define SETTINGS_TIMELAPSE_PARAM 5
 
 using namespace WinFormsCellLifeSimulationApp;
 using namespace SimulationModel;
@@ -8,7 +10,7 @@ void CLSAppForm::OnInitMainForm()
 {
 	simulation = new Simulation();
 	controller = gcnew SimDrawController(this->simulation, this->pictureBox, this->timer);
-	controller->setTimeSettings(200, 5);
+	controller->time_setTimeSettings(SETTINGS_TIMER_MS, SETTINGS_TIMELAPSE_PARAM);
 	this->playPauseToolStripMenuItem->Text = L"Play";
 }
 
@@ -47,6 +49,31 @@ System::Void WinFormsCellLifeSimulationApp::CLSAppForm::playPauseToolStripMenuIt
 		controller->start();
 		this->playPauseToolStripMenuItem->Text = L"Pause";
 	}
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::plusSpeed_toolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	controller->time_changeTimerSpeed(1.5);
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::minusSpeed_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	controller->time_changeTimerSpeed(-1.5);
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::plusQuality_toolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	controller->time_changeQuality(1.5);
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::minusQuality_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	controller->time_changeQuality(-1.5);
+}
+
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::resetTimeSettings_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	controller->time_setTimeSettings(SETTINGS_TIMER_MS, SETTINGS_TIMELAPSE_PARAM);
 }
 
 

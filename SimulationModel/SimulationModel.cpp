@@ -24,6 +24,12 @@ void Simulation::cleardied(Cells::Cell* target)
 	}
 }
 
+void Simulation::clearAll()
+{
+	cells.clear();
+	cellsnext.clear();
+}
+
 void Simulation::update()
 {
 	srand(static_cast<unsigned int>(time(0)));
@@ -45,12 +51,12 @@ void Simulation::update()
 	cleardied();
 }
 
-void SimulationModel::Simulation::add(Cells::Cell* cell)
+void Simulation::add(Cells::Cell* cell)
 {
 	cellsnext.push_back(cell);
 }
 
-void SimulationModel::Simulation::setTimelapse(int val)
+void Simulation::setTimelapse(float val)
 {
 	this->timelapse = val;
 }

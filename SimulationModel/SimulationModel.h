@@ -25,9 +25,10 @@ namespace SimulationModel {
 
 		void cleardied();
 		void cleardied(Cells::Cell* target);
+		void clearAll();
 		void update();
 		void add(Cells::Cell* cell);
-		void setTimelapse(int val = TIMELAPSE);
+		void setTimelapse(float val = TIMELAPSE);
 
 		structs::Point2D<int> fieldSize{ 100,100 };
 		std::vector<drawEntity> drawSimulation();

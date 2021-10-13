@@ -5,7 +5,7 @@ using namespace WinFormsCellLifeSimulationApp;
 using namespace SimulationModel;
 
 
-void SimDrawController::setTimeSettings(int interval, int timelapse)
+void SimDrawController::time_setTimeSettings(int interval, float timelapse)
 {
 	sim->setTimelapse(timelapse);
 	timer->Interval = interval;
@@ -28,9 +28,7 @@ bool WinFormsCellLifeSimulationApp::SimDrawController::timerEnabled()
 
 void SimDrawController::clear()
 {
-	delete sim;
-	sim = new SimulationModel::Simulation();
-	fitSimSize();
+	sim->clearAll();
 	if (!timer->Enabled)redraw();
 }
 
@@ -45,27 +43,21 @@ void SimDrawController::generateCells(int n)
 	if (!timer->Enabled)redraw();
 }
 
-void SimDrawController::changeQuality(float factor)
+void SimDrawController::time_changeQuality(float factor)
 {
-	if (factor = 0)return;
+	if (factor == 0 || factor == 1)return;
 	if (factor < 0)factor = 1.0 / -factor;
-
-	factor /= ((factor > 1 ? 1 : 0) + quality_scale_counter) * (quality_scale_counter > 0 ? 1 : -1);
-	quality_scale_counter += factor > 1 ? 1 : -1;
 
 	sim->timelapse *= factor;
-	timer->Interval *= factor;
+	timer->Interval /= factor;
 }
 
-void SimDrawController::changeTimerSpeed(float factor)
+void SimDrawController::time_changeTimerSpeed(float factor)
 {
-	if (factor = 0)return;
+	if (factor == 0 || factor == 1)return;
 	if (factor < 0)factor = 1.0 / -factor;
 
-	factor /= ((factor > 1 ? 1 : 0) + timer_scale_counter) * (timer_scale_counter > 0 ? 1 : -1);
-	timer_scale_counter += factor > 1 ? 1 : -1;
-
-	timer->Interval *= factor;
+	timer->Interval /= factor;
 }
 
 void SimDrawController::redraw()
@@ -90,7 +82,7 @@ SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::
 	this->timer = timer;
 	fitSimSize();
 	connectTimer();
-	//setTimeSettings(200, 5);
+	//time_setTimeSettings(200, 5);
 	//start();
 }
 
