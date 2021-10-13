@@ -5,17 +5,16 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace structs;
 
-
 Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 {
 	auto mycolor = cell_to_find->options.color;
 
-	for each (auto color in cell_finder->options.colors_beware)
+	for (auto color : cell_finder->options.colors_beware)
 	{
 		if (color == mycolor)return doType::beware;
 	}
 
-	for each (auto color in cell_finder->options.colors_hunt)
+	for (auto color : cell_finder->options.colors_hunt)
 	{
 		if (color == mycolor)return doType::hunt;
 	}
@@ -29,7 +28,7 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 	for (auto cell_to_find : sim->cells)
 	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
-		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find || todo == doType::nothing) {
+		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find /* || todo == doType::nothing*/) {
 			continue;
 		}
 		else {
@@ -109,13 +108,24 @@ void Cell::duplicate()
 	};
 }
 
+float randPositionOffset(int size) {
+	return (rand() % size / 2 + size / 2) * (rand() % 10 < 5 ? 1 : -1);
+};
+
 void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 {
 	if (how == doType::hunt) {
 		if (isAlive()) eat(other->beEaten());
 	}
 	else {
-		vector /= 2;
+		if (how == doType::nothing) {
+			if (vector.getAbs() > size / 2)return;
+			vector /= 2;
+		}
+		if (vector.getAbs() == 0) {
+			vector.x = randPositionOffset(this->size);
+			vector.y = randPositionOffset(this->size);
+		}
 		accelerateByVectTarget(vector, true);
 	}
 }
@@ -160,10 +170,22 @@ void Cell::accelerate(Vect2D<float> speed_delta)
 void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion)
 {
 	auto speed_delta = vectorToPoint;
+	if (speed_delta.getAbs() == 0) {
+		return;
+	};
+
 	speed_delta /= speed_delta.getAbs() / options.max_speed;
-	speed_delta *= pow((this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius, 2 - (float)(options.ocuracy_percent) / 100) * (((float)(options.ocuracy_percent) / 25) + 1);
+
+	double ratio = (this->options.detect_radius - vectorToPoint.getAbs()) / this->options.detect_radius;
+	double degree = 2.0 - static_cast<double>(options.ocuracy_percent) / 100;
+	double ratio_powered = pow(ratio, degree);
+	double close_accelerate_factor = 1.0 + (static_cast<double>(options.ocuracy_percent) / 25.0);
+	speed_delta *= ratio_powered * close_accelerate_factor;
+
 	checkSpeed(speed_delta);
+
 	if (inversion)speed_delta *= -1;
+
 	accelerate(speed_delta);
 }
 
@@ -183,15 +205,12 @@ Cell::Cell(Simulation* parentSimulation)
 {
 	this->parentField = parentSimulation;
 	parentSimulation->add(this);
+
 	this->position = Vect2D<float>{
-		(float)(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
-		(float)(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
+		static_cast<float>(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
+		static_cast<float>(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
 	};
 }
-
-float randPositionOffset(int size) {
-	return (rand() % size / 2 + size / 2) * (rand() % 10 < 5 ? 1 : -1);
-};
 
 Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 {
