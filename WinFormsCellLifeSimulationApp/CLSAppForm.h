@@ -31,6 +31,9 @@ namespace WinFormsCellLifeSimulationApp {
 	private: System::Windows::Forms::ToolStripMenuItem^ setTypeToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripComboBox^ generationType_toolStripComboBox;
 	private: System::Windows::Forms::ToolStripMenuItem^ setGenerationType_ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ setLimitToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripTextBox^ cellsReproductionLimit_toolStripTextBox;
+	private: System::Windows::Forms::ToolStripMenuItem^ setReproductionLimit_ToolStripMenuItem;
 
 
 
@@ -110,6 +113,9 @@ namespace WinFormsCellLifeSimulationApp {
 			this->toolStripMenuItem_add10 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem_add30 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem_add70 = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->setLimitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->cellsReproductionLimit_toolStripTextBox = (gcnew System::Windows::Forms::ToolStripTextBox());
+			this->setReproductionLimit_ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->clearToolStripMenuItem_Clear = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->playPauseToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->timeSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -157,9 +163,9 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			// actionsToolStripMenuItem
 			// 
-			this->actionsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->actionsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->generateToolStripMenuItem,
-					this->clearToolStripMenuItem_Clear
+					this->setLimitToolStripMenuItem, this->clearToolStripMenuItem_Clear
 			});
 			this->actionsToolStripMenuItem->Name = L"actionsToolStripMenuItem";
 			this->actionsToolStripMenuItem->Size = System::Drawing::Size(54, 24);
@@ -195,6 +201,30 @@ namespace WinFormsCellLifeSimulationApp {
 			this->toolStripMenuItem_add70->Size = System::Drawing::Size(108, 26);
 			this->toolStripMenuItem_add70->Text = L"70";
 			this->toolStripMenuItem_add70->Click += gcnew System::EventHandler(this, &CLSAppForm::toolStripMenuItem_add70_Click);
+			// 
+			// setLimitToolStripMenuItem
+			// 
+			this->setLimitToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->cellsReproductionLimit_toolStripTextBox,
+					this->setReproductionLimit_ToolStripMenuItem
+			});
+			this->setLimitToolStripMenuItem->Name = L"setLimitToolStripMenuItem";
+			this->setLimitToolStripMenuItem->Size = System::Drawing::Size(152, 26);
+			this->setLimitToolStripMenuItem->Text = L"Set limit";
+			// 
+			// cellsReproductionLimit_toolStripTextBox
+			// 
+			this->cellsReproductionLimit_toolStripTextBox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9));
+			this->cellsReproductionLimit_toolStripTextBox->Name = L"cellsReproductionLimit_toolStripTextBox";
+			this->cellsReproductionLimit_toolStripTextBox->Size = System::Drawing::Size(100, 27);
+			this->cellsReproductionLimit_toolStripTextBox->Text = L"300";
+			// 
+			// setReproductionLimit_ToolStripMenuItem
+			// 
+			this->setReproductionLimit_ToolStripMenuItem->Name = L"setReproductionLimit_ToolStripMenuItem";
+			this->setReproductionLimit_ToolStripMenuItem->Size = System::Drawing::Size(237, 26);
+			this->setReproductionLimit_ToolStripMenuItem->Text = L"Set reproduction limit";
+			this->setReproductionLimit_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::setReproductionLimit_ToolStripMenuItem_Click);
 			// 
 			// clearToolStripMenuItem_Clear
 			// 
@@ -301,6 +331,7 @@ namespace WinFormsCellLifeSimulationApp {
 			this->generationType_toolStripComboBox->Name = L"generationType_toolStripComboBox";
 			this->generationType_toolStripComboBox->Size = System::Drawing::Size(121, 28);
 			this->generationType_toolStripComboBox->Tag = L"generationType";
+			this->generationType_toolStripComboBox->SelectedIndex = 0;
 			// 
 			// setGenerationType_ToolStripMenuItem
 			// 
@@ -342,5 +373,6 @@ namespace WinFormsCellLifeSimulationApp {
 	private: System::Void minusQuality_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void resetTimeSettings_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void setGenerationType_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void setReproductionLimit_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 }
