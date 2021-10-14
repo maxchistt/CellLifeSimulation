@@ -130,7 +130,8 @@ void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 	}
 	else {
 		if (how == doType::nothing) {
-			if (vector.getAbs() > (size + other->getSize()) / 4)return;
+			if (vector.getAbs() > (size + other->getSize()) / 3)return;
+			if (vector.getAbs() > (size + other->getSize()) / 4)vector /= 2;
 		}
 		if (vector.getAbs() == 0) {
 			vector.x = randPositionOffset(this->size);
