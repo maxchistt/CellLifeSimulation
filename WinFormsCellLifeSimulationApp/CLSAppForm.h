@@ -139,7 +139,7 @@ namespace WinFormsCellLifeSimulationApp {
 			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pictureBox->Location = System::Drawing::Point(0, 28);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(582, 325);
+			this->pictureBox->Size = System::Drawing::Size(711, 441);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
@@ -157,7 +157,7 @@ namespace WinFormsCellLifeSimulationApp {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(582, 28);
+			this->menuStrip1->Size = System::Drawing::Size(711, 28);
 			this->menuStrip1->TabIndex = 2;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -319,7 +319,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->setGenerationType_ToolStripMenuItem
 			});
 			this->setTypeToolStripMenuItem->Name = L"setTypeToolStripMenuItem";
-			this->setTypeToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->setTypeToolStripMenuItem->Size = System::Drawing::Size(146, 26);
 			this->setTypeToolStripMenuItem->Text = L"Set type";
 			// 
 			// generationType_toolStripComboBox
@@ -331,12 +331,12 @@ namespace WinFormsCellLifeSimulationApp {
 			this->generationType_toolStripComboBox->Name = L"generationType_toolStripComboBox";
 			this->generationType_toolStripComboBox->Size = System::Drawing::Size(121, 28);
 			this->generationType_toolStripComboBox->Tag = L"generationType";
-			this->generationType_toolStripComboBox->SelectedIndex = 0;
+			this->generationType_toolStripComboBox->Text = L"All";
 			// 
 			// setGenerationType_ToolStripMenuItem
 			// 
 			this->setGenerationType_ToolStripMenuItem->Name = L"setGenerationType_ToolStripMenuItem";
-			this->setGenerationType_ToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->setGenerationType_ToolStripMenuItem->Size = System::Drawing::Size(195, 26);
 			this->setGenerationType_ToolStripMenuItem->Text = L"Apply";
 			this->setGenerationType_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::setGenerationType_ToolStripMenuItem_Click);
 			// 
@@ -344,7 +344,7 @@ namespace WinFormsCellLifeSimulationApp {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 17);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(582, 353);
+			this->ClientSize = System::Drawing::Size(711, 469);
 			this->Controls->Add(this->pictureBox);
 			this->Controls->Add(this->menuStrip1);
 			this->Font = (gcnew System::Drawing::Font(L"Showcard Gothic", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
