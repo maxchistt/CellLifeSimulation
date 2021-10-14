@@ -73,21 +73,21 @@ void Cell::checkSpeed(Vect2D<float>& speed)
 
 void Cell::checkBorder()
 {
-	if (position.x >= parentField->fieldSize.x) {
+	if (position.x >= parentField->fieldSize.x - this->size / 2) {
 		position.x = (parentField->fieldSize.x - 1) - this->size / 2;
-		speed.x = -0.5;
+		speed.x = -0.2 * speed.x;
 	};
-	if (position.y >= parentField->fieldSize.y) {
+	if (position.y >= parentField->fieldSize.y - this->size / 2) {
 		position.y = (parentField->fieldSize.y - 1) - this->size / 2;
-		speed.y = -0.5;
+		speed.y = -0.2 * speed.y;
 	};
-	if (position.x < 0) {
+	if (position.x < 0 + this->size / 2) {
 		position.x = 0 + this->size / 2;
-		speed.x = 0.5;
+		speed.x = -0.2 * speed.x;
 	};
-	if (position.y < 0) {
+	if (position.y < 0 + this->size / 2) {
 		position.y = 0 + this->size / 2;
-		speed.y = 0.5;
+		speed.y = -0.2 * speed.y;
 	};
 }
 
