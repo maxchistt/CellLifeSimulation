@@ -166,5 +166,7 @@ void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 
 void SimDrawController::fitSimSize()
 {
-	if (sim != nullptr)sim->setSize(pictureBox->Size.Width, pictureBox->Size.Height);
+	if (sim != nullptr && pictureBox->Size.Width > 0 && pictureBox->Size.Height > 0) {
+		sim->setSize(pictureBox->Size.Width, pictureBox->Size.Height);
+	}
 }
