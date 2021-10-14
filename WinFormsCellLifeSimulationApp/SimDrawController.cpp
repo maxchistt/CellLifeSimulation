@@ -34,12 +34,12 @@ void SimDrawController::clear()
 
 void SimDrawController::generateCells()
 {
-	sim->generateCells();
+	cellFactory()->generate();
 }
 
 void SimDrawController::generateCells(int n)
 {
-	sim->generateCells(n);
+	cellFactory()->generate(n);
 	if (!timer->Enabled)redraw();
 }
 
@@ -63,6 +63,11 @@ void SimDrawController::time_changeTimerSpeed(float factor)
 void SimDrawController::setCellsLimit(int cellslimit)
 {
 	if (cellslimit > 0)sim->cellsLimit = cellslimit;
+}
+
+void SimDrawController::setGenerationType(int type)
+{
+	cellFactory()->setGenerationType(type);
 }
 
 void SimDrawController::redraw()
@@ -93,6 +98,11 @@ SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::
 
 SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox)
 	: SimDrawController(sim, pictureBox, gcnew Timer()) {};
+
+Cells::CellFactory* SimDrawController::cellFactory()
+{
+	return sim->cellFactory;
+}
 
 Drawing::Color SimDrawController::convertColor(SimulationModel::Cells::CellColor cell_color)
 {

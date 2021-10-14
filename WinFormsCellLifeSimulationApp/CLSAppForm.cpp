@@ -78,4 +78,10 @@ System::Void WinFormsCellLifeSimulationApp::CLSAppForm::resetTimeSettings_ToolSt
 	controller->time_setTimeSettings(SETTINGS_TIMER_MS, SETTINGS_TIMELAPSE_PARAM);
 }
 
+System::Void WinFormsCellLifeSimulationApp::CLSAppForm::setGenerationType_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	auto selectedType = this->generationType_toolStripComboBox->SelectedIndex;
+	this->controller->setGenerationType(selectedType);
+}
+
 

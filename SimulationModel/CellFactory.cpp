@@ -47,19 +47,18 @@ void CellFactory::createStartOptions()
 {
 	for (int i = 0; i < 30; i++)
 	{
-		this->addOption(Plant());
+		this->addOption(Plant(), generationTypes::Plant);
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		this->addOption(Planter());
+		this->addOption(Planter(), generationTypes::Planter);
 	}
 
 	for (int i = 0; i < 2; i++)
 	{
-		this->addOption(Hunter());
+		this->addOption(Hunter(), generationTypes::Hunter);
 	}
-
 }
 
 void CellFactory::createCell(CellOptions opt)
@@ -67,9 +66,9 @@ void CellFactory::createCell(CellOptions opt)
 	new Cells::Cell(this->simulation, opt);
 }
 
-void CellFactory::addOption(CellOptions option)
+void CellFactory::addOption(CellOptions option, generationTypes type)
 {
-	this->options_arr.push_back(option);
+	this->options_arr.push_back(generateOption{ option,type });
 }
 
 CellFactory::CellFactory(Simulation* sim)
@@ -84,10 +83,35 @@ void CellFactory::generate()
 	generate(size);
 }
 
-void SimulationModel::Cells::CellFactory::generate(int n)
+void CellFactory::generate(int n)
 {
-	for (int i = 0; i < n; i++) {
-		int opt_id = rand() % this->options_arr.size();
-		createCell(options_arr[opt_id]);
+	std::vector<CellOptions> cellOptionsArr;
+	for (auto option : options_arr) {
+		if (generationTypeSetting == generationTypes::Any || option.type == generationTypeSetting)cellOptionsArr.push_back(option.cellOptions);
+	}
+	if (cellOptionsArr.size() > 0) {
+		for (int i = 0; i < n; i++) {
+			int opt_id = rand() % cellOptionsArr.size();
+			createCell(cellOptionsArr[opt_id]);
+		}
+	}
+}
+
+void CellFactory::setGenerationType(int type)
+{
+	switch (type)
+	{
+	case 1:
+		generationTypeSetting = generationTypes::Plant;
+		break;
+	case 2:
+		generationTypeSetting = generationTypes::Planter;
+		break;
+	case 3:
+		generationTypeSetting = generationTypes::Hunter;
+		break;
+	default:
+		generationTypeSetting = generationTypes::Any;
+		break;
 	}
 }

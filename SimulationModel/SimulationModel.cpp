@@ -69,15 +69,6 @@ Simulation::Simulation(int x, int y)
 	setSize(x, y);
 }
 
-void Simulation::generateCells()
-{
-	cellFactory.generate();
-}
-void SimulationModel::Simulation::generateCells(int n)
-{
-	cellFactory.generate(n);
-}
-
 void SimulationModel::Simulation::setSize(int x, int y)
 {
 	this->fieldSize = structs::Point2D<int>(x, y);

@@ -18,8 +18,9 @@ namespace SimulationModel {
 	class Simulation {
 		std::vector<Cells::Cell*> cellsnext;
 		std::vector<Cells::Cell*> cells;
-		Cells::CellFactory cellFactory = Cells::CellFactory(this);
 	public:
+		Cells::CellFactory* cellFactory = new Cells::CellFactory(this);
+
 		int cellsCount = 0;
 		int cellsLimit = CELLSLIMIT;
 
@@ -39,8 +40,6 @@ namespace SimulationModel {
 		Simulation();
 		Simulation(int x, int y);
 
-		void generateCells();
-		void generateCells(int n);
 		void setSize(int x, int y);
 	};
 

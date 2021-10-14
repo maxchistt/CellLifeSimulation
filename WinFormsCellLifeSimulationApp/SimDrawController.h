@@ -16,7 +16,8 @@ namespace WinFormsCellLifeSimulationApp {
 		Simulation* sim = nullptr;
 		PictureBox^ pictureBox;
 		Timer^ timer;
-
+		Cells::CellFactory* cellFactory();
+			
 		Color convertColor(Cells::CellColor cell_color);
 		void draw(std::vector<drawEntity> entities);
 		void redraw();
@@ -34,6 +35,7 @@ namespace WinFormsCellLifeSimulationApp {
 		void time_changeQuality(float factor);
 		void time_changeTimerSpeed(float factor);
 		void setCellsLimit(int cellslimit);
+		void setGenerationType(int type);
 
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox, Windows::Forms::Timer^ timer);
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox);

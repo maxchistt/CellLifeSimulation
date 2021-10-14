@@ -27,6 +27,15 @@ namespace WinFormsCellLifeSimulationApp {
 	private: System::Windows::Forms::ToolStripMenuItem^ qualityToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ plusQuality_toolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ resetTimeSettings_ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ generationSettingsToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ setTypeToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripComboBox^ generationType_toolStripComboBox;
+	private: System::Windows::Forms::ToolStripMenuItem^ setGenerationType_ToolStripMenuItem;
+
+
+
+
+
 	private: System::Windows::Forms::ToolStripMenuItem^ minusQuality_ToolStripMenuItem;
 
 	public:
@@ -111,6 +120,10 @@ namespace WinFormsCellLifeSimulationApp {
 			this->plusQuality_toolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->minusQuality_ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->resetTimeSettings_ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->generationSettingsToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->setTypeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->generationType_toolStripComboBox = (gcnew System::Windows::Forms::ToolStripComboBox());
+			this->setGenerationType_ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -118,9 +131,9 @@ namespace WinFormsCellLifeSimulationApp {
 			// pictureBox
 			// 
 			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pictureBox->Location = System::Drawing::Point(0, 30);
+			this->pictureBox->Location = System::Drawing::Point(0, 28);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(582, 323);
+			this->pictureBox->Size = System::Drawing::Size(582, 325);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
@@ -132,13 +145,13 @@ namespace WinFormsCellLifeSimulationApp {
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->actionsToolStripMenuItem,
-					this->playPauseToolStripMenuItem, this->timeSettingsToolStripMenuItem
+					this->playPauseToolStripMenuItem, this->timeSettingsToolStripMenuItem, this->generationSettingsToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(582, 30);
+			this->menuStrip1->Size = System::Drawing::Size(582, 28);
 			this->menuStrip1->TabIndex = 2;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -149,8 +162,8 @@ namespace WinFormsCellLifeSimulationApp {
 					this->clearToolStripMenuItem_Clear
 			});
 			this->actionsToolStripMenuItem->Name = L"actionsToolStripMenuItem";
-			this->actionsToolStripMenuItem->Size = System::Drawing::Size(72, 26);
-			this->actionsToolStripMenuItem->Text = L"Actions";
+			this->actionsToolStripMenuItem->Size = System::Drawing::Size(54, 24);
+			this->actionsToolStripMenuItem->Text = L"Cells";
 			// 
 			// generateToolStripMenuItem
 			// 
@@ -193,7 +206,7 @@ namespace WinFormsCellLifeSimulationApp {
 			// playPauseToolStripMenuItem
 			// 
 			this->playPauseToolStripMenuItem->Name = L"playPauseToolStripMenuItem";
-			this->playPauseToolStripMenuItem->Size = System::Drawing::Size(93, 26);
+			this->playPauseToolStripMenuItem->Size = System::Drawing::Size(93, 24);
 			this->playPauseToolStripMenuItem->Text = L"Play/Pause";
 			this->playPauseToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::playPauseToolStripMenuItem_Click);
 			// 
@@ -204,7 +217,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->qualityToolStripMenuItem, this->resetTimeSettings_ToolStripMenuItem
 			});
 			this->timeSettingsToolStripMenuItem->Name = L"timeSettingsToolStripMenuItem";
-			this->timeSettingsToolStripMenuItem->Size = System::Drawing::Size(111, 26);
+			this->timeSettingsToolStripMenuItem->Size = System::Drawing::Size(111, 24);
 			this->timeSettingsToolStripMenuItem->Text = L"Time settings";
 			// 
 			// speedToolStripMenuItem
@@ -262,6 +275,40 @@ namespace WinFormsCellLifeSimulationApp {
 			this->resetTimeSettings_ToolStripMenuItem->Text = L"Reset";
 			this->resetTimeSettings_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::resetTimeSettings_ToolStripMenuItem_Click);
 			// 
+			// generationSettingsToolStripMenuItem
+			// 
+			this->generationSettingsToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->setTypeToolStripMenuItem });
+			this->generationSettingsToolStripMenuItem->Name = L"generationSettingsToolStripMenuItem";
+			this->generationSettingsToolStripMenuItem->Size = System::Drawing::Size(151, 24);
+			this->generationSettingsToolStripMenuItem->Text = L"Generation settings";
+			// 
+			// setTypeToolStripMenuItem
+			// 
+			this->setTypeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->generationType_toolStripComboBox,
+					this->setGenerationType_ToolStripMenuItem
+			});
+			this->setTypeToolStripMenuItem->Name = L"setTypeToolStripMenuItem";
+			this->setTypeToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->setTypeToolStripMenuItem->Text = L"Set type";
+			// 
+			// generationType_toolStripComboBox
+			// 
+			this->generationType_toolStripComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
+				L"All", L"Plant", L"Planter",
+					L"Hunter"
+			});
+			this->generationType_toolStripComboBox->Name = L"generationType_toolStripComboBox";
+			this->generationType_toolStripComboBox->Size = System::Drawing::Size(121, 28);
+			this->generationType_toolStripComboBox->Tag = L"generationType";
+			// 
+			// setGenerationType_ToolStripMenuItem
+			// 
+			this->setGenerationType_ToolStripMenuItem->Name = L"setGenerationType_ToolStripMenuItem";
+			this->setGenerationType_ToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->setGenerationType_ToolStripMenuItem->Text = L"Apply";
+			this->setGenerationType_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::setGenerationType_ToolStripMenuItem_Click);
+			// 
 			// CLSAppForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 17);
@@ -294,5 +341,6 @@ namespace WinFormsCellLifeSimulationApp {
 	private: System::Void plusQuality_toolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void minusQuality_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void resetTimeSettings_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void setGenerationType_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	};
 }
