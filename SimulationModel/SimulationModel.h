@@ -4,7 +4,8 @@
 #include "Cell.h"
 #include "CellFactory.h"
 
-#define TIMELAPSE 10
+#define TIMELAPSE	10
+#define CELLSLIMIT	300
 
 namespace SimulationModel {
 
@@ -19,8 +20,10 @@ namespace SimulationModel {
 		std::vector<Cells::Cell*> cells;
 		Cells::CellFactory cellFactory = Cells::CellFactory(this);
 	public:
+		int cellsCount = 0;
+		int cellsLimit = CELLSLIMIT;
 
-		friend static void Cells::Cell::findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+		friend static void Cells::Cell::scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 		float timelapse = TIMELAPSE;
 
 		void cleardied();

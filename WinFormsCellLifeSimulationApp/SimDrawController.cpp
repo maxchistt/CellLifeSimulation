@@ -60,6 +60,11 @@ void SimDrawController::time_changeTimerSpeed(float factor)
 	timer->Interval /= factor;
 }
 
+void SimDrawController::setCellsLimit(int cellslimit)
+{
+	if (cellslimit > 0)sim->cellsLimit = cellslimit;
+}
+
 void SimDrawController::redraw()
 {
 	if (sim != nullptr)  draw(sim->drawSimulation());

@@ -38,8 +38,8 @@ struct Hunter :CellOptions {
 		this->feed_damage = 2;
 		this->size = rand() % 3 + 10;
 		this->detect_radius = rand() % 100 + 200;
-		this->dupl_chanse_percent = 5;
-		this->foods_to_duplicate = 30;
+		this->dupl_chanse_percent = 2;
+		this->foods_to_duplicate = 40;
 	}
 };
 

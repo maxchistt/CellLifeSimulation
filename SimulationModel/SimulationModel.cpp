@@ -37,7 +37,7 @@ void Simulation::update()
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
 	cellsnext.clear();
-
+	cellsCount = cells.size();
 	for (auto cell : cells)
 	{
 		if (cell == nullptr || cell->isAlive() == false) {

@@ -12,6 +12,8 @@
 #define FOODS_TO_DUPLICATE			10
 #define STOPING_PARAM				0.1
 #define DUPLICATE_CHANSE_PERCENT	10
+#define DUPLICATE_NEARCELLS_LIMIT	30
+#define NEARCELLS_DISTANCEFACTOR	14
 
 namespace SimulationModel {
 	class Simulation;
@@ -29,6 +31,8 @@ namespace SimulationModel {
 			float foods_to_duplicate = FOODS_TO_DUPLICATE;
 			float stoping_param = STOPING_PARAM;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
+			int dupl_nearcells_limit = DUPLICATE_NEARCELLS_LIMIT;
+			float nearcells_distancefactor = NEARCELLS_DISTANCEFACTOR;
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::BROWN;
@@ -41,7 +45,7 @@ namespace SimulationModel {
 			static enum class doType { nothing = false, beware = 1, hunt = 2 };
 			static doType howToDo(Cell* cell_finder, Cell* cell_to_find);
 		public:
-			static void findClosest(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 
 		protected:
 			float food = BASIC_START_FOOD_AMOUNT;
@@ -51,12 +55,13 @@ namespace SimulationModel {
 			CellOptions options;
 			Simulation* parentField = nullptr;
 			int& size = options.size;
+			int nearCellsCounter = 0;
 
-			void generate();
+			void generateFood();
 			void checkSpeed(structs::Vect2D<float>& speed);
 			void checkBorder();
 			void move();
-			void find();
+			void scan();
 			void duplicate();
 			void foodDamage();
 			void accelerate();
@@ -73,6 +78,7 @@ namespace SimulationModel {
 			CellColor getColor();
 			float beEaten();
 			void eat(float food);
+			void eat(Cell* other);
 
 			Cell(Simulation* parentSimulation);
 			Cell(Cell& parentCell);

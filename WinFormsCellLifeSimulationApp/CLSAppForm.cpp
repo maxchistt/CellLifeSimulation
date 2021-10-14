@@ -1,7 +1,8 @@
 #include "CLSAppForm.h"
 #include "SimulationModel.h"
-#define SETTINGS_TIMER_MS 66
-#define SETTINGS_TIMELAPSE_PARAM 15
+#define SETTINGS_TIMER_MS			30
+#define SETTINGS_TIMELAPSE_PARAM	20
+#define SETTINGS_CELLS_LIMIT		300
 
 using namespace WinFormsCellLifeSimulationApp;
 using namespace SimulationModel;
@@ -11,6 +12,7 @@ void CLSAppForm::OnInitMainForm()
 	simulation = new Simulation();
 	controller = gcnew SimDrawController(this->simulation, this->pictureBox, this->timer);
 	controller->time_setTimeSettings(SETTINGS_TIMER_MS, SETTINGS_TIMELAPSE_PARAM);
+	controller->setCellsLimit(SETTINGS_CELLS_LIMIT);
 	this->playPauseToolStripMenuItem->Text = L"Play";
 }
 

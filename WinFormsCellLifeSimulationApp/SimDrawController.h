@@ -33,6 +33,7 @@ namespace WinFormsCellLifeSimulationApp {
 		void generateCells(int n);
 		void time_changeQuality(float factor);
 		void time_changeTimerSpeed(float factor);
+		void setCellsLimit(int cellslimit);
 
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox, Windows::Forms::Timer^ timer);
 		SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox);

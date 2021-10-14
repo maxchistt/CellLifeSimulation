@@ -22,9 +22,10 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 	return doType::nothing;
 }
 
-void Cell::findClosest(Simulation* sim, Cell* cell_finder)
+void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 {
 	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
+	cell_finder->nearCellsCounter = 0;
 	for (auto cell_to_find : sim->cells)
 	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
@@ -33,6 +34,10 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 		}
 		else {
 			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
+			double neardistnce = (static_cast<double>(cell_finder->getSize()) + static_cast<double>(cell_to_find->getSize())) / 2.0;
+			if (cell_finder->getColor() == cell_to_find->getColor() /* && todo == doType::nothing*/ && curDistVect.getAbs() < (neardistnce * cell_finder->options.nearcells_distancefactor)) {
+				cell_finder->nearCellsCounter++;
+			};
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
 					if (todo == doType::nothing) {
@@ -41,7 +46,7 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 					else {
 						resDistVect = curDistVect;
 					}
-					if (curDistVect.getAbs() < (cell_finder->getSize() + cell_to_find->getSize()) / 2) {
+					if (curDistVect.getAbs() < neardistnce) {
 						cell_finder->iteract(cell_to_find, todo, curDistVect);
 					}
 					else {
@@ -53,7 +58,7 @@ void Cell::findClosest(Simulation* sim, Cell* cell_finder)
 	}
 }
 
-void Cell::generate()
+void Cell::generateFood()
 {
 	this->food += options.food_generation / parentField->timelapse;
 }
@@ -69,19 +74,19 @@ void Cell::checkSpeed(Vect2D<float>& speed)
 void Cell::checkBorder()
 {
 	if (position.x >= parentField->fieldSize.x) {
-		position.x = parentField->fieldSize.x - 1;
+		position.x = (parentField->fieldSize.x - 1) - this->size / 2;
 		speed.x = -0.5;
 	};
 	if (position.y >= parentField->fieldSize.y) {
-		position.y = parentField->fieldSize.y - 1;
+		position.y = (parentField->fieldSize.y - 1) - this->size / 2;
 		speed.y = -0.5;
 	};
 	if (position.x < 0) {
-		position.x = 0;
+		position.x = 0 + this->size / 2;
 		speed.x = 0.5;
 	};
 	if (position.y < 0) {
-		position.y = 0;
+		position.y = 0 + this->size / 2;
 		speed.y = 0.5;
 	};
 }
@@ -96,9 +101,9 @@ void Cell::move()
 	speed /= 1 + options.stoping_param / parentField->timelapse;
 }
 
-void Cell::find()
+void Cell::scan()
 {
-	Cell::findClosest(parentField, this);
+	Cell::scanClosestCellsOnField(parentField, this);
 }
 
 void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
@@ -109,7 +114,7 @@ void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.foods_to_duplicate) {
+	if (isAlive() && food > options.foods_to_duplicate && nearCellsCounter < options.dupl_nearcells_limit && parentField->cellsCount < parentField->cellsLimit) {
 		if (rand() % static_cast<int>(100 * parentField->timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }
@@ -121,12 +126,11 @@ float randPositionOffset(int size) {
 void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
 {
 	if (how == doType::hunt) {
-		if (isAlive()) eat(other->beEaten());
+		if (isAlive()) eat(other);
 	}
 	else {
 		if (how == doType::nothing) {
-			if (vector.getAbs() > size / 2)return;
-			vector /= 2;
+			if (vector.getAbs() > (size + other->getSize()) / 4)return;
 		}
 		if (vector.getAbs() == 0) {
 			vector.x = randPositionOffset(this->size);
@@ -216,6 +220,11 @@ void Cell::eat(float food)
 	if (isAlive())this->food += food;
 }
 
+void Cell::eat(Cell* other)
+{
+	if (isAlive())this->eat(other->beEaten());
+}
+
 Cell::Cell(Simulation* parentSimulation)
 {
 	this->parentField = parentSimulation;
@@ -247,11 +256,11 @@ Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimul
 void Cell::lifeCircle()
 {
 	if (isAlive()) {
-		duplicate();
-		find();
+		scan();
 		move();
-		generate();
+		generateFood();
 		foodDamage();
+		duplicate();
 	}
 }
 

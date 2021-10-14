@@ -118,9 +118,9 @@ namespace WinFormsCellLifeSimulationApp {
 			// pictureBox
 			// 
 			this->pictureBox->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pictureBox->Location = System::Drawing::Point(0, 28);
+			this->pictureBox->Location = System::Drawing::Point(0, 30);
 			this->pictureBox->Name = L"pictureBox";
-			this->pictureBox->Size = System::Drawing::Size(582, 325);
+			this->pictureBox->Size = System::Drawing::Size(582, 323);
 			this->pictureBox->TabIndex = 0;
 			this->pictureBox->TabStop = false;
 			this->pictureBox->SizeChanged += gcnew System::EventHandler(this, &CLSAppForm::image_resize);
@@ -138,7 +138,7 @@ namespace WinFormsCellLifeSimulationApp {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(582, 28);
+			this->menuStrip1->Size = System::Drawing::Size(582, 30);
 			this->menuStrip1->TabIndex = 2;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -149,7 +149,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->clearToolStripMenuItem_Clear
 			});
 			this->actionsToolStripMenuItem->Name = L"actionsToolStripMenuItem";
-			this->actionsToolStripMenuItem->Size = System::Drawing::Size(72, 24);
+			this->actionsToolStripMenuItem->Size = System::Drawing::Size(72, 26);
 			this->actionsToolStripMenuItem->Text = L"Actions";
 			// 
 			// generateToolStripMenuItem
@@ -193,7 +193,7 @@ namespace WinFormsCellLifeSimulationApp {
 			// playPauseToolStripMenuItem
 			// 
 			this->playPauseToolStripMenuItem->Name = L"playPauseToolStripMenuItem";
-			this->playPauseToolStripMenuItem->Size = System::Drawing::Size(93, 24);
+			this->playPauseToolStripMenuItem->Size = System::Drawing::Size(93, 26);
 			this->playPauseToolStripMenuItem->Text = L"Play/Pause";
 			this->playPauseToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::playPauseToolStripMenuItem_Click);
 			// 
@@ -204,7 +204,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->qualityToolStripMenuItem, this->resetTimeSettings_ToolStripMenuItem
 			});
 			this->timeSettingsToolStripMenuItem->Name = L"timeSettingsToolStripMenuItem";
-			this->timeSettingsToolStripMenuItem->Size = System::Drawing::Size(111, 24);
+			this->timeSettingsToolStripMenuItem->Size = System::Drawing::Size(111, 26);
 			this->timeSettingsToolStripMenuItem->Text = L"Time settings";
 			// 
 			// speedToolStripMenuItem
@@ -214,7 +214,7 @@ namespace WinFormsCellLifeSimulationApp {
 					this->minusSpeed_ToolStripMenuItem
 			});
 			this->speedToolStripMenuItem->Name = L"speedToolStripMenuItem";
-			this->speedToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->speedToolStripMenuItem->Size = System::Drawing::Size(139, 26);
 			this->speedToolStripMenuItem->Text = L"Speed";
 			// 
 			// plusSpeed_toolStripMenuItem
@@ -238,27 +238,27 @@ namespace WinFormsCellLifeSimulationApp {
 					this->minusQuality_ToolStripMenuItem
 			});
 			this->qualityToolStripMenuItem->Name = L"qualityToolStripMenuItem";
-			this->qualityToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->qualityToolStripMenuItem->Size = System::Drawing::Size(139, 26);
 			this->qualityToolStripMenuItem->Text = L"Quality";
 			// 
 			// plusQuality_toolStripMenuItem
 			// 
 			this->plusQuality_toolStripMenuItem->Name = L"plusQuality_toolStripMenuItem";
-			this->plusQuality_toolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->plusQuality_toolStripMenuItem->Size = System::Drawing::Size(102, 26);
 			this->plusQuality_toolStripMenuItem->Text = L"+";
 			this->plusQuality_toolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::plusQuality_toolStripMenuItem_Click);
 			// 
 			// minusQuality_ToolStripMenuItem
 			// 
 			this->minusQuality_ToolStripMenuItem->Name = L"minusQuality_ToolStripMenuItem";
-			this->minusQuality_ToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->minusQuality_ToolStripMenuItem->Size = System::Drawing::Size(102, 26);
 			this->minusQuality_ToolStripMenuItem->Text = L"-";
 			this->minusQuality_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::minusQuality_ToolStripMenuItem_Click);
 			// 
 			// resetTimeSettings_ToolStripMenuItem
 			// 
 			this->resetTimeSettings_ToolStripMenuItem->Name = L"resetTimeSettings_ToolStripMenuItem";
-			this->resetTimeSettings_ToolStripMenuItem->Size = System::Drawing::Size(224, 26);
+			this->resetTimeSettings_ToolStripMenuItem->Size = System::Drawing::Size(139, 26);
 			this->resetTimeSettings_ToolStripMenuItem->Text = L"Reset";
 			this->resetTimeSettings_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &CLSAppForm::resetTimeSettings_ToolStripMenuItem_Click);
 			// 
