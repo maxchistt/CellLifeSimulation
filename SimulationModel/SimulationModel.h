@@ -14,7 +14,7 @@ namespace SimulationModel {
 		int size{ 0 };
 		Cells::CellColor color;
 	};
-	
+
 	class Simulation {
 		friend class Cells::Cell;
 		std::vector<Cells::Cell*> cellsnext;
@@ -24,6 +24,7 @@ namespace SimulationModel {
 		void cleardied();
 		void cleardied(Cells::Cell* target);
 		void update();
+		~Simulation();
 	public:
 		Cells::CellFactory* cellFactory;
 		Structs2D::Point2D<int> fieldSize{ 600,800 };
@@ -35,7 +36,6 @@ namespace SimulationModel {
 		std::vector<drawEntity> getNextFrame();
 		Simulation();
 		Simulation(int x, int y);
-		~Simulation();
 	};
 };
 
