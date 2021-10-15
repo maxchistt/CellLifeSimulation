@@ -1,9 +1,7 @@
 #pragma once
 #include <math.h>
-#include <utility>
-#include <random>
 
-namespace structs {
+namespace Structs2D {
 
 	template <typename T>
 	struct Point2D {
@@ -91,4 +89,8 @@ namespace structs {
 		}
 	};
 };
+
+
+
+
 

@@ -1,27 +1,30 @@
 #pragma once
+#include <vector>
 #include "Cell.h"
 
 namespace SimulationModel {
+	class Simulation;
 	namespace Cells {
-		enum class generationTypes
-		{
-			Any, Plant, Planter, Hunter
-		};
 		class CellFactory
 		{
+			enum class generationTypes
+			{
+				Any, Plant, Planter, Hunter
+			};
 			struct generateOption {
-				CellOptions cellOptions;
+				Cells::CellOptions options;
 				generationTypes type;
 			};
-			generationTypes generationTypeSetting = generationTypes::Any;
+		private:
+			generationTypes generationTypeSetting;
 			Simulation* simulation;
-			std::vector<generateOption> options_arr;
+			std::vector<generateOption>options_arr;
 			void createStartOptions();
-			void createCell(CellOptions opt);
+			void createCell(Cells::CellOptions opt);
 		public:
 			void addOption(Cells::CellOptions option, generationTypes type);
-			void generate();
-			void generate(int n);
+			void generateCells();
+			void generateCells(int n);
 			void setGenerationType(int type);
 			CellFactory(Simulation* sim);
 		};

@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "structs.h"
+#include "Structs2D.h"
 
 #define BASIC_CELL_SIZE				10
 #define BASIC_FEED_DAMAGE			1
@@ -18,6 +18,8 @@
 namespace SimulationModel {
 	class Simulation;
 	namespace Cells {
+		using namespace Structs2D;
+
 		enum class CellColor
 		{
 			RED, GREEN, BLUE, GRAY, ORANGE, YELLOW, BROWN
@@ -42,49 +44,42 @@ namespace SimulationModel {
 
 		class Cell
 		{
+		private:
 			static enum class doType { nothing = false, beware = 1, hunt = 2 };
 			static doType howToDo(Cell* cell_finder, Cell* cell_to_find);
-		public:
-			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
-
-		protected:
 			float food = BASIC_START_FOOD_AMOUNT;
-			structs::Vect2D<float> position{ 0,0 };
-			structs::Vect2D<float> speed{ 0,0 };
-			structs::Vect2D<float> acceleration{ 0,0 };
+			Vect2D<float> position{ 0,0 };
+			Vect2D<float> speed{ 0,0 };
+			Vect2D<float> acceleration{ 0,0 };
 			CellOptions options;
 			Simulation* parentField = nullptr;
 			int& size = options.size;
 			int nearCellsCounter = 0;
-
 			void generateFood();
-			void checkSpeed(structs::Vect2D<float>& speed);
+			void checkSpeed(Vect2D<float>& speed);
 			void checkBorder();
 			void move();
 			void scan();
 			void duplicate();
 			void foodDamage();
 			void accelerate();
-			void accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion = false);
-
+			void accelerateByVectTarget(Vect2D<float> vectorToPoint, bool inversion = false);
+			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+			virtual void seeClosest(Vect2D<float> vector, doType how);
+			virtual void iteract(Cell* other, doType how, Vect2D<float> vector = Vect2D<float>{ 0,0 });
+			int getSearchRadius(); 
+			void eat(float food);
+			void eat(Cell* other); 
+			float beEaten();
 		public:
-			virtual void seeClosest(structs::Vect2D<float> vector, doType how);
-			virtual void iteract(Cell* other, doType how, structs::Vect2D<float> vector = structs::Vect2D<float>{ 0,0 });
-
 			bool isAlive();
-			structs::Vect2D<float> getPosition();
-			int getSearchRadius();
+			Vect2D<float> getPosition();
 			int getSize();
 			CellColor getColor();
-			float beEaten();
-			void eat(float food);
-			void eat(Cell* other);
-
+			void lifeCircle();
 			Cell(Simulation* parentSimulation);
 			Cell(Cell& parentCell);
 			Cell(Simulation* parentSimulation, CellOptions options);
-
-			void lifeCircle();
 		};
 	};
 };

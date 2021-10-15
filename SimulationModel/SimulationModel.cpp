@@ -1,6 +1,4 @@
-#include "Cell.h"
 #include "SimulationModel.h"
-#include "CellFactory.h"
 #include <ctime> // для функции time()
 
 using namespace SimulationModel;
@@ -37,7 +35,6 @@ void Simulation::update()
 		cells.end(), cellsnext.begin(), cellsnext.end()
 	);
 	cellsnext.clear();
-	cellsCount = cells.size();
 	for (auto cell : cells)
 	{
 		if (cell == nullptr || cell->isAlive() == false) {
@@ -56,32 +53,43 @@ void Simulation::add(Cells::Cell* cell)
 	cellsnext.push_back(cell);
 }
 
+int Simulation::cellsCount()
+{
+	return cells.size();
+}
+
 void Simulation::setTimelapse(float val)
 {
 	this->timelapse = val;
 }
 
-Simulation::Simulation() :Simulation(600, 800) {}
-
-Simulation::Simulation(int x, int y)
-{
+Simulation::Simulation() {
+	cellFactory = new Cells::CellFactory(this);
 	srand(static_cast<unsigned int>(time(0)));
+}
+
+Simulation::Simulation(int x, int y) :Simulation()
+{
 	setSize(x, y);
+}
+
+Simulation::~Simulation() {
+	delete cellFactory;
 }
 
 void SimulationModel::Simulation::setSize(int x, int y)
 {
-	this->fieldSize = structs::Point2D<int>(x, y);
+	this->fieldSize = Structs2D::Point2D<int>(x, y);
 }
 
-std::vector<drawEntity> Simulation::drawSimulation()
+std::vector<drawEntity> Simulation::getNextFrame()
 {
 	std::vector<drawEntity> drawings;
 	update();
 
 	for (auto cell : cells) {
 		auto drawentity = drawEntity{
-			structs::Point2D<int>(cell->getPosition().x,cell->getPosition().y),
+			Structs2D::Point2D<int>(cell->getPosition().x,cell->getPosition().y),
 			cell->getSize(),
 			cell->getColor(),
 		};

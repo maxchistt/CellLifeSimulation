@@ -1,6 +1,6 @@
 #pragma once
-#include "structs.h"
 #include <vector>
+#include "Structs2D.h"
 #include "Cell.h"
 #include "CellFactory.h"
 
@@ -10,39 +10,33 @@
 namespace SimulationModel {
 
 	struct drawEntity {
-		structs::Point2D<int> point;
+		Structs2D::Point2D<int> point;
 		int size{ 0 };
 		Cells::CellColor color;
 	};
-
+	
 	class Simulation {
+		friend class Cells::Cell;
 		std::vector<Cells::Cell*> cellsnext;
 		std::vector<Cells::Cell*> cells;
-	public:
-		Cells::CellFactory* cellFactory = new Cells::CellFactory(this);
-
-		int cellsCount = 0;
-		int cellsLimit = CELLSLIMIT;
-
-		friend static void Cells::Cell::scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
-		float timelapse = TIMELAPSE;
-
+		void add(Cells::Cell* cell);
+		int cellsCount();
 		void cleardied();
 		void cleardied(Cells::Cell* target);
-		void clearAll();
 		void update();
-		void add(Cells::Cell* cell);
+	public:
+		Cells::CellFactory* cellFactory;
+		Structs2D::Point2D<int> fieldSize{ 600,800 };
+		int cellsLimit = CELLSLIMIT;
+		float timelapse = TIMELAPSE;
+		void clearAll();
 		void setTimelapse(float val = TIMELAPSE);
-
-		structs::Point2D<int> fieldSize{ 100,100 };
-		std::vector<drawEntity> drawSimulation();
-
+		void setSize(int x, int y);
+		std::vector<drawEntity> getNextFrame();
 		Simulation();
 		Simulation(int x, int y);
-
-		void setSize(int x, int y);
+		~Simulation();
 	};
-
 };
 
 

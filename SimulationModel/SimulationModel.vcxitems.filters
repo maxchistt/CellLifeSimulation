@@ -3,31 +3,31 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)SimulationModel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Cell.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp">
-      <Filter>Source</Filter>
+      <Filter>Cells</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CellFactory.cpp">
-      <Filter>Source</Filter>
+      <Filter>Cells</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Cell.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)structs.h">
-      <Filter>Source</Filter>
+      <Filter>Cells</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CellFactory.h">
-      <Filter>Source</Filter>
+      <Filter>Cells</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Structs2D.h">
+      <Filter>Structs2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source">
+    <Filter Include="Cells">
       <UniqueIdentifier>{ee09a3a3-8a21-43ae-8aa4-69c51d0a6a06}</UniqueIdentifier>
       <Extensions>Cells</Extensions>
+    </Filter>
+    <Filter Include="Structs2D">
+      <UniqueIdentifier>{58b229b8-1bc4-4976-8ac8-8c23dc1aa4a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

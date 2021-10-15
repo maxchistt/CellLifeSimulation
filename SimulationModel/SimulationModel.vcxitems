@@ -17,12 +17,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CellFactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Cell.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SimulationModel.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)structs.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Structs2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)CellFactory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Cell.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SimulationModel.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)structs.cpp" />
   </ItemGroup>
 </Project>

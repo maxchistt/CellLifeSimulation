@@ -34,12 +34,12 @@ void SimDrawController::clear()
 
 void SimDrawController::generateCells()
 {
-	cellFactory()->generate();
+	cellFactory()->generateCells();
 }
 
 void SimDrawController::generateCells(int n)
 {
-	cellFactory()->generate(n);
+	cellFactory()->generateCells(n);
 	if (!timer->Enabled)redraw();
 }
 
@@ -72,7 +72,7 @@ void SimDrawController::setGenerationType(int type)
 
 void SimDrawController::redraw()
 {
-	if (sim != nullptr)  draw(sim->drawSimulation());
+	if (sim != nullptr)  draw(sim->getNextFrame());
 }
 
 void SimDrawController::connectTimer()

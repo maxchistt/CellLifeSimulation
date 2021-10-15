@@ -3,7 +3,7 @@
 
 using namespace SimulationModel;
 using namespace Cells;
-using namespace structs;
+using namespace Structs2D;
 
 Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 {
@@ -106,7 +106,7 @@ void Cell::scan()
 	Cell::scanClosestCellsOnField(parentField, this);
 }
 
-void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
+void Cell::seeClosest(Vect2D<float> vector, doType how)
 {
 	if (how == doType::hunt)accelerateByVectTarget(vector, false);
 	else if (how == doType::beware)accelerateByVectTarget(vector, true);
@@ -114,7 +114,7 @@ void Cell::seeClosest(structs::Vect2D<float> vector, doType how)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.foods_to_duplicate && nearCellsCounter < options.dupl_nearcells_limit && parentField->cellsCount < parentField->cellsLimit) {
+	if (isAlive() && food > options.foods_to_duplicate && nearCellsCounter < options.dupl_nearcells_limit && parentField->cellsCount() < parentField->cellsLimit) {
 		if (rand() % static_cast<int>(100 * parentField->timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }
@@ -180,7 +180,7 @@ void Cell::accelerate()
 	acceleration *= 0;
 }
 
-void Cell::accelerateByVectTarget(structs::Vect2D<float> vectorToPoint, bool inversion)
+void Cell::accelerateByVectTarget(Vect2D<float> vectorToPoint, bool inversion)
 {
 	auto speed_delta = vectorToPoint;
 	if (speed_delta.getAbs() == 0) {

@@ -1,8 +1,9 @@
 #include "CellFactory.h"
+#include "SimulationModel.h"
 
 using namespace SimulationModel;
 using namespace Cells;
-using namespace structs;
+using namespace Structs2D;
 
 struct Plant :CellOptions {
 	Plant() {
@@ -66,28 +67,29 @@ void CellFactory::createCell(CellOptions opt)
 	new Cells::Cell(this->simulation, opt);
 }
 
-void CellFactory::addOption(CellOptions option, generationTypes type)
+void CellFactory::addOption(CellOptions option,generationTypes type)
 {
-	this->options_arr.push_back(generateOption{ option,type });
+	this->options_arr.push_back(generateOption{option,type});
 }
 
 CellFactory::CellFactory(Simulation* sim)
 {
 	this->simulation = sim;
 	this->createStartOptions();
+	generationTypeSetting = generationTypes::Any;
 }
 
-void CellFactory::generate()
+void CellFactory::generateCells()
 {
 	int size = rand() % 40 + 1;
-	generate(size);
+	generateCells(size);
 }
 
-void CellFactory::generate(int n)
+void CellFactory::generateCells(int n)
 {
 	std::vector<CellOptions> cellOptionsArr;
 	for (auto option : options_arr) {
-		if (generationTypeSetting == generationTypes::Any || option.type == generationTypeSetting)cellOptionsArr.push_back(option.cellOptions);
+		if (generationTypeSetting == generationTypes::Any || option.type == generationTypeSetting)cellOptionsArr.push_back(option.options);
 	}
 	if (cellOptionsArr.size() > 0) {
 		for (int i = 0; i < n; i++) {
