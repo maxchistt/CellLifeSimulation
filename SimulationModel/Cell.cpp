@@ -232,11 +232,6 @@ Cell::Cell(Simulation* parentSimulation)
 {
 	this->parentField = parentSimulation;
 	parentSimulation->add(this);
-
-	this->position = Vect2D<float>{
-		static_cast<float>(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
-		static_cast<float>(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
-	};
 }
 
 Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
@@ -254,6 +249,10 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
 Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimulation)
 {
 	this->options = options;
+	this->position = Vect2D<float>{
+	static_cast<float>(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
+	static_cast<float>(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
+	};
 }
 
 void Cell::lifeCircle()

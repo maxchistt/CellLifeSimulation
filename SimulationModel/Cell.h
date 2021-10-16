@@ -73,14 +73,14 @@ namespace SimulationModel {
 			void eat(float food);
 			void eat(Cell* other);
 			float beEaten();
+			Cell(Simulation* parentSimulation);
+			Cell(Cell& parentCell);
 		public:
 			bool isAlive();
 			Vect2D<float> getPosition();
 			int getSize();
 			CellColor getColor();
 			void lifeCircle();
-			Cell(Simulation* parentSimulation);
-			Cell(Cell& parentCell);
 			Cell(Simulation* parentSimulation, CellOptions options);
 		};
 	};
