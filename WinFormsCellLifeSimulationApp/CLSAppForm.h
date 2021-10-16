@@ -60,7 +60,6 @@ namespace WinFormsCellLifeSimulationApp {
 		/// </summary>
 		~CLSAppForm()
 		{
-			if (simulation != nullptr)delete simulation;
 			if (components)
 			{
 				delete components;
