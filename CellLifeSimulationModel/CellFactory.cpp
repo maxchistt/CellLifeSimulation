@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CellFactory.h"
 #include "SimulationModel.h"
 

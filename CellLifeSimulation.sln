@@ -3,18 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimulationModel", "SimulationModel\SimulationModel.vcxitems", "{23F9D373-1BA8-4401-9331-15EE3FA01915}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtCellLifeSimulationApp", "QtCellLifeSimulationApp\QtCellLifeSimulationApp.vcxproj", "{021E48BD-AA35-475F-8B91-9E9EF6A59BA8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinFormsCellLifeSimulationApp", "WinFormsCellLifeSimulationApp\WinFormsCellLifeSimulationApp.vcxproj", "{4D767318-7902-4C1A-827C-F55015D389E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModel", "CellLifeSimulationModel\CellLifeSimulationModel.vcxproj", "{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		SimulationModel\SimulationModel.vcxitems*{021e48bd-aa35-475f-8b91-9e9ef6a59ba8}*SharedItemsImports = 4
-		SimulationModel\SimulationModel.vcxitems*{23f9d373-1ba8-4401-9331-15ee3fa01915}*SharedItemsImports = 9
-		SimulationModel\SimulationModel.vcxitems*{4d767318-7902-4c1a-827c-f55015d389e8}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -36,6 +31,14 @@ Global
 		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x64.Build.0 = Release|x64
 		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x86.ActiveCfg = Release|Win32
 		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x86.Build.0 = Release|Win32
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x64.ActiveCfg = Debug|x64
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x64.Build.0 = Debug|x64
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x86.ActiveCfg = Debug|Win32
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x86.Build.0 = Debug|Win32
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Release|x64.ActiveCfg = Release|x64
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Release|x64.Build.0 = Release|x64
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Release|x86.ActiveCfg = Release|Win32
+		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

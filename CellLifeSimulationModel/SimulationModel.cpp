@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "SimulationModel.h"
 #include <ctime> // для функции time()
 

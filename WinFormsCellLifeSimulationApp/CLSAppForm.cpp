@@ -1,5 +1,5 @@
 #include "CLSAppForm.h"
-#include "SimulationModel.h"
+
 #define SETTINGS_TIMER_MS			30
 #define SETTINGS_TIMELAPSE_PARAM	20
 #define SETTINGS_CELLS_LIMIT		300
