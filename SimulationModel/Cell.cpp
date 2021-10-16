@@ -47,7 +47,7 @@ void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 						resDistVect = curDistVect;
 					}
 					if (curDistVect.getAbs() < neardistnce) {
-						cell_finder->iteract(cell_to_find, todo, curDistVect);
+						cell_finder->interactWith(cell_to_find, todo, curDistVect);
 					}
 					else {
 						cell_finder->seeClosest(curDistVect, todo);
@@ -106,10 +106,10 @@ void Cell::scan()
 	Cell::scanClosestCellsOnField(parentField, this);
 }
 
-void Cell::seeClosest(Vect2D<float> vector, doType how)
+void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
 {
-	if (how == doType::hunt)accelerateByVectTarget(vector, false);
-	else if (how == doType::beware)accelerateByVectTarget(vector, true);
+	if (how == doType::hunt)accelerateByVectTarget(vectorToOther, false);
+	else if (how == doType::beware)accelerateByVectTarget(vectorToOther, true);
 }
 
 void Cell::duplicate()
@@ -123,21 +123,21 @@ float randPositionOffset(int size) {
 	return (rand() % size / 2 + size / 2) * (rand() % 10 < 5 ? 1 : -1);
 };
 
-void Cell::iteract(Cell* other, doType how, Vect2D<float> vector)
+void Cell::interactWith(Cell* other, doType how, Vect2D<float> vectorToOther)
 {
 	if (how == doType::hunt) {
 		if (isAlive()) eat(other);
 	}
 	else {
 		if (how == doType::nothing) {
-			if (vector.getAbs() > (size + other->getSize()) / 3)return;
-			if (vector.getAbs() > (size + other->getSize()) / 4)vector /= 2;
+			if (vectorToOther.getAbs() > (size + other->getSize()) / 3)return;
+			if (vectorToOther.getAbs() > (size + other->getSize()) / 4)vectorToOther /= 2;
 		}
-		if (vector.getAbs() == 0) {
-			vector.x = randPositionOffset(this->size);
-			vector.y = randPositionOffset(this->size);
+		if (vectorToOther.getAbs() == 0) {
+			vectorToOther.x = randPositionOffset(this->size);
+			vectorToOther.y = randPositionOffset(this->size);
 		}
-		accelerateByVectTarget(vector, true);
+		accelerateByVectTarget(vectorToOther, true);
 	}
 }
 

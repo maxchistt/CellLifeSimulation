@@ -65,8 +65,8 @@ namespace SimulationModel {
 			void accelerate();
 			void accelerateByVectTarget(Vect2D<float> vectorToPoint, bool inversion = false);
 			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
-			virtual void seeClosest(Vect2D<float> vector, doType how);
-			virtual void iteract(Cell* other, doType how, Vect2D<float> vector = Vect2D<float>{ 0,0 });
+			virtual void seeClosest(Vect2D<float> vectorToOther, doType how);
+			virtual void interactWith(Cell* other, doType how, Vect2D<float> vectorToOther = Vect2D<float>{ 0,0 });
 			int getSearchRadius(); 
 			void eat(float food);
 			void eat(Cell* other); 
