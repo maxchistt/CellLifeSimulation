@@ -87,12 +87,13 @@ System::Void WinFormsCellLifeSimulationApp::CLSAppForm::setGenerationType_ToolSt
 System::Void WinFormsCellLifeSimulationApp::CLSAppForm::setReproductionLimit_ToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	try {
+		cellsReproductionLimit_toolStripTextBox->ToolTipText = "";
 		auto limit_str = this->cellsReproductionLimit_toolStripTextBox->Text;
 		int limit_int = System::Convert::ToInt32(limit_str->ToString());
 		controller->setCellsLimit(limit_int);
 	}
-	catch (System::Object^ sender) {
-		//throw - 1;
+	catch (Exception^ e) {
+		cellsReproductionLimit_toolStripTextBox->ToolTipText = e->Message;
 	};
 }
 

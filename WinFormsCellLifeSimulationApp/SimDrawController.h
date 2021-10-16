@@ -17,12 +17,14 @@ namespace WinFormsCellLifeSimulationApp {
 		PictureBox^ pictureBox;
 		Timer^ timer;
 		Cells::CellFactory* cellFactory();
-			
+		String^ header = "";
+
 		Color convertColor(Cells::CellColor cell_color);
 		void draw(std::vector<drawEntity> entities);
 		void redraw();
 		void connectTimer();
 		Void tick(System::Object^ sender, System::EventArgs^ e);
+		void catchException(Exception^ e);
 	public:
 		void fitSimSize();
 		void time_setTimeSettings(int interval, float timelapse);

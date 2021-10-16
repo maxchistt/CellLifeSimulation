@@ -47,17 +47,29 @@ void SimDrawController::time_changeQuality(float factor)
 {
 	if (factor == 0 || factor == 1)return;
 	if (factor < 0)factor = 1.0 / -factor;
-
-	sim->timelapse *= factor;
-	timer->Interval /= factor;
+	auto oldInt = timer->Interval;
+	try {
+		timer->Interval /= factor;
+		sim->timelapse *= factor;
+	}
+	catch (Exception^ e) {
+		catchException(e);
+		timer->Interval = oldInt;
+	};
 }
 
 void SimDrawController::time_changeTimerSpeed(float factor)
 {
 	if (factor == 0 || factor == 1)return;
 	if (factor < 0)factor = 1.0 / -factor;
-
-	timer->Interval /= factor;
+	auto oldInt = timer->Interval;
+	try {
+		timer->Interval /= factor;
+	}
+	catch (Exception^ e) {
+		catchException(e);
+		timer->Interval = oldInt;
+	};
 }
 
 void SimDrawController::setCellsLimit(int cellslimit)
@@ -85,6 +97,11 @@ System::Void SimDrawController::tick(System::Object^ sender, System::EventArgs^ 
 	redraw();
 }
 
+void WinFormsCellLifeSimulationApp::SimDrawController::catchException(Exception^ e)
+{
+	this->pictureBox->Parent->Text = header + "  Error: " + e->Message;
+}
+
 SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox, Windows::Forms::Timer^ timer)
 {
 	this->sim = sim;
@@ -92,8 +109,7 @@ SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::
 	this->timer = timer;
 	fitSimSize();
 	connectTimer();
-	//time_setTimeSettings(200, 5);
-	//start();
+	header = this->pictureBox->Parent->Text;
 }
 
 SimDrawController::SimDrawController(SimulationModel::Simulation* sim, Windows::Forms::PictureBox^ pictureBox)
@@ -159,8 +175,8 @@ void SimDrawController::draw(std::vector<SimulationModel::drawEntity> entities)
 		this->pictureBox->Invalidate();
 		this->pictureBox->Refresh();
 	}
-	catch (System::Object^ sender) {
-		//throw - 1;
+	catch (Exception^ e) {
+		catchException(e);
 	};
 }
 
