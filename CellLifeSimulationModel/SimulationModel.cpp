@@ -85,18 +85,7 @@ void SimulationModel::Simulation::setSize(int x, int y)
 
 std::vector<drawEntity> Simulation::getNextFrame()
 {
-	std::vector<drawEntity> drawings;
 	update();
-
-	for (auto cell : cells) {
-		auto drawentity = drawEntity{
-			Structs2D::Point2D<int>(cell->getPosition().x,cell->getPosition().y),
-			cell->getSize(),
-			cell->getColor(),
-		};
-		drawings.push_back(drawentity);
-	}
-
-	return drawings;
+	return SimulationDraw::drawSimulation(cells);
 }
 

@@ -3,18 +3,12 @@
 #include "Structs2D.h"
 #include "Cell.h"
 #include "CellFactory.h"
+#include "SimulationDraw.h"
 
 #define TIMELAPSE	10
 #define CELLSLIMIT	300
 
 namespace SimulationModel {
-
-	struct drawEntity {
-		Structs2D::Point2D<int> point;
-		int size{ 0 };
-		Cells::CellColor color;
-	};
-
 	class Simulation {
 		friend class Cells::Cell;
 		std::vector<Cells::Cell*> cellsnext;
