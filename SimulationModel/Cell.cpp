@@ -25,7 +25,7 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 {
 	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-	cell_finder->nearCellsCounter = 0;
+	cell_finder->nearCellsCounter = cell_finder->nearSameCellsCounter = 0;
 	for (auto cell_to_find : sim->cells)
 	{
 		doType todo = Cell::howToDo(cell_finder, cell_to_find);
@@ -35,8 +35,9 @@ void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 		else {
 			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
 			double neardistnce = (static_cast<double>(cell_finder->getSize()) + static_cast<double>(cell_to_find->getSize())) / 2.0;
-			if (cell_finder->getColor() == cell_to_find->getColor() /* && todo == doType::nothing*/ && curDistVect.getAbs() < (neardistnce * cell_finder->options.nearcells_distancefactor)) {
+			if (curDistVect.getAbs() < (neardistnce * cell_finder->options.neardistance_calcfactor)) {
 				cell_finder->nearCellsCounter++;
+				if (cell_finder->getColor() == cell_to_find->getColor() /* && todo == doType::nothing*/)cell_finder->nearSameCellsCounter++;
 			};
 			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
@@ -60,7 +61,8 @@ void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 
 void Cell::generateFood()
 {
-	this->food += options.food_generation / parentField->timelapse;
+	float generatedFood = options.food_generation / (1 + nearCellsCounter * options.foodgen_nearcells_factor);
+	this->food += generatedFood / parentField->timelapse;
 }
 
 void Cell::checkSpeed(Vect2D<float>& speed)
@@ -114,7 +116,7 @@ void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.foods_to_duplicate && nearCellsCounter < options.dupl_nearcells_limit && parentField->cellsCount() < parentField->cellsLimit) {
+	if (isAlive() && food > options.foods_to_duplicate && nearSameCellsCounter < options.dupl_nearsamecells_limit && parentField->cellsCount() < parentField->cellsLimit) {
 		if (rand() % static_cast<int>(100 * parentField->timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }

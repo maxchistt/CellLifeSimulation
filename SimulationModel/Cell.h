@@ -2,18 +2,19 @@
 #include <vector>
 #include "Structs2D.h"
 
-#define BASIC_CELL_SIZE				10
-#define BASIC_FEED_DAMAGE			1
-#define BASIC_FOOD_GENERATION		0.1
-#define BASIC_START_FOOD_AMOUNT		30
-#define BASIC_MAX_FOOD_AMOUNT		100
-#define BASIC_MAX_SPEED				10
-#define BASIC_DETECT_RADIUS			190
-#define FOODS_TO_DUPLICATE			10
-#define STOPING_PARAM				0.1
-#define DUPLICATE_CHANSE_PERCENT	10
-#define DUPLICATE_NEARCELLS_LIMIT	30
-#define NEARCELLS_DISTANCEFACTOR	14
+#define BASIC_CELL_SIZE					10
+#define BASIC_FEED_DAMAGE				1
+#define BASIC_FOOD_GENERATION			0.1
+#define BASIC_START_FOOD_AMOUNT			30
+#define BASIC_MAX_FOOD_AMOUNT			100
+#define BASIC_MAX_SPEED					10
+#define BASIC_DETECT_RADIUS				190
+#define FOODS_TO_DUPLICATE				10
+#define STOPING_PARAM					0.1
+#define DUPLICATE_CHANSE_PERCENT		10
+#define DUPLICATE_NEARSAMECELLS_LIMIT	35
+#define FOODGEN_NEARCELLS_FACTOR		0.1
+#define NEARDISTANCE_CALCFACTOR			14
 
 namespace SimulationModel {
 	class Simulation;
@@ -33,8 +34,9 @@ namespace SimulationModel {
 			float foods_to_duplicate = FOODS_TO_DUPLICATE;
 			float stoping_param = STOPING_PARAM;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
-			int dupl_nearcells_limit = DUPLICATE_NEARCELLS_LIMIT;
-			float nearcells_distancefactor = NEARCELLS_DISTANCEFACTOR;
+			int dupl_nearsamecells_limit = DUPLICATE_NEARSAMECELLS_LIMIT;
+			float foodgen_nearcells_factor = FOODGEN_NEARCELLS_FACTOR;
+			float neardistance_calcfactor = NEARDISTANCE_CALCFACTOR;
 			int size = BASIC_CELL_SIZE;
 			float food_generation = BASIC_FOOD_GENERATION;
 			CellColor color = CellColor::BROWN;
@@ -54,7 +56,7 @@ namespace SimulationModel {
 			CellOptions options;
 			Simulation* parentField = nullptr;
 			int& size = options.size;
-			int nearCellsCounter = 0;
+			int nearCellsCounter = 0, nearSameCellsCounter = 0;
 			void generateFood();
 			void checkSpeed(Vect2D<float>& speed);
 			void checkBorder();
@@ -67,9 +69,9 @@ namespace SimulationModel {
 			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
 			virtual void seeClosest(Vect2D<float> vectorToOther, doType how);
 			virtual void interactWith(Cell* other, doType how, Vect2D<float> vectorToOther = Vect2D<float>{ 0,0 });
-			int getSearchRadius(); 
+			int getSearchRadius();
 			void eat(float food);
-			void eat(Cell* other); 
+			void eat(Cell* other);
 			float beEaten();
 		public:
 			bool isAlive();

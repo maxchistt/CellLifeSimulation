@@ -26,6 +26,8 @@ struct Planter :CellOptions {
 		this->size = rand() % 3 + 7;
 		this->max_speed = rand() % 6 + 17;
 		this->detect_radius = rand() % 60 + 200;
+		this->neardistance_calcfactor = 50;
+		this->dupl_nearsamecells_limit = 10;
 	}
 };
 
@@ -41,6 +43,8 @@ struct Hunter :CellOptions {
 		this->detect_radius = rand() % 100 + 200;
 		this->dupl_chanse_percent = 2;
 		this->foods_to_duplicate = 40;
+		this->neardistance_calcfactor = 60;
+		this->dupl_nearsamecells_limit = 8;
 	}
 };
 
