@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CellsCLR.h"
 
-using namespace CellLifeSimulationModelCLR;
+using namespace SimulationModelCLR;
 using namespace CellsCLR;
 using namespace SimulationModel;
 

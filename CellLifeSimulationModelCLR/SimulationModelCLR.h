@@ -5,8 +5,8 @@
 
 using namespace System;
 
-namespace CellLifeSimulationModelCLR {
-	public ref class SimulationModelCLR sealed
+namespace SimulationModelCLR {
+	public ref class SimulationCLR sealed
 	{
 	private:
 		SimulationModel::Simulation* simulation;
@@ -21,8 +21,8 @@ namespace CellLifeSimulationModelCLR {
 		void setTimelapse(float factor);
 		float getTimelapse();
 
-		SimulationModelCLR();
-		SimulationModelCLR(int x, int y);
-		~SimulationModelCLR();
+		SimulationCLR();
+		SimulationCLR(int x, int y);
+		~SimulationCLR();
 	};
 }

@@ -1,64 +1,64 @@
 #include "pch.h"
 
-#include "CellLifeSimulationModelCLR.h"
+#include "SimulationModelCLR.h"
 
-using namespace CellLifeSimulationModelCLR;
+using namespace SimulationModelCLR;
 using namespace CellsCLR;
 using namespace SimulationModel;
 
-void SimulationModelCLR::setCellsReproductionLimit(int amount)
+void SimulationCLR::setCellsReproductionLimit(int amount)
 {
 	simulation->cellsLimit = amount;
 }
 
-void SimulationModelCLR::clearAll()
+void SimulationCLR::clearAll()
 {
 	simulation->clearAll();
 }
 
-array<DrawEntity^>^ SimulationModelCLR::getNextFrame()
+array<DrawEntity^>^ SimulationCLR::getNextFrame()
 {
 	return SimFrameConverter::convert(simulation->getNextFrame());
 }
 
-void CellLifeSimulationModelCLR::SimulationModelCLR::setSize(int x, int y)
+void SimulationCLR::setSize(int x, int y)
 {
 	simulation->setSize(x, y);
 }
 
-int SimulationModelCLR::getWidth()
+int SimulationCLR::getWidth()
 {
 	return simulation->fieldSize.x;
 }
 
-int SimulationModelCLR::getHeight()
+int SimulationCLR::getHeight()
 {
 	return simulation->fieldSize.y;
 }
 
-void SimulationModelCLR::setTimelapse(float factor)
+void SimulationCLR::setTimelapse(float factor)
 {
 	simulation->setTimelapse(factor);
 }
 
-float SimulationModelCLR::getTimelapse()
+float SimulationCLR::getTimelapse()
 {
 	return simulation->timelapse;
 }
 
-SimulationModelCLR::SimulationModelCLR()
+SimulationCLR::SimulationCLR()
 {
 	simulation = new Simulation();
 	cellFactory = gcnew CellFactoryCLR(simulation->cellFactory);
 }
 
-SimulationModelCLR::SimulationModelCLR(int x, int y)
+SimulationCLR::SimulationCLR(int x, int y)
 {
 	simulation = new Simulation(x, y);
 	cellFactory = gcnew CellFactoryCLR(simulation->cellFactory);
 }
 
-SimulationModelCLR::~SimulationModelCLR()
+SimulationCLR::~SimulationCLR()
 {
 	delete simulation;
 }

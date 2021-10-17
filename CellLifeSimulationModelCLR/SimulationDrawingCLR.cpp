@@ -2,7 +2,7 @@
 #include "SimulationDrawingCLR.h"
 
 using namespace System::Drawing;
-using namespace CellLifeSimulationModelCLR;
+using namespace SimulationModelCLR;
 using namespace SimulationModel;
 using namespace SimulationModel::Cells;
 

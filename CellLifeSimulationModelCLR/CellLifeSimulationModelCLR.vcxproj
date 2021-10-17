@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{E5C4317C-A74D-4C35-A06C-CF94CDECAC9E}</ProjectGuid>
     <Keyword>NetCoreCProj</Keyword>
-    <RootNamespace>CellLifeSimulationModelCLR</RootNamespace>
+    <RootNamespace>SimulationModelCLR</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CellLifeSimulationModelCLR.h" />
+    <ClInclude Include="SimulationModelCLR.h" />
     <ClInclude Include="CellsCLR.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -131,7 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="CellLifeSimulationModelCLR.cpp" />
+    <ClCompile Include="SimulationModelCLR.cpp" />
     <ClCompile Include="CellsCLR.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

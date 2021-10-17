@@ -3,7 +3,7 @@
 
 using namespace System;
 
-namespace CellLifeSimulationModelCLR {
+namespace SimulationModelCLR {
 	namespace CellsCLR {
 		public ref class CellFactoryCLR sealed
 		{

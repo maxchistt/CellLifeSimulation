@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CellLifeSimulationModelCLR;
+using SimulationModelCLR;
 
 namespace WpfCellLifeSimulationApp
 {
@@ -21,7 +21,7 @@ namespace WpfCellLifeSimulationApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        SimulationModelCLR simulation = new();
+        SimulationCLR simulation = new();
         public MainWindow()
         {
             InitializeComponent();
