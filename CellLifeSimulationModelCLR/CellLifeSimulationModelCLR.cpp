@@ -5,11 +5,6 @@
 using namespace CellLifeSimulationModelCLR;
 using namespace SimulationModel;
 
-Simulation& SimulationModelCLR::ptr()
-{
-	return *simulation;
-}
-
 void SimulationModelCLR::generateCells(int amount)
 {
 	simulation->cellFactory->generateCells(amount);

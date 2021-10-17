@@ -10,7 +10,6 @@ namespace CellLifeSimulationModelCLR {
 	private:
 		SimulationModel::Simulation* simulation;
 	public:
-		SimulationModel::Simulation& ptr();
 		void generateCells(int amount);
 		void setGenerationType(int typeId);
 		void setCellsReproductionLimit(int amount);
