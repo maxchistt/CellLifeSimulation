@@ -15,7 +15,7 @@ namespace CellLifeSimulationModelCLR {
 		void setGenerationType(int typeId);
 		void setCellsReproductionLimit(int amount);
 		void clearAll();
-		SimFrameContainer^ getNextFrame();
+		array<DrawEntity^>^ getNextFrame();
 		void setSize(int x, int y);
 		int getWidth();
 		int getHeight();

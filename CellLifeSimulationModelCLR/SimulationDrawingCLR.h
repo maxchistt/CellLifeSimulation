@@ -12,17 +12,13 @@ namespace CellLifeSimulationModelCLR {
 		DrawEntity(int x, int y, int size, Drawing::Color color);
 	};
 
-	public ref class SimFrameContainer sealed
+	class SimFrameConverter
 	{
 	private:
-		std::vector<SimulationModel::drawEntity>* frame_vector;
-		DrawEntity^ makeDrawEntity(SimulationModel::drawEntity& item);
-		Drawing::Color convertColor(SimulationModel::Cells::CellColor cellcolor);
+		static DrawEntity^ convertDrawEntity(SimulationModel::drawEntity& item);
+		static Drawing::Color convertColor(SimulationModel::Cells::CellColor cellcolor);
 	public:
-		int Size();
-		DrawEntity^ getByIndex(const int index);
-		SimFrameContainer(std::vector<SimulationModel::drawEntity>& vector_entities);
-		~SimFrameContainer();
+		static array<DrawEntity^>^ convert(std::vector<SimulationModel::drawEntity>& frame_vector);
 	};
 };
 

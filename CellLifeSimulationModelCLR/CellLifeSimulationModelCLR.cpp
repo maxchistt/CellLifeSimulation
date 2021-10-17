@@ -30,10 +30,9 @@ void SimulationModelCLR::clearAll()
 	simulation->clearAll();
 }
 
-SimFrameContainer^ CellLifeSimulationModelCLR::SimulationModelCLR::getNextFrame()
+array<DrawEntity^>^ SimulationModelCLR::getNextFrame()
 {
-	auto frame_vector = simulation->getNextFrame();
-	return gcnew SimFrameContainer(frame_vector);
+	return SimFrameConverter::convert(simulation->getNextFrame());
 }
 
 void CellLifeSimulationModelCLR::SimulationModelCLR::setSize(int x, int y)

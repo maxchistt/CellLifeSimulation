@@ -14,32 +14,12 @@ DrawEntity::DrawEntity(int x, int y, int size, Color color)
 	this->color = color;
 }
 
-SimFrameContainer::SimFrameContainer(std::vector<drawEntity>& vector_entities)
-{
-	frame_vector = new std::vector<drawEntity>(vector_entities);
-}
-
-SimFrameContainer::~SimFrameContainer()
-{
-	delete frame_vector;
-}
-
-int SimFrameContainer::Size()
-{
-	return frame_vector->size();
-}
-
-DrawEntity^ SimFrameContainer::getByIndex(const int index)
-{
-	return makeDrawEntity(frame_vector->operator[](index));
-}
-
-DrawEntity^ SimFrameContainer::makeDrawEntity(drawEntity& item)
+DrawEntity^ SimFrameConverter::convertDrawEntity(SimulationModel::drawEntity& item)
 {
 	return gcnew DrawEntity(item.point.x, item.point.y, item.size, convertColor(item.color));
 }
 
-Color SimFrameContainer::convertColor(CellColor cellcolor)
+Color SimFrameConverter::convertColor(CellColor cellcolor)
 {
 	Color color;
 	switch (cellcolor)
@@ -70,4 +50,14 @@ Color SimFrameContainer::convertColor(CellColor cellcolor)
 		break;
 	}
 	return color;
+}
+
+array<DrawEntity^>^ SimFrameConverter::convert(std::vector<SimulationModel::drawEntity>& frame_vector)
+{
+	int size = frame_vector.size();
+	array<DrawEntity^>^ arr = gcnew array<DrawEntity^>(size);
+	for (int i = 0; i < size; i++) {
+		arr[i] = convertDrawEntity(frame_vector[i]);
+	};
+	return arr;
 }
