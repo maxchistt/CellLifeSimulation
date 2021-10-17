@@ -6,11 +6,6 @@ using namespace SimulationModelCLR;
 using namespace CellsCLR;
 using namespace SimulationModel;
 
-void SimulationCLR::setCellsReproductionLimit(int amount)
-{
-	simulation->cellsLimit = amount;
-}
-
 void SimulationCLR::clearAll()
 {
 	simulation->clearAll();
@@ -41,7 +36,12 @@ void SimulationCLR::setTimelapse(float factor)
 	simulation->setTimelapse(factor);
 }
 
-float SimulationCLR::getTimelapse()
+int% SimulationCLR::cellsLimit()
+{
+	return simulation->cellsLimit;
+}
+
+float% SimulationCLR::timelapse()
 {
 	return simulation->timelapse;
 }
