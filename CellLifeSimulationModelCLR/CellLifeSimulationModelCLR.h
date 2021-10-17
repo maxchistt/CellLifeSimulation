@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SimulationModel.h"
 #include "SimulationDrawingCLR.h"
+#include "CellsCLR.h"
 
 using namespace System;
 
@@ -10,8 +11,7 @@ namespace CellLifeSimulationModelCLR {
 	private:
 		SimulationModel::Simulation* simulation;
 	public:
-		void generateCells(int amount);
-		void setGenerationType(int typeId);
+		CellsCLR::CellFactoryCLR^ cellFactory;
 		void setCellsReproductionLimit(int amount);
 		void clearAll();
 		array<DrawEntity^>^ getNextFrame();

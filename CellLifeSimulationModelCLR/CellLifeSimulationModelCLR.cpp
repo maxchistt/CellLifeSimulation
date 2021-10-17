@@ -3,17 +3,8 @@
 #include "CellLifeSimulationModelCLR.h"
 
 using namespace CellLifeSimulationModelCLR;
+using namespace CellsCLR;
 using namespace SimulationModel;
-
-void SimulationModelCLR::generateCells(int amount)
-{
-	simulation->cellFactory->generateCells(amount);
-}
-
-void SimulationModelCLR::setGenerationType(int typeId)
-{
-	simulation->cellFactory->setGenerationType(typeId);
-}
 
 void SimulationModelCLR::setCellsReproductionLimit(int amount)
 {
@@ -58,11 +49,13 @@ float SimulationModelCLR::getTimelapse()
 SimulationModelCLR::SimulationModelCLR()
 {
 	simulation = new Simulation();
+	cellFactory = gcnew CellFactoryCLR(simulation->cellFactory);
 }
 
 SimulationModelCLR::SimulationModelCLR(int x, int y)
 {
 	simulation = new Simulation(x, y);
+	cellFactory = gcnew CellFactoryCLR(simulation->cellFactory);
 }
 
 SimulationModelCLR::~SimulationModelCLR()
