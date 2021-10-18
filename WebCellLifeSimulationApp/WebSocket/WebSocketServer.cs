@@ -15,9 +15,14 @@ namespace WebCellLifeSimulationApp
 
         public WebSocketServer()
         {
+            clients = new();
+            server = new();
+        }
+
+        private void setup()
+        {
             int PORT = 9000;
             string IP = Program.getIp();
-            IP = "localhost";
             clients = new List<string>();
             server = new WatsonWsServer(IP, PORT);
             server.ClientConnected += ClientConnected;
@@ -27,6 +32,7 @@ namespace WebCellLifeSimulationApp
 
         public void start()
         {
+            setup();
             server.Start();
         }
 

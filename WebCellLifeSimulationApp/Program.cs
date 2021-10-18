@@ -14,6 +14,7 @@ namespace WebCellLifeSimulationApp
     {
         public static SimulationModelController simulation;
         public static WebSocketServer WSS;
+        public static bool PROD = false;
 
         public static void Main(string[] args)
         {
@@ -21,21 +22,20 @@ namespace WebCellLifeSimulationApp
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static void prepare()
+        public static void startWSS()
+        {
+            WSS.start();
+        }
+
+        private static void prepare()
         {
             simulation = new SimulationModelController();
             WSS = new WebSocketServer();
             setupSimulation();
-            setupWSS();
-        }
-
-        public static void setupWSS()
-        {
-            WSS.start();
             simulation.addUpdateHandler(WSS.sendUpdate);
         }
 
-        public static void setupSimulation()
+        private static void setupSimulation()
         {
             simulation.clearCells();
             simulation.setTimeSettings(10, 100);
@@ -51,7 +51,7 @@ namespace WebCellLifeSimulationApp
             string Host = Dns.GetHostName();
             IPAddress[] IPlist = Dns.GetHostByName(Host).AddressList;
             string IP = IPlist[1].ToString();
-            return IP;
+            return PROD ? IP : "localhost";
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
