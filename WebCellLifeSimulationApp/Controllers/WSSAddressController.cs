@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +12,7 @@ namespace WebCellLifeSimulationApp.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WSSAddressController : ControllerBase
     {
 
@@ -23,11 +23,11 @@ namespace WebCellLifeSimulationApp.Controllers
             _logger = logger;
         }
 
-        // GET: WSSAddress/
-        [HttpGet]
-        public IEnumerable<string> Get()
+        // GET: api/WSSAddress/getWSSAddress
+        [HttpGet("getWSSAddress")]
+        public string Get()
         {
-            return Enumerable.Range(1, 1).Select(index => Program.WSS.getAddress()).ToArray();
+            return JsonSerializer.Serialize(Program.WSS.getAddress());
         }
     }
 }

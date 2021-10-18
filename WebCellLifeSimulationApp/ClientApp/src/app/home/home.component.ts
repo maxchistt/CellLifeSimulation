@@ -15,7 +15,7 @@ export class HomeComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.http.get<string[]>(this.baseUrl + 'WSSAddress').subscribe(this.initWebSocket, error => console.error(error));
+    this.http.get<string>(this.baseUrl + 'api/WSSAddress/getWSSAddress').subscribe(this.initWebSocket, error => console.error(error));
     this.http.get<number[]>(this.baseUrl + 'api/Simulation/getSize').subscribe(this.setSize, error => console.error(error));
   }
 
@@ -31,8 +31,8 @@ export class HomeComponent {
     this.size = result;
   }
 
-  initWebSocket = (result: string[]) => {
-    this.socket = new WebSocket(String(result[0]));
+  initWebSocket = (result: string) => {
+    this.socket = new WebSocket(String(result));
     this.socket.onopen = function () { console.log("success"); };
     this.socket.onmessage = (msg) => this.onUpdate(msg);
     this.socket.onclose = function () { console.log("closed"); };

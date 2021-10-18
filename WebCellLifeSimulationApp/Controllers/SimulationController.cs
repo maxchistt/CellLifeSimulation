@@ -24,9 +24,9 @@ namespace WebCellLifeSimulationApp.Controllers
 
         // GET: api/Simulation/getSize
         [HttpGet("getSize")]
-        public string GetSize()
+        public int[] GetSize()
         {
-            return JsonSerializer.Serialize(Program.simulation.getSimulationSize());
+            return Program.simulation.getSimulationSize();
         }
 
         // GET api/Simulation/generateCells/5
