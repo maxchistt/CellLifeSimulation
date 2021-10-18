@@ -6,26 +6,52 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WebCellLifeSimulationApp
 {
     public class Program
     {
         public static SimulationModelController simulation;
+        public static WebSocketServer WSS;
 
         public static void Main(string[] args)
         {
-            setupSimulation();
+            prepare();
             CreateHostBuilder(args).Build().Run();
+        }
+
+        public static void prepare()
+        {
+            simulation = new SimulationModelController();
+            WSS = new WebSocketServer();
+            setupSimulation();
+            setupWSS();
+        }
+
+        public static void setupWSS()
+        {
+            WSS.start();
+            simulation.addUpdateHandler(WSS.sendUpdate);
         }
 
         public static void setupSimulation()
         {
-            simulation = new SimulationModelController();
+            simulation.clearCells();
             simulation.setTimeSettings(10, 100);
             simulation.setCellsReproductionLimit(300);
             simulation.setSimulationSize(600, 800);
+            simulation.generateCells(20);
             simulation.start();
+        }
+
+        [Obsolete]
+        public static string getIp()
+        {
+            string Host = Dns.GetHostName();
+            IPAddress[] IPlist = Dns.GetHostByName(Host).AddressList;
+            string IP = IPlist[1].ToString();
+            return IP;
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
