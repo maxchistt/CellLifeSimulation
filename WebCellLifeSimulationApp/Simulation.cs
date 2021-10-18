@@ -7,15 +7,8 @@ using SimulationModelCLR;
 
 namespace WebCellLifeSimulationApp
 {
-    public class SimulationModel
+    public partial class SimulationModelController
     {
-        private SimulationCLR simulation;
-
-        protected SimulationModel()
-        {
-            simulation = new SimulationCLR();
-        }
-
         public void clearCells()
         {
             simulation.clearAll();
@@ -43,27 +36,20 @@ namespace WebCellLifeSimulationApp
         {
             simulation.setSize(x, y);
         }
-
-        protected void setTimelapse(float simulation_timelapse)
-        {
-            simulation.setTimelapse(simulation_timelapse);
-        }
-        protected DrawEntity[] getNextFrame()
-        {
-            return simulation.getNextFrame();
-        }
     }
 
-    public class SimulationModelController : SimulationModel
+    public partial class SimulationModelController
     {
+        private SimulationCLR simulation;
         private Timer timer;
         private DrawEntity[] drawEntities;
-        private Action[] handlers;
+        private Action<DrawEntity[]>[] handlers;
 
-        public SimulationModelController() : base()
+        public SimulationModelController()
         {
+            simulation = new SimulationCLR();
             drawEntities = new DrawEntity[0];
-            handlers = new Action[0];
+            handlers = new Action<DrawEntity[]>[0];
             timer = new Timer();
             timer.Elapsed += onTimerTick;
         }
@@ -85,9 +71,9 @@ namespace WebCellLifeSimulationApp
         public void setTimeSettings(float simulation_timelapse, int timer_interval)
         {
             timer.Interval = timer_interval > 0 ? timer_interval : 100;
-            base.setTimelapse(simulation_timelapse);
+            simulation.setTimelapse(simulation_timelapse);
         }
-        public void addUpdateHandler(Action handler)
+        public void addUpdateHandler(Action<DrawEntity[]> handler)
         {
             Array.Resize(ref handlers, handlers.Length + 1);
             handlers[handlers.Length - 1] = handler;
@@ -96,14 +82,14 @@ namespace WebCellLifeSimulationApp
         private void onTimerTick(Object source, ElapsedEventArgs e)
         {
             updateFrame();
-            foreach (Action handler in handlers)
+            foreach (Action<DrawEntity[]> handler in handlers)
             {
-                handler();
+                handler(drawEntities);
             }
         }
         private void updateFrame()
         {
-            drawEntities = base.getNextFrame();
+            drawEntities = simulation.getNextFrame();
         }
     }
 }
