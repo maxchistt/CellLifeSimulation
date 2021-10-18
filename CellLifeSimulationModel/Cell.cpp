@@ -23,24 +23,24 @@ Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 	return doType::nothing;
 }
 
-void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
+void Cell::scanClosestCellsOnField()
 {
-	Vect2D<float> resDistVect(cell_finder->getSearchRadius() * 2, cell_finder->getSearchRadius() * 2);
-	cell_finder->nearCellsCounter = cell_finder->nearSameCellsCounter = 0;
-	for (auto cell_to_find : sim->cells)
+	Vect2D<float> resDistVect(this->getSearchRadius() * 2, this->getSearchRadius() * 2);
+	this->nearCellsCounter = this->nearSameCellsCounter = 0;
+	for (auto other_cell : this->parentSimulation->cells)
 	{
-		doType todo = Cell::howToDo(cell_finder, cell_to_find);
-		if (cell_to_find == nullptr || cell_to_find->isAlive() == false || cell_finder == cell_to_find) {
+		doType todo = Cell::howToDo(this, other_cell);
+		if (other_cell == nullptr || other_cell->isAlive() == false || this == other_cell) {
 			continue;
 		}
 		else {
-			Vect2D<float> curDistVect = cell_finder->getPosition().getDistanceVect(cell_to_find->getPosition());
-			double neardistnce = (static_cast<double>(cell_finder->getSize()) + static_cast<double>(cell_to_find->getSize())) / 2.0;
-			if (curDistVect.getAbs() < (neardistnce * cell_finder->options.neardistance_calcfactor)) {
-				cell_finder->nearCellsCounter++;
-				if (cell_finder->getColor() == cell_to_find->getColor() /* && todo == doType::nothing*/)cell_finder->nearSameCellsCounter++;
+			Vect2D<float> curDistVect = this->getPosition().getDistanceVect(other_cell->getPosition());
+			double neardistnce = (static_cast<double>(this->getSize()) + static_cast<double>(other_cell->getSize())) / 2.0;
+			if (curDistVect.getAbs() < (neardistnce * this->options.neardistance_calcfactor)) {
+				this->nearCellsCounter++;
+				if (this->getColor() == other_cell->getColor())this->nearSameCellsCounter++;
 			};
-			if (curDistVect.getAbs() < cell_finder->getSearchRadius()) {
+			if (curDistVect.getAbs() < this->getSearchRadius()) {
 				if (curDistVect.getAbs() < resDistVect.getAbs()) {
 					if (todo == doType::nothing) {
 						resDistVect /= static_cast<float>(resDistVect.getAbs() / curDistVect.getAbs()) / 3;
@@ -49,10 +49,10 @@ void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 						resDistVect = curDistVect;
 					}
 					if (curDistVect.getAbs() < neardistnce) {
-						cell_finder->interactWith(cell_to_find, todo, curDistVect);
+						this->interactWith(other_cell, todo, curDistVect);
 					}
 					else {
-						cell_finder->seeClosest(curDistVect, todo);
+						this->seeClosest(curDistVect, todo);
 					}
 				}
 			}
@@ -102,11 +102,6 @@ void Cell::move()
 	position += speed_lapsed;
 	checkBorder();
 	speed /= 1 + options.stoping_param / parentSimulation->timelapse;
-}
-
-void Cell::scan()
-{
-	Cell::scanClosestCellsOnField(parentSimulation, this);
 }
 
 void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
@@ -259,7 +254,7 @@ Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimul
 void Cell::lifeCircle()
 {
 	if (isAlive()) {
-		scan();
+		scanClosestCellsOnField();
 		move();
 		generateFood();
 		foodDamage();

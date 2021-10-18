@@ -61,12 +61,11 @@ namespace SimulationModel {
 			void checkSpeed(Vect2D<float>& speed);
 			void checkBorder();
 			void move();
-			void scan();
 			void duplicate();
 			void foodDamage();
 			void accelerate();
 			void accelerateByVectTarget(Vect2D<float> vectorToPoint, bool inversion = false);
-			static void scanClosestCellsOnField(SimulationModel::Simulation* sim, Cells::Cell* cell_finder);
+			void scanClosestCellsOnField();
 			virtual void seeClosest(Vect2D<float> vectorToOther, doType how);
 			virtual void interactWith(Cell* other, doType how, Vect2D<float> vectorToOther = Vect2D<float>{ 0,0 });
 			int getSearchRadius();
