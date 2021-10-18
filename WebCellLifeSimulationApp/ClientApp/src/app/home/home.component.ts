@@ -10,20 +10,25 @@ export class HomeComponent {
   frame: IDrawEntity[] = [];
   http: HttpClient;
   baseUrl: string;
-  size:number[] = [2,2];
+  size: number[] = [2, 2];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
     this.http.get<string[]>(this.baseUrl + 'WSSAddress').subscribe(this.initWebSocket, error => console.error(error));
     this.http.get<number[]>(this.baseUrl + 'api/Simulation/getSize').subscribe(this.setSize, error => console.error(error));
-    
-    this.http.get(this.baseUrl + `api/Simulation/clearCells`);
-    this.http.get(this.baseUrl + `api/Simulation/generateCells/${30}`);
   }
 
-  setSize =(result: number[]) =>{
-    this.size=result;
+  clearCells = () => {
+    this.http.get(this.baseUrl + `api/Simulation/clearCells`).subscribe();
+  }
+
+  generateCells = () => {
+    this.http.get(this.baseUrl + `api/Simulation/generateCells/${30}`).subscribe();
+  }
+
+  setSize = (result: number[]) => {
+    this.size = result;
   }
 
   initWebSocket = (result: string[]) => {

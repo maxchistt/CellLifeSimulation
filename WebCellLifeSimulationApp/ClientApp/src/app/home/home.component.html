@@ -1,10 +1,18 @@
-<h1>Cells</h1>
-<p>W: {{this.size[0]}} H: {{this.size[1]}}</p>
-<ul>
+<h1 class="container h1">Cells</h1>
+<div class="container mb-2">
+  <button class="btn btn-light" (click)="this.clearCells()">
+    clearCells
+  </button>
+  <button class="btn btn-light ml-2" (click)="this.generateCells()">
+    generateCells
+  </button>
+</div>
+<p class="container">W: {{this.size[0]}} H: {{this.size[1]}}</p>
+<ul class="container">
   <li *ngFor="let item of this.frame">
-    <span>{{item.color}}</span>
-    <span>{{item.size}}</span>
-    <span>{{item.x}}</span>
-    <span>{{item.y}}</span>
+    <span>{{item.color}} </span>
+    <span class="ml-2">Size {{item.size}} </span>
+    <span class="ml-2">X {{item.x}} </span>
+    <span class="ml-2">Y {{item.y}} </span>
   </li>
 </ul>
