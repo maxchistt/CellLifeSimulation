@@ -12,6 +12,9 @@ export class HomeComponent {
   http: HttpClient;
   baseUrl: string;
   size: number[] = [2, 2];
+  colors: number[] = [0,0,0];
+
+  connections:number=0;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
@@ -19,7 +22,12 @@ export class HomeComponent {
 
     this.http.get<number[]>(this.baseUrl + 'api/Simulation/getSize').subscribe(this.setSize, error => console.error(error));
     this.initWebSocket(new URL(this.baseUrl).host);
+
+    
   }
+
+  requestConnections = ()=>this.http.get<number>(this.baseUrl + `wsserver/getConnections`).subscribe(this.setConnectionsCounter, error => console.error(error));
+  setConnectionsCounter=(num:number)=>this.connections=num;
 
   clearCells = () => {
     this.http.get(this.baseUrl + `api/Simulation/clearCells`).subscribe();
@@ -35,16 +43,29 @@ export class HomeComponent {
 
   initWebSocket = (host: string) => {
     this.socket = new WebSocket("ws://" + host + "/ws");
-    this.socket.onopen = () => { console.log("success");};
+    this.socket.onopen = () => { console.log("success");this.requestConnections();};
     this.socket.onmessage = (msg) => this.onUpdate(msg);
     this.socket.onclose = () => { console.log("closed"); };
     this.socket.onerror = () => { console.log("error"); };
   }
 
   onUpdate = (msg: ISocketMessage) => {
-    console.log("income msg", msg.data);
-    let framearr: IDrawEntity[] = this.parseDrawEntities(msg.data);
-    this.frame = framearr;
+    //console.log("income msg", msg.data);
+    this.frame = this.parseDrawEntities(msg.data);
+    this.calccolors();
+  }
+
+  calccolors= ()=>{
+    this.colors=[0,0,0];
+    this.frame.forEach(element => {
+      if(element.color=="Color [Red]"){
+        this.colors[0]++;
+      }else if(element.color=="Color [Green]"){
+        this.colors[1]++;
+      }else if(element.color=="Color [Blue]"){
+        this.colors[2]++;
+      }
+    });
   }
 
   parseDrawEntities(value: string): IDrawEntity[] {

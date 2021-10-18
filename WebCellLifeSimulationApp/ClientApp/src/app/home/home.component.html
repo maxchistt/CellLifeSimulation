@@ -1,18 +1,67 @@
-<h1 class="container h1">Cells</h1>
-<div class="container mb-2">
-  <button class="btn btn-light" (click)="this.clearCells()">
-    clearCells
-  </button>
-  <button class="btn btn-light ml-2" (click)="this.generateCells()">
-    generateCells
-  </button>
+<div class="container">
+  <h1 class="container h1 m-2"></h1>
 </div>
-<p class="container">W: {{this.size[0]}} H: {{this.size[1]}}</p>
-<ul class="container">
-  <li *ngFor="let item of this.frame">
-    <span>{{item.color}} </span>
-    <span class="ml-2">Size {{item.size}} </span>
-    <span class="ml-2">X {{item.x}} </span>
-    <span class="ml-2">Y {{item.y}} </span>
-  </li>
-</ul>
+
+<div class="container mb-2">
+  <div class="row text-center">
+    <div class="col-sm m-2">
+      <button class="btn btn-light p-2 m-0 w-100  h-100" (click)="this.clearCells()">
+        clearCells
+      </button>
+    </div>
+    <div class="col-sm m-2">
+      <button class="btn btn-light p-2 m-0  w-100 h-100" (click)="this.generateCells()">
+        generateCells
+      </button>
+    </div>
+    <div class="col-sm m-2">
+      <div class="alert bg-light p-2 m-0 w-100  h-100">
+        <span>Connections = {{connections}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="container">
+  <p class="m-2">W: {{this.size[0]}} H: {{this.size[1]}}</p>
+</div>
+
+
+<div class="container mb-3">
+  <div class="progress m-2">
+    <div class="bg-danger progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+      [ngStyle]="{'width':(100*colors[0]/(colors[0]+colors[1]+colors[2]))+'%'}" aria-valuemin="0" aria-valuemax="100">
+    </div>
+  </div>
+  <div class="progress m-2">
+    <div class="bg-success progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+      [ngStyle]="{'width':(100*colors[1]/(colors[0]+colors[1]+colors[2]))+'%'}" aria-valuemin="0" aria-valuemax="100">
+    </div>
+  </div>
+  <div class="progress m-2">
+    <div class="bg-primary progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+      [ngStyle]="{'width':(100*colors[2]/(colors[0]+colors[1]+colors[2]))+'%'}" aria-valuemin="0" aria-valuemax="100">
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Color</th>
+        <th scope="col-3">Size</th>
+        <th scope="col-2">X</th>
+        <th scope="col-2">Y</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of this.frame">
+        <th>{{item.color}}</th>
+        <td>{{item.size}}</td>
+        <td>{{item.x}}</td>
+        <td>{{item.y}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
