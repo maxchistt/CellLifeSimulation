@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { send } from 'process';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,9 @@ export class HomeComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.http.get<string>(this.baseUrl + 'api/WSSAddress/getWSSAddress').subscribe(this.initWebSocket, error => console.error(error));
+
     this.http.get<number[]>(this.baseUrl + 'api/Simulation/getSize').subscribe(this.setSize, error => console.error(error));
+    this.initWebSocket(new URL(this.baseUrl).host);
   }
 
   clearCells = () => {
@@ -31,15 +33,16 @@ export class HomeComponent {
     this.size = result;
   }
 
-  initWebSocket = (result: string) => {
-    this.socket = new WebSocket(String(result));
-    this.socket.onopen = function () { console.log("success"); };
+  initWebSocket = (host: string) => {
+    this.socket = new WebSocket("ws://" + host + "/ws");
+    this.socket.onopen = () => { console.log("success");};
     this.socket.onmessage = (msg) => this.onUpdate(msg);
-    this.socket.onclose = function () { console.log("closed"); };
-    this.socket.onerror = function () { console.log("error"); };
+    this.socket.onclose = () => { console.log("closed"); };
+    this.socket.onerror = () => { console.log("error"); };
   }
 
   onUpdate = (msg: ISocketMessage) => {
+    console.log("income msg", msg.data);
     let framearr: IDrawEntity[] = this.parseDrawEntities(msg.data);
     this.frame = framearr;
   }
