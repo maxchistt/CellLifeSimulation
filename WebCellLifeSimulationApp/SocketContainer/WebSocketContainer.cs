@@ -17,6 +17,10 @@ namespace WebCellLifeSimulationApp
     {
         private List<WebSocket> clients;
 
+        public int size()
+        {
+            return clients.Count();
+        }
         public WebSocketContainer()
         {
             clients = new();

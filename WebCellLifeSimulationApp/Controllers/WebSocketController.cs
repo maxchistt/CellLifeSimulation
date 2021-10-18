@@ -17,6 +17,13 @@ namespace WebCellLifeSimulationApp.Controllers
     #region snippet
     public class WebSocketController : ControllerBase
     {
+        // GET: wsserver/getConnections
+        [HttpGet("wsserver/getConnections")]
+        public int GetConnections()
+        {
+            return Program.WSC.size();
+        }
+
         [HttpGet("/ws")]
         public async Task Get()
         {
