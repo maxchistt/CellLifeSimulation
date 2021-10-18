@@ -55,7 +55,6 @@ namespace SimulationModel {
 			Vect2D<float> acceleration{ 0,0 };
 			CellOptions options;
 			Simulation* parentSimulation = nullptr;
-			int& size = options.size;
 			int nearCellsCounter = 0, nearSameCellsCounter = 0;
 			void generateFood();
 			void checkSpeed(Vect2D<float>& speed);

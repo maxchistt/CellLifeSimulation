@@ -76,20 +76,20 @@ void Cell::checkSpeed(Vect2D<float>& speed)
 
 void Cell::checkBorder()
 {
-	if (position.x >= parentSimulation->fieldSize.x - this->size / 2) {
-		position.x = (parentSimulation->fieldSize.x - 1) - this->size / 2;
+	if (position.x >= parentSimulation->fieldSize.x - this->getSize() / 2) {
+		position.x = (parentSimulation->fieldSize.x - 1) - this->getSize() / 2;
 		speed.x = -0.2 * speed.x;
 	};
-	if (position.y >= parentSimulation->fieldSize.y - this->size / 2) {
-		position.y = (parentSimulation->fieldSize.y - 1) - this->size / 2;
+	if (position.y >= parentSimulation->fieldSize.y - this->getSize() / 2) {
+		position.y = (parentSimulation->fieldSize.y - 1) - this->getSize() / 2;
 		speed.y = -0.2 * speed.y;
 	};
-	if (position.x < 0 + this->size / 2) {
-		position.x = 0 + this->size / 2;
+	if (position.x < 0 + this->getSize() / 2) {
+		position.x = 0 + this->getSize() / 2;
 		speed.x = -0.2 * speed.x;
 	};
-	if (position.y < 0 + this->size / 2) {
-		position.y = 0 + this->size / 2;
+	if (position.y < 0 + this->getSize() / 2) {
+		position.y = 0 + this->getSize() / 2;
 		speed.y = -0.2 * speed.y;
 	};
 }
@@ -128,12 +128,12 @@ void Cell::interactWith(Cell* other, doType how, Vect2D<float> vectorToOther)
 	}
 	else {
 		if (how == doType::nothing) {
-			if (vectorToOther.getAbs() > (size + other->getSize()) / 3)return;
-			if (vectorToOther.getAbs() > (size + other->getSize()) / 4)vectorToOther /= 2;
+			if (vectorToOther.getAbs() > (getSize() + other->getSize()) / 3)return;
+			if (vectorToOther.getAbs() > (getSize() + other->getSize()) / 4)vectorToOther /= 2;
 		}
 		if (vectorToOther.getAbs() == 0) {
-			vectorToOther.x = randPositionOffset(this->size);
-			vectorToOther.y = randPositionOffset(this->size);
+			vectorToOther.x = randPositionOffset(this->getSize());
+			vectorToOther.y = randPositionOffset(this->getSize());
 		}
 		accelerateByVectTarget(vectorToOther, true);
 	}
@@ -161,7 +161,7 @@ int Cell::getSearchRadius()
 
 int Cell::getSize()
 {
-	return size;
+	return options.size;
 }
 
 CellColor Cell::getColor()
@@ -237,8 +237,8 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentSimulation)
 	parentCell.food /= 2;
 	this->food = parentCell.food;
 	this->position += Vect2D<float>{
-		randPositionOffset(this->size),
-			randPositionOffset(this->size)
+		randPositionOffset(this->getSize()),
+			randPositionOffset(this->getSize())
 	};
 }
 
