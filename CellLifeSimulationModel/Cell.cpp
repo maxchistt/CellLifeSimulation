@@ -63,7 +63,7 @@ void Cell::scanClosestCellsOnField(Simulation* sim, Cell* cell_finder)
 void Cell::generateFood()
 {
 	float generatedFood = options.food_generation / (1 + nearCellsCounter * options.foodgen_nearcells_factor);
-	this->food += generatedFood / parentField->timelapse;
+	this->food += generatedFood / parentSimulation->timelapse;
 }
 
 void Cell::checkSpeed(Vect2D<float>& speed)
@@ -76,12 +76,12 @@ void Cell::checkSpeed(Vect2D<float>& speed)
 
 void Cell::checkBorder()
 {
-	if (position.x >= parentField->fieldSize.x - this->size / 2) {
-		position.x = (parentField->fieldSize.x - 1) - this->size / 2;
+	if (position.x >= parentSimulation->fieldSize.x - this->size / 2) {
+		position.x = (parentSimulation->fieldSize.x - 1) - this->size / 2;
 		speed.x = -0.2 * speed.x;
 	};
-	if (position.y >= parentField->fieldSize.y - this->size / 2) {
-		position.y = (parentField->fieldSize.y - 1) - this->size / 2;
+	if (position.y >= parentSimulation->fieldSize.y - this->size / 2) {
+		position.y = (parentSimulation->fieldSize.y - 1) - this->size / 2;
 		speed.y = -0.2 * speed.y;
 	};
 	if (position.x < 0 + this->size / 2) {
@@ -98,15 +98,15 @@ void Cell::move()
 {
 	accelerate();
 	auto speed_lapsed = speed;
-	speed_lapsed /= parentField->timelapse;
+	speed_lapsed /= parentSimulation->timelapse;
 	position += speed_lapsed;
 	checkBorder();
-	speed /= 1 + options.stoping_param / parentField->timelapse;
+	speed /= 1 + options.stoping_param / parentSimulation->timelapse;
 }
 
 void Cell::scan()
 {
-	Cell::scanClosestCellsOnField(parentField, this);
+	Cell::scanClosestCellsOnField(parentSimulation, this);
 }
 
 void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
@@ -117,8 +117,8 @@ void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.foods_to_duplicate && nearSameCellsCounter < options.dupl_nearsamecells_limit && parentField->cellsCount() < parentField->cellsLimit) {
-		if (rand() % static_cast<int>(100 * parentField->timelapse) < options.dupl_chanse_percent) new Cell(*this);
+	if (isAlive() && food > options.foods_to_duplicate && nearSameCellsCounter < options.dupl_nearsamecells_limit && parentSimulation->cellsCount() < parentSimulation->cellsLimit) {
+		if (rand() % static_cast<int>(100 * parentSimulation->timelapse) < options.dupl_chanse_percent) new Cell(*this);
 	};
 }
 
@@ -146,7 +146,7 @@ void Cell::interactWith(Cell* other, doType how, Vect2D<float> vectorToOther)
 
 void Cell::foodDamage()
 {
-	food -= options.feed_damage / parentField->timelapse;
+	food -= options.feed_damage / parentSimulation->timelapse;
 }
 
 bool Cell::isAlive()
@@ -177,7 +177,7 @@ CellColor Cell::getColor()
 void Cell::accelerate()
 {
 	checkSpeed(acceleration);
-	acceleration /= parentField->timelapse;
+	acceleration /= parentSimulation->timelapse;
 	speed += acceleration;
 	checkSpeed(speed);
 	acceleration *= 0;
@@ -231,11 +231,11 @@ void Cell::eat(Cell* other)
 
 Cell::Cell(Simulation* parentSimulation)
 {
-	this->parentField = parentSimulation;
+	this->parentSimulation = parentSimulation;
 	parentSimulation->add(this);
 }
 
-Cell::Cell(Cell& parentCell) : Cell(parentCell.parentField)
+Cell::Cell(Cell& parentCell) : Cell(parentCell.parentSimulation)
 {
 	this->options = parentCell.options;
 	this->position = parentCell.getPosition();
