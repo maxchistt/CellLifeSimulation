@@ -19,7 +19,7 @@
         <span>Connections: {{connections}}</span>
       </div>
     </div>
-    <div class="col-md m-2" [ngClass]="{'collapse': !collapse}">
+    <div *ngIf="frame.length>0" class="col-md m-2" [ngClass]="{'collapse': !collapse}">
       <button (click)="collapse=!collapse" class="btn btn-light p-2 m-0  w-100 h-100"
         [ngClass]="{'collapse': !collapse}">
         Open view
@@ -29,7 +29,7 @@
 </div>
 
 <div class="container" [ngStyle]="{'width' : scale?'40%':'95%'}">
-  <div class="m-2" style="position: relative;" [ngClass]="{'collapse': collapse}">
+  <div class="m-2" style="position: relative;" [ngClass]="{'collapse': collapse ||frame.length<=0}">
 
     <button (click)="scale=!scale" class="btn btn-light px-2 m-1 py-0" [ngStyle]="{'top' : scale?'1em':'3em'}"
       style="z-index: 7; position: absolute;right: 5em;background: transparent;border: transparent;outline: none;">-</button>
