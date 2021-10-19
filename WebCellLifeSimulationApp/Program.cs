@@ -27,10 +27,10 @@ namespace WebCellLifeSimulationApp
         private static void setupSimulation()
         {
             simulation.clearCells();
-            simulation.setTimeSettings(10, 100);
+            simulation.setTimeSettings(12, 50);
             simulation.setCellsReproductionLimit(300);
-            simulation.setSimulationSize(600, 800);
-            simulation.generateCells(20);
+            simulation.setSimulationSize(400, 800);
+            //simulation.generateCells(20);
             simulation.start();
         }
 

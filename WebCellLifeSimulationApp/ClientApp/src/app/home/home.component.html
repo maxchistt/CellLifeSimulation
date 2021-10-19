@@ -5,25 +5,45 @@
 <div class="container mb-2">
   <div class="row text-center">
     <div class="col-sm m-2">
-      <button class="btn btn-light p-2 m-0 w-100  h-100" (click)="this.clearCells()">
-        clearCells
-      </button>
-    </div>
-    <div class="col-sm m-2">
-      <button class="btn btn-light p-2 m-0  w-100 h-100" (click)="this.generateCells()">
+      <button class="btn btn-secondary p-2 m-0  w-100 h-100" (click)="this.requestGenerateCells()">
         generateCells
       </button>
     </div>
     <div class="col-sm m-2">
+      <button class="btn btn-light p-2 m-0 w-100  h-100" (click)="this.requestClearCells()">
+        clearCells
+      </button>
+    </div>
+    <div class="col-sm m-2">
       <div class="alert bg-light p-2 m-0 w-100  h-100">
-        <span>Connections = {{connections}}</span>
+        <span>Connections: {{connections}}</span>
       </div>
     </div>
+    <div class="col-md m-2" [ngClass]="{'collapse': !collapse}">
+      <button (click)="collapse=!collapse" class="btn btn-light p-2 m-0  w-100 h-100"
+        [ngClass]="{'collapse': !collapse}">
+        Open view
+      </button>
+    </div>
   </div>
-
 </div>
+
+<div class="container" [ngStyle]="{'width' : scale?'40%':'95%'}">
+  <div class="m-2" style="position: relative;" [ngClass]="{'collapse': collapse}">
+
+    <button (click)="scale=!scale" class="btn btn-light px-2 m-1 py-0" [ngStyle]="{'top' : scale?'1em':'3em'}"
+      style="z-index: 7; position: absolute;right: 5em;background: transparent;border: transparent;outline: none;">-</button>
+
+    <button (click)="collapse=!collapse" class="btn btn-light px-2 m-1 py-0" [ngStyle]="{'top' : scale?'1em':'3em'}"
+      style="z-index: 7; position: absolute;right: 3em;background: transparent;border: transparent;outline: none;">x</button>
+
+    <canvas class="w-100" #myCanvas></canvas>
+
+  </div>
+</div>
+
 <div class="container">
-  <p class="m-2">W: {{this.size[0]}} H: {{this.size[1]}}</p>
+  <p class="m-2">Width: {{this.size[0]}} Height: {{this.size[1]}} Amount: {{this.frame.length}}</p>
 </div>
 
 
@@ -44,6 +64,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="container mt-3">
   <table class="table">
