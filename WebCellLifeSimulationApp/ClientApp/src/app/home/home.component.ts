@@ -29,16 +29,16 @@ export class HomeComponent implements AfterViewInit {
     this.baseUrl = baseUrl;
 
     this.requestSize();
-    this.initWebSocket(new URL(this.baseUrl).host);
+    this.initWebSocket();
   }
 
-  requestConnections = () => this.http.get<number>(this.baseUrl + `wsserver/getConnections`).subscribe(this.setConnectionsCounter, error => console.error(error));
+  requestConnections = () => this.http.get<number>(this.baseUrl + `ws/getConnections`).subscribe(this.setConnectionsCounter, error => console.error(error));
   setConnectionsCounter = (num: number) => this.connections = num;
 
-  requestClearCells = () => this.http.get(this.baseUrl + `api/Simulation/clearCells`).subscribe();
-  requestGenerateCells = () => this.http.get(this.baseUrl + `api/Simulation/generateCells/${30}`).subscribe();
+  requestClearCells = () => this.http.get(this.baseUrl + `api/clearCells`).subscribe();
+  requestGenerateCells = () => this.http.get(this.baseUrl + `api/generateCells/${30}`).subscribe();
 
-  requestSize = () => this.http.get<number[]>(this.baseUrl + 'api/Simulation/getSize').subscribe(this.setSize, error => console.error(error));
+  requestSize = () => this.http.get<number[]>(this.baseUrl + 'api/getSize').subscribe(this.setSize, error => console.error(error));
   setSize = (result: number[]) => this.size = result;
 
   draw() {
@@ -53,8 +53,8 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  initWebSocket = (host: string) => {
-    this.socket = new WebSocket("ws://" + host + "/ws");
+  initWebSocket = () => {
+    this.socket = new WebSocket("ws://" + new URL(this.baseUrl).host + "/ws");
     this.socket.onopen = () => { console.log("success"); this.requestConnections(); };
     this.socket.onmessage = (msg) => this.onUpdate(msg);
     this.socket.onclose = () => { console.log("closed"); };

@@ -6,7 +6,7 @@ using SimulationModelCLR;
 
 namespace WebCellLifeSimulationApp
 {
-    public class DrawEntitiesConverter
+    public class DrawConverter
     {
         public static string toJson(DrawEntity[] arr)
         {

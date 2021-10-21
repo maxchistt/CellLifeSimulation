@@ -12,7 +12,7 @@ namespace SimulationModelCLR {
 		DrawEntity(int x, int y, int size, Drawing::Color color);
 	};
 
-	class SimFrameConverter
+	ref class SimFrameConverter
 	{
 	private:
 		static DrawEntity^ convertDrawEntity(SimulationModel::drawEntity& item);

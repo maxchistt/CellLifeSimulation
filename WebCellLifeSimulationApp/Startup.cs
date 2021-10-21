@@ -36,8 +36,6 @@ namespace WebCellLifeSimulationApp
             };
 
             app.UseWebSockets(webSocketOptions);
-            //Program.PROD = env.IsProduction();
-            //Program.startWSS();
 
             if (env.IsDevelopment())
             {

@@ -13,13 +13,13 @@ namespace WebCellLifeSimulationApp
 {
     public class Program
     {
-        public static SimulationModelController simulation;
-        public static WebSocketContainer WSC;
+        public static SimDrawController simulation;
+        public static SocketContainer WSC;
 
         public static void Main(string[] args)
         {
-            simulation = new SimulationModelController();
-            WSC = new WebSocketContainer();
+            simulation = new SimDrawController();
+            WSC = new SocketContainer();
             setupSimulation();
             CreateHostBuilder(args).Build().Run();
         }
@@ -30,7 +30,6 @@ namespace WebCellLifeSimulationApp
             simulation.setTimeSettings(12, 50);
             simulation.setCellsReproductionLimit(300);
             simulation.setSimulationSize(400, 800);
-            //simulation.generateCells(20);
             simulation.start();
         }
 

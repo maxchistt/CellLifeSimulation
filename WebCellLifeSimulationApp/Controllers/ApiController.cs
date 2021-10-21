@@ -12,31 +12,31 @@ namespace WebCellLifeSimulationApp.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
-    public class SimulationController : ControllerBase
+    [Route("api")]
+    public class ApiController : ControllerBase
     {
-        private readonly ILogger<SimulationController> _logger;
+        private readonly ILogger<ApiController> _logger;
 
-        public SimulationController(ILogger<SimulationController> logger)
+        public ApiController(ILogger<ApiController> logger)
         {
             _logger = logger;
         }
 
-        // GET: api/Simulation/getSize
+        // GET: api/getSize
         [HttpGet("getSize")]
         public int[] GetSize()
         {
             return Program.simulation.getSimulationSize();
         }
 
-        // GET api/Simulation/generateCells/5
+        // GET api/generateCells/5
         [HttpGet("generateCells/{id}")]
         public void generateCells(int id)
         {
             Program.simulation.generateCells(id);
         }
 
-        // GET api/Simulation/clearCells
+        // GET api/clearCells
         [HttpGet("clearCells")]
         public void clearCells()
         {

@@ -7,7 +7,7 @@ using SimulationModelCLR;
 
 namespace WebCellLifeSimulationApp
 {
-    public partial class SimulationModelController
+    public partial class SimDrawController
     {
         public void clearCells()
         {
@@ -38,14 +38,14 @@ namespace WebCellLifeSimulationApp
         }
     }
 
-    public partial class SimulationModelController
+    public partial class SimDrawController
     {
         private SimulationCLR simulation;
         private Timer timer;
         private DrawEntity[] drawEntities;
         private Action<DrawEntity[]>[] handlers;
 
-        public SimulationModelController()
+        public SimDrawController()
         {
             simulation = new SimulationCLR();
             drawEntities = new DrawEntity[0];
@@ -53,7 +53,7 @@ namespace WebCellLifeSimulationApp
             timer = new Timer();
             timer.Elapsed += onTimerTick;
         }
-        ~SimulationModelController()
+        ~SimDrawController()
         {
             timer.Stop();
             timer.Close();
