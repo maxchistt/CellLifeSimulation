@@ -16,7 +16,6 @@ export class HomeComponent implements AfterViewInit {
   wrapperWidth: number = 600;
   connections: number = 0;
   collapse: boolean = false;
-  scale: boolean = false;
 
   public canvasContext: CanvasRenderingContext2D;
 

@@ -14,3 +14,25 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+::-webkit-scrollbar {
+  height: 14px;
+  overflow: visible;
+  width: 14px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.16);
+  min-height: 28px;
+  padding: 100px 0 0;
+}

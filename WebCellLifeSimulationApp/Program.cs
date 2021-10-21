@@ -29,7 +29,7 @@ namespace WebCellLifeSimulationApp
             simulation.clearCells();
             simulation.setTimeSettings(12, 50);
             simulation.setCellsReproductionLimit(300);
-            simulation.setSimulationSize(400, 800);
+            simulation.setSimulationSize(640, 640);
             simulation.start();
         }
 
