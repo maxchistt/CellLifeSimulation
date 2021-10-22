@@ -21,7 +21,7 @@ namespace WebCellLifeSimulationApp.Controllers
         [HttpGet("ws/getConnections")]
         public int GetConnections()
         {
-            return Program.WSC.connectionsCount();
+            return Program.backgroundSocketProcessor.connectionsCount();
         }
 
         // ws://[hostname]:[port]/ws
@@ -30,8 +30,16 @@ namespace WebCellLifeSimulationApp.Controllers
         {
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
-                using WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-                await Program.WSC.handleSocketConnection(webSocket);
+                using (WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync())
+                {
+                    var socketFinishedTcs = new TaskCompletionSource<object>();
+
+                    // The background processor should call socketFinishedTcs.TrySetResult(null) when it has finished with the socket
+                    Program.backgroundSocketProcessor.AddSocket(webSocket, socketFinishedTcs);
+
+                    // Wait for the BackgroundSocketProcessor to finish with the socket before concluding the request.
+                    await socketFinishedTcs.Task;
+                }
             }
             else
             {

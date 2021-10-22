@@ -13,7 +13,7 @@ using System.Text;
 
 namespace WebCellLifeSimulationApp
 {
-    public class SocketContainer
+    public class SocketProcessor
     {
         private List<WebSocket> clients;
 
@@ -22,32 +22,40 @@ namespace WebCellLifeSimulationApp
             return clients.Count();
         }
 
-        public SocketContainer()
+        public SocketProcessor()
         {
             clients = new();
             Program.simulation.addUpdateHandler(handleSimulationUpdate);
         }
 
-        public async Task handleSocketConnection(WebSocket webSocket)
+        public async void AddSocket(WebSocket webSocket, TaskCompletionSource<object> socketFinishedTcs)
         {
-            add(ref webSocket);
+            add(webSocket);
+
+            await processSocketConnection(webSocket);
+
+            delete(webSocket);
+
+            socketFinishedTcs.TrySetResult(null);
+        }
+
+        private async Task processSocketConnection(WebSocket webSocket)
+        {
             var buffer = new byte[1024 * 4];
-            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            while (!result.CloseStatus.HasValue)
+            WebSocketReceiveResult result = null;
+            while (result == null || !result.CloseStatus.HasValue)
             {
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-            delete(ref webSocket);
         }
 
-        private void add(ref WebSocket socket)
+        private void add(WebSocket socket)
         {
             clients.Add(socket);
         }
 
-        private void delete(ref WebSocket socket)
+        private void delete(WebSocket socket)
         {
             clients.Remove(socket);
         }

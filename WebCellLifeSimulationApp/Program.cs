@@ -14,12 +14,12 @@ namespace WebCellLifeSimulationApp
     public class Program
     {
         public static SimDrawController simulation;
-        public static SocketContainer WSC;
+        public static SocketProcessor backgroundSocketProcessor;
 
         public static void Main(string[] args)
         {
             simulation = new SimDrawController();
-            WSC = new SocketContainer();
+            backgroundSocketProcessor = new SocketProcessor();
             setupSimulation();
             CreateHostBuilder(args).Build().Run();
         }
