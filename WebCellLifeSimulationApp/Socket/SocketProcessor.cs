@@ -30,11 +30,11 @@ namespace WebCellLifeSimulationApp
 
         public async void AddSocket(WebSocket webSocket, TaskCompletionSource<object> socketFinishedTcs)
         {
-            add(webSocket);
+            clients.Add(webSocket);
 
             await processSocketConnection(webSocket);
 
-            delete(webSocket);
+            clients.Remove(webSocket);
 
             socketFinishedTcs.TrySetResult(null);
         }
@@ -48,16 +48,6 @@ namespace WebCellLifeSimulationApp
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
-        }
-
-        private void add(WebSocket socket)
-        {
-            clients.Add(socket);
-        }
-
-        private void delete(WebSocket socket)
-        {
-            clients.Remove(socket);
         }
 
         private void handleSimulationUpdate(DrawEntity[] entities)
