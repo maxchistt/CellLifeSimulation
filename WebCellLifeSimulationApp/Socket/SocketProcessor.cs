@@ -68,7 +68,7 @@ namespace WebCellLifeSimulationApp
             WebSocketMessageType mestype = WebSocketMessageType.Text;
             bool end = true;
             CancellationToken token = CancellationToken.None;
-            foreach (WebSocket socket in clients)
+            foreach (WebSocket socket in clients.ToArray())
             {
                 socket.SendAsync(buf, mestype, end, token);
             }
