@@ -31,13 +31,13 @@
 <div class="container row mb-3 mx-0">
 
   <div class="col-12 col-md-6" [ngClass]="{'collapse': collapse ||frame.length<=0}" style="height: max-content;">
-    <div class="m-2" style="position: relative;" >
+    <div class="m-2" style="position: relative;">
       <button (click)="collapse=!collapse" class="btn btn-light px-2 m-1 py-0"
         style="z-index: 7; position: absolute;right: 2em;background: transparent;border: transparent;outline: none; top: 1em;">x</button>
       <canvas class="w-100" #myCanvas></canvas>
     </div>
   </div>
-  
+
   <div class="col" style="position: relative;">
 
     <p class="m-2">Width: {{this.size[0]}} Height: {{this.size[1]}} Amount: {{this.frame.length}}</p>
@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="m-2 mt-3" style="height:50vmin;max-height:30vmax;overflow-y: auto;">
+    <div class="m-2 mt-3" id="cellsTable" style="overflow-y: auto;">
       <table class="table" style="height: max-content;">
         <thead>
           <tr>
@@ -81,4 +81,3 @@
   </div>
 
 </div>
-

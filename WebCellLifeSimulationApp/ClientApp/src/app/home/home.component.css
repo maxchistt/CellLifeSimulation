@@ -1,0 +1,11 @@
+#cellsTable {
+  height: 20vh;
+  min-height: calc(100% - 130px);
+}
+
+@media screen and (max-width: 767px) {
+  #cellsTable {
+    height: calc(50vh - 130px);
+    min-height: 15em;
+  }
+}
