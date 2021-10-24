@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IDrawEntity } from '../interfaces/draw-interfaces';
+import { IDrawEntity } from '../interfaces/draw.model';
 import { DataService } from '../services/data.service';
 
 @Component({

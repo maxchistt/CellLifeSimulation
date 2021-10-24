@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, Output, Input, EventEmitter } from '@angular/core';
 import { element } from 'protractor';
-import { IDrawEntity } from '../../../interfaces/draw-interfaces';
+import { IDrawEntity } from '../../../interfaces/draw.model';
 
 @Component({
   selector: 'app-canvas',

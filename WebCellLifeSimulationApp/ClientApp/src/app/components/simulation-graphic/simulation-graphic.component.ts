@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IDrawEntity } from '../../interfaces/draw-interfaces';
+import { IDrawEntity } from '../../interfaces/draw.model';
 
 @Component({
   selector: 'app-simulation-graphic',

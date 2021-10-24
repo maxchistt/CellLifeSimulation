@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IDrawEntity, IFrameContainer } from '../interfaces/draw-interfaces';
-import { ISocketMessage } from '../interfaces/socket-interfaces';
+import { IDrawEntity, IFrameContainer } from '../interfaces/draw.model';
+import { ISocketMessage } from '../interfaces/socket.model';
 
 @Injectable({
   providedIn: 'root'
