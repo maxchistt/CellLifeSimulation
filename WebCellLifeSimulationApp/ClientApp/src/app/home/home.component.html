@@ -38,7 +38,7 @@
   </div>
 
   <div class="col" style="position: relative;">
-    <app-datatable [frame]="frame" [size]="size"></app-datatable>
+    <app-datatable [notSizedDiagram]="collapse || frame.length<=0" [frame]="frame" [size]="size"></app-datatable>
   </div>
 
 </div>

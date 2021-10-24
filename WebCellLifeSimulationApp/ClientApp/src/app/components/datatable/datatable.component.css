@@ -9,3 +9,8 @@
     min-height: 15em;
   }
 }
+
+#cellsTable.notSized {
+  height: calc(70vh - 130px);
+  min-height: 15em;
+}

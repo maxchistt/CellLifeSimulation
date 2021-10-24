@@ -7,6 +7,7 @@ import { IDrawEntity } from '../../interfaces/draw-interfaces';
   styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent {
+  @Input() notSizedDiagram: boolean = false;
   @Input() size: number[] = [0, 0];
   @Input()
   set frame(frame: IDrawEntity[]) { this._frame = frame; this.calccolors(); }
