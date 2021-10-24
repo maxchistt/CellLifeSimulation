@@ -13,6 +13,10 @@ export class SimulationGraphicComponent {
   _frame: IDrawEntity[] = [];
   ctx: CanvasRenderingContext2D;
 
+  protected setCtx(ctx: CanvasRenderingContext2D) {
+    this.ctx = ctx;
+  }
+
   redraw() {
     if (this.ctx) {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
@@ -27,5 +31,4 @@ export class SimulationGraphicComponent {
     this.ctx.arc(x, y, size / 2, 0, 2 * Math.PI, true);
     this.ctx.fill();
   }
-
 }
