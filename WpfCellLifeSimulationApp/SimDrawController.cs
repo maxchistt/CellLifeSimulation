@@ -13,7 +13,7 @@ using SimulationModelCLR;
 
 namespace WpfCellLifeSimulationApp
 {
-    public class DTimer : DispatcherTimer
+    class DTimer : DispatcherTimer
     {
         public DTimer()
         {
@@ -41,8 +41,8 @@ namespace WpfCellLifeSimulationApp
         private DrawEntity[] frame;
         private Canvas view;
 
-        private DTimer d_timer;
-        private Timer sim_timer;
+        private DTimer dispatch_timer;
+        private Timer simulation_timer;
 
         public SimDrawController(Canvas image)
         {
@@ -50,11 +50,11 @@ namespace WpfCellLifeSimulationApp
             simulation = new SimulationCLR();
             view = image;
             simulation.setSize((int)view.Width, (int)view.Height);
-            d_timer = new DTimer();
-            d_timer.addHandler(onDTimerTick);
-            sim_timer = new Timer();
-            sim_timer.Elapsed += nextFrameTimerHandler;
-            setDTimer(30);
+            dispatch_timer = new DTimer();
+            dispatch_timer.addHandler(onDispatchTimerTick);
+            simulation_timer = new Timer();
+            simulation_timer.Elapsed += nextFrameTimerHandler;
+            setDispatchTimerInterval(30);
             setTimeSettings(30, 30);
         }
         ~SimDrawController()
@@ -64,24 +64,24 @@ namespace WpfCellLifeSimulationApp
 
         public void start()
         {
-            d_timer.Start();
-            sim_timer.Start();
+            dispatch_timer.Start();
+            simulation_timer.Start();
         }
         public void stop()
         {
-            sim_timer.Stop();
-            d_timer.Stop();
+            simulation_timer.Stop();
+            dispatch_timer.Stop();
         }
 
         public void setTimeSettings(float simulation_timelapse, int timer_interval)
         {
-            sim_timer.Interval = timer_interval > 0 ? timer_interval : 100;
+            simulation_timer.Interval = timer_interval > 0 ? timer_interval : 100;
             simulation.setTimelapse(simulation_timelapse);
         }
 
-        public void setDTimer(int timer_interval)
+        public void setDispatchTimerInterval(int timer_interval)
         {
-            d_timer.setInterval(timer_interval > 0 ? timer_interval : 100);
+            dispatch_timer.setInterval(timer_interval > 0 ? timer_interval : 100);
         }
 
         private void nextFrameTimerHandler(Object source, ElapsedEventArgs e)
@@ -89,7 +89,7 @@ namespace WpfCellLifeSimulationApp
             frame = simulation.getNextFrame();
         }
 
-        private void onDTimerTick()
+        private void onDispatchTimerTick()
         {
             view.Children.Clear();
             foreach (var item in this.frame)
