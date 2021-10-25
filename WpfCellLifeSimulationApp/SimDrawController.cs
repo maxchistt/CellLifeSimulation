@@ -62,6 +62,11 @@ namespace WpfCellLifeSimulationApp
             stop();
         }
 
+        public bool isrunning()
+        {
+            return simulation_timer.Enabled;
+        }
+
         public void start()
         {
             dispatch_timer.Start();
