@@ -12,8 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
+
 using SimulationModelCLR;
 
 namespace WpfCellLifeSimulationApp
@@ -24,13 +23,17 @@ namespace WpfCellLifeSimulationApp
     public partial class MainWindow : Window
     {
         SimDrawController simulation;
+        LinegraphicWindow graph;
         public MainWindow()
         {
             InitializeComponent();
-            simulation = new(this.SimView);
+            graph = new();
+
+            simulation = new(this.SimView, graph);
             simulation.setDispatchTimerInterval(100);
             simulation.setTimeSettings(30, 50);
             simulation.setCellsReproductionLimit(300);
+            graph.Show();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

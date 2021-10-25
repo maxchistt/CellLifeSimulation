@@ -40,15 +40,17 @@ namespace WpfCellLifeSimulationApp
         private SimulationCLR simulation;
         private DrawEntity[] frame;
         private Canvas view;
+        private LinegraphicWindow graphic;
 
         private DTimer dispatch_timer;
         private Timer simulation_timer;
 
-        public SimDrawController(Canvas image)
+        public SimDrawController(Canvas image, LinegraphicWindow graph)
         {
             frame = Array.Empty<DrawEntity>();
             simulation = new SimulationCLR();
             view = image;
+            graphic = graph;
             simulation.setSize((int)view.Width, (int)view.Height);
             dispatch_timer = new DTimer();
             dispatch_timer.addHandler(onDispatchTimerTick);
@@ -84,7 +86,7 @@ namespace WpfCellLifeSimulationApp
             simulation.setTimelapse(simulation_timelapse);
         }
 
-        public async void setDispatchTimerInterval(int timer_interval)
+        public void setDispatchTimerInterval(int timer_interval)
         {
             dispatch_timer.setInterval(timer_interval > 0 ? timer_interval : 100);
         }
@@ -96,6 +98,8 @@ namespace WpfCellLifeSimulationApp
 
         private void onDispatchTimerTick()
         {
+            var countsarr = new int[3] { 0, 0, 0 };
+
             view.Children.Clear();
             foreach (var item in this.frame)
             {
@@ -107,15 +111,22 @@ namespace WpfCellLifeSimulationApp
                 el.Margin = new Thickness(x, y, 0, 0);
                 try
                 {
-                    el.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(item.color.Name));
+                    Color color = (Color)ColorConverter.ConvertFromString(item.color.Name);
+                    
+                    if (color == Colors.Green) { countsarr[0]++; color = (Color)ColorConverter.ConvertFromString("SeaGreen"); }
+                    else if (color == Colors.Blue) { countsarr[1]++; color = (Color)ColorConverter.ConvertFromString("#FF1295D3"); }
+                    else if (color == Colors.Red) { countsarr[2]++; }
+
+                    el.Fill = new SolidColorBrush(color);
                 }
                 catch (Exception err)
                 {
                     el.Fill = Brushes.Black;
                 }
-                
+
                 view.Children.Add(el);
             }
+            graphic.draw(countsarr);
         }
     };
 
