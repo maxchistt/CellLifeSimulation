@@ -51,9 +51,14 @@ namespace WpfCellLifeSimulationApp
             this.Close();
         }
 
+        private void onClear(object sender, RoutedEventArgs e)
+        {
+            simulation.clearCells();
+        }
+
         private void onGenerateCells(object sender, RoutedEventArgs e)
         {
-            simulation.generateCells(30);
+            simulation.generateCells(7);
             simulation.start();
             PlayPause.Content = "=";
         }

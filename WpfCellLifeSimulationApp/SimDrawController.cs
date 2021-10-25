@@ -15,7 +15,7 @@ namespace WpfCellLifeSimulationApp
 {
     class DTimer : DispatcherTimer
     {
-        public DTimer()
+        public DTimer() : base(System.Windows.Threading.DispatcherPriority.Normal)
         {
             setInterval(50);
             Stop();
@@ -112,7 +112,7 @@ namespace WpfCellLifeSimulationApp
                 try
                 {
                     Color color = (Color)ColorConverter.ConvertFromString(item.color.Name);
-                    
+
                     if (color == Colors.Green) { countsarr[0]++; color = (Color)ColorConverter.ConvertFromString("SeaGreen"); }
                     else if (color == Colors.Blue) { countsarr[1]++; color = (Color)ColorConverter.ConvertFromString("#FF1295D3"); }
                     else if (color == Colors.Red) { countsarr[2]++; }

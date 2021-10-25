@@ -31,15 +31,16 @@
         <DockPanel >
             <Grid DockPanel.Dock="Top" Height="45" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="16*"/>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="16*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="29*"/>
+                    <ColumnDefinition Width="117*"/>
+                    <ColumnDefinition Width="546*"/>
+                    <ColumnDefinition Width="91*"/>
+                    <ColumnDefinition Width="17*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="1" Margin="0,0,16,0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
@@ -50,7 +51,7 @@
                     Padding="0"
                     Style="{StaticResource MaterialDesignFlatAccentButton}"
                     VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" 
-                    Content=">" Click="onPlayPause"/>
+                    Content=">" Click="onPlayPause" FontWeight="Bold" Cursor="Hand"/>
 
                     <Button x:Name="GenerateCells"
                     Grid.Column="1"
@@ -59,6 +60,14 @@
                     Style="{StaticResource MaterialDesignFlatAccentButton}"
                     VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="33"   
                     Content="+" Click="onGenerateCells" Cursor="Hand"   />
+
+                    <Button x:Name="ClearCells"
+                    Grid.Column="2"
+                    mat:ButtonAssist.CornerRadius="6"
+                    Padding="0"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"
+                    VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="33"   
+                    Content="-" Click="onClear" Cursor="Hand" FontSize="16" FontWeight="Bold"   />
                 </Grid>
 
                 <Grid Grid.Column="3" Margin="16,0,0,0">
