@@ -33,32 +33,36 @@
             <Grid DockPanel.Dock="Top" Height="45" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="16*"/>
                     <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="20*"/>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="16*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1" Margin="0,0,16,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="11*"/>
-                        <ColumnDefinition Width="11*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="PlayPause" 
                     Grid.Column="0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    mat:ButtonAssist.CornerRadius="6"
+                    Padding="0"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"
                     VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" 
                     Content=">" Click="onPlayPause"/>
 
-                    <Button x:Name="GenerateCells" 
+                    <Button x:Name="GenerateCells"
                     Grid.Column="1"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
-                    VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30"   
-                    Content="+" Click="onGenerateCells" />
+                    mat:ButtonAssist.CornerRadius="6"
+                    Padding="0"
+                    Style="{StaticResource MaterialDesignFlatAccentButton}"
+                    VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="33"   
+                    Content="+" Click="onGenerateCells" Cursor="Hand"   />
                 </Grid>
 
-                <Grid Grid.Column="3">
+                <Grid Grid.Column="3" Margin="16,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
                         <ColumnDefinition Width="10*"/>
@@ -66,13 +70,13 @@
 
                     <Button x:Name="Hide" 
                     Grid.Column="0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    Style="{StaticResource MaterialDesignToolButton}" 
                     VerticalAlignment="Center" HorizontalAlignment="Right" Height="30" Width="30" FontSize="20" FontWeight="Bold" 
                     Content="-" Click="onHide"/>
 
                     <Button x:Name="Close" 
                     Grid.Column="1"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    Style="{StaticResource MaterialDesignToolButton}" 
                     VerticalAlignment="Center" HorizontalAlignment="Right" Height="30" Width="30"   
                     Content="x" Click="onClose" />
                 </Grid>

@@ -28,8 +28,8 @@ namespace WpfCellLifeSimulationApp
         {
             InitializeComponent();
             simulation = new(this.SimView);
-            simulation.setDispatchTimerInterval(20);
-            simulation.setTimeSettings(30, 30);
+            simulation.setDispatchTimerInterval(100);
+            simulation.setTimeSettings(30, 50);
             simulation.setCellsReproductionLimit(300);
         }
 
@@ -51,6 +51,8 @@ namespace WpfCellLifeSimulationApp
         private void onGenerateCells(object sender, RoutedEventArgs e)
         {
             simulation.generateCells(30);
+            simulation.start();
+            PlayPause.Content = "=";
         }
 
         private void onPlayPause(object sender, RoutedEventArgs e)

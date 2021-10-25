@@ -17,13 +17,13 @@ namespace WpfCellLifeSimulationApp
     {
         public DTimer()
         {
-            Interval = new TimeSpan(0, 0, 0, 0, 100);
+            setInterval(50);
             Stop();
         }
 
         public void setInterval(int ms)
         {
-            Interval = new TimeSpan(0, 0, 0, 0, ms);
+            Interval = TimeSpan.FromMilliseconds(ms);
         }
 
         public void addHandler(Action handler)
@@ -84,7 +84,7 @@ namespace WpfCellLifeSimulationApp
             simulation.setTimelapse(simulation_timelapse);
         }
 
-        public void setDispatchTimerInterval(int timer_interval)
+        public async void setDispatchTimerInterval(int timer_interval)
         {
             dispatch_timer.setInterval(timer_interval > 0 ? timer_interval : 100);
         }
