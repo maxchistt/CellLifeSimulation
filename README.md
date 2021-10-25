@@ -17,6 +17,6 @@ Thats six projects here :
 
 ![image.png](https://i.postimg.cc/4428WPvN/image.png)
 
-![image.png](https://i.postimg.cc/gkmwgsyj/image.png)
+![image.png](https://i.postimg.cc/kX5W4QL5/image.png)
 
 Inspired by [OnigiriScience](https://www.youtube.com/c/OnigiriScience)
