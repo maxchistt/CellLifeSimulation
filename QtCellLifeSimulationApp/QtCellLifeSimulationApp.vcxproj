@@ -95,6 +95,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SimulationController.cpp" />
+    <ClCompile Include="SimulationView.cpp" />
     <QtRcc Include="QtCellLifeSimulationApp.qrc" />
     <QtUic Include="QtCellLifeSimulationApp.ui" />
     <QtMoc Include="QtCellLifeSimulationApp.h" />
@@ -105,6 +107,12 @@
     <ProjectReference Include="..\CellLifeSimulationModel\CellLifeSimulationModel.vcxproj">
       <Project>{7a01aebd-767d-4d71-a500-3aefee76d1b7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="SimulationView.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="SimulationController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
