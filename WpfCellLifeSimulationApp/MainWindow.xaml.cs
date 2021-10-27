@@ -29,8 +29,7 @@ namespace WpfCellLifeSimulationApp
             InitializeComponent();
             simulation = new();
             simulation.setImage(SimView);
-            simulation.setDispatchTimerInterval(30);
-            simulation.setTimeSettings(30, 30);
+            simulation.setTimeSettings(30, 30, 30);
             simulation.setCellsReproductionLimit(300);
         }
 

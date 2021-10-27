@@ -58,9 +58,8 @@ namespace WpfCellLifeSimulationApp
             dispatch_timer_chart = new DTimer(System.Windows.Threading.DispatcherPriority.SystemIdle);
             dispatch_timer_chart.addHandler(onDispatchTimerChartTick);
             simulation_timer = new Timer();
-            simulation_timer.Elapsed += nextFrameTimerHandler;
-            setDispatchTimerInterval(30);
-            setTimeSettings(30, 30);
+            simulation_timer.Elapsed += onNextFrameTimerTick;
+            setTimeSettings(30, 30, 30);
 
             brushes = new Brush[3] {
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString("SeaGreen")),
@@ -109,31 +108,53 @@ namespace WpfCellLifeSimulationApp
             dispatch_timer_image.Stop();
         }
 
-        public void setTimeSettings(float simulation_timelapse, int timer_interval)
+        public void setTimeSettings(float simulation_timelapse, int timer_interval, int dispatch_timer_interval)
         {
             simulation_timer.Interval = timer_interval > 0 ? timer_interval : 100;
             simulation.setTimelapse(simulation_timelapse);
+            dispatch_timer_chart.setInterval(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
+            dispatch_timer_image.setInterval(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
         }
 
-        public void setDispatchTimerInterval(int timer_interval)
-        {
-            dispatch_timer_chart.setInterval(timer_interval > 0 ? timer_interval : 100);
-            dispatch_timer_image.setInterval(timer_interval > 0 ? timer_interval : 100);
-        }
-
-        private void nextFrameTimerHandler(Object source, ElapsedEventArgs e)
+        private void onNextFrameTimerTick(Object source, ElapsedEventArgs e)
         {
             frame = simulation.getNextFrame();
         }
 
         private void onDispatchTimerImageTick()
         {
-            if(view!=null)redrawImage();
+            if (view != null)
+            {
+                view.Visibility = Visibility.Hidden;
+                view.Children.Clear();
+                foreach (var item in this.frame)
+                {
+                    Ellipse el = new Ellipse();
+                    el.Width = item.size;
+                    el.Height = item.size;
+                    double x = item.x - el.Width / 2;
+                    double y = item.y - el.Height / 2;
+                    el.Margin = new Thickness(x, y, 0, 0);
+                    el.Fill = brushes[getColorId(item.color.Name)];
+                    view.Children.Add(el);
+                }
+                view.Visibility = Visibility.Visible;
+            };
         }
 
         private void onDispatchTimerChartTick()
         {
-            if (graphic != null) updateChart();
+            if (graphic != null)
+            {
+                graphic.chart.Visibility = Visibility.Hidden;
+                var values = new int[3] { 0, 0, 0 };
+                foreach (var item in this.frame)
+                {
+                    values[getColorId(item.color.Name)]++;
+                }
+                graphic.addValues(values);
+                graphic.chart.Visibility = Visibility.Visible;
+            };
         }
 
         private int getColorId(String colorname)
@@ -147,35 +168,6 @@ namespace WpfCellLifeSimulationApp
             };
         }
 
-        private void updateChart()
-        {
-            graphic.chart.Visibility = Visibility.Hidden;
-            var values = new int[3] { 0, 0, 0 };
-            foreach (var item in this.frame)
-            {
-                values[getColorId(item.color.Name)]++;
-            }
-            graphic.addValues(values);
-            graphic.chart.Visibility = Visibility.Visible;
-        }
-
-        private void redrawImage()
-        {
-            view.Visibility = Visibility.Hidden;
-            view.Children.Clear();
-            foreach (var item in this.frame)
-            {
-                Ellipse el = new Ellipse();
-                el.Width = item.size;
-                el.Height = item.size;
-                double x = item.x - el.Width / 2;
-                double y = item.y - el.Height / 2;
-                el.Margin = new Thickness(x, y, 0, 0);
-                el.Fill = brushes[getColorId(item.color.Name)];
-                view.Children.Add(el);
-            }
-            view.Visibility = Visibility.Visible;
-        }
     };
 
     public partial class SimDrawController
