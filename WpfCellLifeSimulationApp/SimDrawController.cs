@@ -15,7 +15,7 @@ namespace WpfCellLifeSimulationApp
 {
     class DTimer : DispatcherTimer
     {
-        public DTimer() : base(System.Windows.Threading.DispatcherPriority.Normal)
+        public DTimer(DispatcherPriority priority) : base(priority)
         {
             setInterval(50);
             Stop();
@@ -39,29 +39,56 @@ namespace WpfCellLifeSimulationApp
     {
         private SimulationCLR simulation;
         private DrawEntity[] frame;
-        private Canvas view;
-        private LinegraphicWindow graphic;
+        private Canvas view = null;
+        private LinegraphicWindow graphic = null;
 
-        private DTimer dispatch_timer;
+        private DTimer dispatch_timer_image;
+        private DTimer dispatch_timer_chart;
         private Timer simulation_timer;
 
-        public SimDrawController(Canvas image, LinegraphicWindow graph)
+        Brush[] brushes;
+
+        public SimDrawController()
         {
             frame = Array.Empty<DrawEntity>();
             simulation = new SimulationCLR();
-            view = image;
-            graphic = graph;
-            simulation.setSize((int)view.Width, (int)view.Height);
-            dispatch_timer = new DTimer();
-            dispatch_timer.addHandler(onDispatchTimerTick);
+
+            dispatch_timer_image = new DTimer(System.Windows.Threading.DispatcherPriority.Normal);
+            dispatch_timer_image.addHandler(onDispatchTimerImageTick);
+            dispatch_timer_chart = new DTimer(System.Windows.Threading.DispatcherPriority.SystemIdle);
+            dispatch_timer_chart.addHandler(onDispatchTimerChartTick);
             simulation_timer = new Timer();
             simulation_timer.Elapsed += nextFrameTimerHandler;
             setDispatchTimerInterval(30);
             setTimeSettings(30, 30);
+
+            brushes = new Brush[3] {
+                new SolidColorBrush((Color)ColorConverter.ConvertFromString("SeaGreen")),
+                new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1295D3")),
+                new SolidColorBrush((Color)ColorConverter.ConvertFromString("Red"))
+            };
         }
+
+        public SimDrawController(Canvas canvas, LinegraphicWindow graphic) : this()
+        {
+            setImage(canvas);
+            setGraph(graphic);
+        }
+
         ~SimDrawController()
         {
             stop();
+        }
+
+        public void setImage(Canvas image)
+        {
+            view = image;
+            simulation.setSize((int)view.Width, (int)view.Height);
+        }
+
+        public void setGraph(LinegraphicWindow graphic)
+        {
+            this.graphic = graphic;
         }
 
         public bool isrunning()
@@ -71,13 +98,15 @@ namespace WpfCellLifeSimulationApp
 
         public void start()
         {
-            dispatch_timer.Start();
+            dispatch_timer_image.Start();
+            dispatch_timer_chart.Start();
             simulation_timer.Start();
         }
         public void stop()
         {
             simulation_timer.Stop();
-            dispatch_timer.Stop();
+            dispatch_timer_chart.Stop();
+            dispatch_timer_image.Stop();
         }
 
         public void setTimeSettings(float simulation_timelapse, int timer_interval)
@@ -88,7 +117,8 @@ namespace WpfCellLifeSimulationApp
 
         public void setDispatchTimerInterval(int timer_interval)
         {
-            dispatch_timer.setInterval(timer_interval > 0 ? timer_interval : 100);
+            dispatch_timer_chart.setInterval(timer_interval > 0 ? timer_interval : 100);
+            dispatch_timer_image.setInterval(timer_interval > 0 ? timer_interval : 100);
         }
 
         private void nextFrameTimerHandler(Object source, ElapsedEventArgs e)
@@ -96,10 +126,42 @@ namespace WpfCellLifeSimulationApp
             frame = simulation.getNextFrame();
         }
 
-        private void onDispatchTimerTick()
+        private void onDispatchTimerImageTick()
         {
-            var countsarr = new int[3] { 0, 0, 0 };
+            if(view!=null)redrawImage();
+        }
 
+        private void onDispatchTimerChartTick()
+        {
+            if (graphic != null) updateChart();
+        }
+
+        private int getColorId(String colorname)
+        {
+            return colorname switch
+            {
+                "Green" => 0,
+                "Blue" => 1,
+                "Red" => 2,
+                _ => throw new ArgumentException("Недопустимый код операции")
+            };
+        }
+
+        private void updateChart()
+        {
+            graphic.chart.Visibility = Visibility.Hidden;
+            var values = new int[3] { 0, 0, 0 };
+            foreach (var item in this.frame)
+            {
+                values[getColorId(item.color.Name)]++;
+            }
+            graphic.addValues(values);
+            graphic.chart.Visibility = Visibility.Visible;
+        }
+
+        private void redrawImage()
+        {
+            view.Visibility = Visibility.Hidden;
             view.Children.Clear();
             foreach (var item in this.frame)
             {
@@ -109,24 +171,10 @@ namespace WpfCellLifeSimulationApp
                 double x = item.x - el.Width / 2;
                 double y = item.y - el.Height / 2;
                 el.Margin = new Thickness(x, y, 0, 0);
-                try
-                {
-                    Color color = (Color)ColorConverter.ConvertFromString(item.color.Name);
-
-                    if (color == Colors.Green) { countsarr[0]++; color = (Color)ColorConverter.ConvertFromString("SeaGreen"); }
-                    else if (color == Colors.Blue) { countsarr[1]++; color = (Color)ColorConverter.ConvertFromString("#FF1295D3"); }
-                    else if (color == Colors.Red) { countsarr[2]++; }
-
-                    el.Fill = new SolidColorBrush(color);
-                }
-                catch (Exception err)
-                {
-                    el.Fill = Brushes.Black;
-                }
-
+                el.Fill = brushes[getColorId(item.color.Name)];
                 view.Children.Add(el);
             }
-            graphic.draw(countsarr);
+            view.Visibility = Visibility.Visible;
         }
     };
 

@@ -23,22 +23,27 @@ namespace WpfCellLifeSimulationApp
     public partial class MainWindow : Window
     {
         SimDrawController simulation;
-        LinegraphicWindow graph;
+        LinegraphicWindow graph = null;
         public MainWindow()
         {
             InitializeComponent();
-            graph = new();
-
-            simulation = new(this.SimView, graph);
-            simulation.setDispatchTimerInterval(100);
-            simulation.setTimeSettings(30, 50);
+            simulation = new();
+            simulation.setImage(SimView);
+            simulation.setDispatchTimerInterval(30);
+            simulation.setTimeSettings(30, 30);
             simulation.setCellsReproductionLimit(300);
-            graph.Show();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void onShowGraph(object sender, RoutedEventArgs e)
+        {
+            graph = new();
+            simulation.setGraph(graph);
+            graph.Show();
         }
 
         private void onHide(object sender, RoutedEventArgs e)
@@ -49,6 +54,7 @@ namespace WpfCellLifeSimulationApp
         private void onClose(object sender, RoutedEventArgs e)
         {
             this.Close();
+            if (graph != null) graph.Close();
         }
 
         private void onClear(object sender, RoutedEventArgs e)
