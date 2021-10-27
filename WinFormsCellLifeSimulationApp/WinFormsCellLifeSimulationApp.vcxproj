@@ -135,6 +135,7 @@
     <ClInclude Include="CLSAppForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SimDrawController.h" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,12 @@
     <ProjectReference Include="..\CellLifeSimulationModel\CellLifeSimulationModel.vcxproj">
       <Project>{7a01aebd-767d-4d71-a500-3aefee76d1b7}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WinFormsCellLifeSimulationApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bacteria.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
