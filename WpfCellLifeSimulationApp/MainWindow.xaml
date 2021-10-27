@@ -14,22 +14,18 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="CellLifeSimulation" Height="600" Width="800"
-        AllowsTransparency="True" WindowStyle="None"
+        MinWidth="300" MinHeight="90"
+        AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResizeWithGrip"
         >
     <Window.Background>
-        <SolidColorBrush Opacity="0" Color="#FF39BDBF"/>
+        <SolidColorBrush Opacity="0"/>
     </Window.Background>
-    <Border CornerRadius="22">
-
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Teal" Offset="0.075"/>
-                <GradientStop Color="#F2F5F5F5"  Offset="0.075"/>
-            </LinearGradientBrush>
-        </Border.Background>
-
-        <DockPanel >
-            <Grid DockPanel.Dock="Top" Height="45" VerticalAlignment="Center">
+    <DockPanel >
+        <Border CornerRadius="20,20,0,0" DockPanel.Dock="Top" >
+            <Border.Background>
+                <SolidColorBrush Color="Teal"/>
+            </Border.Background>
+            <Grid Height="45" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="29"/>
                     <ColumnDefinition Width="117"/>
@@ -98,11 +94,15 @@
 
                 </Grid>
             </Grid>
+        </Border>
 
-            <Grid DockPanel.Dock="Bottom">
-                <Canvas x:Name="SimView" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Width="780" Height="535"/>
+        <Border CornerRadius="0,0,0,20" DockPanel.Dock="Bottom" >
+            <Border.Background>
+                <SolidColorBrush Color="#F2F5F5F5"/>
+            </Border.Background>
+            <Grid>
+                <Canvas x:Name="SimView" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             </Grid>
-        </DockPanel>
-
-    </Border>
+        </Border>
+    </DockPanel>
 </Window>

@@ -15,22 +15,18 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="CellLifeSimulation" Height="289" Width="709"
-        AllowsTransparency="True" WindowStyle="None"
+        MinWidth="300" MinHeight="90"
+        AllowsTransparency="True" WindowStyle="None" ResizeMode="CanResizeWithGrip"
         >
     <Window.Background>
-        <SolidColorBrush Opacity="0" Color="#FF39BDBF"/>
+        <SolidColorBrush Opacity="0"/>
     </Window.Background>
-    <Border CornerRadius="22">
-
-        <Border.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Teal" Offset="0.155"/>
-                <GradientStop Color="#F2F5F5F5"  Offset="0.155"/>
-            </LinearGradientBrush>
-        </Border.Background>
-
-        <DockPanel >
-            <Grid DockPanel.Dock="Top" Height="45" VerticalAlignment="Center">
+    <DockPanel >
+        <Border CornerRadius="20,20,0,0" DockPanel.Dock="Top" >
+            <Border.Background>
+                <SolidColorBrush Color="Teal"/>
+            </Border.Background>
+            <Grid Height="45" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="29"/>
                     <ColumnDefinition Width="117"/>
@@ -38,7 +34,6 @@
                     <ColumnDefinition Width="91"/>
                     <ColumnDefinition Width="17"/>
                 </Grid.ColumnDefinitions>
-
                 <Grid Grid.Column="3" Margin="16,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
@@ -58,8 +53,13 @@
                     Content="x" Click="onClose" />
                 </Grid>
             </Grid>
+        </Border>
 
-            <Grid DockPanel.Dock="Bottom" Margin="10">
+        <Border CornerRadius="0,0,0,20" DockPanel.Dock="Bottom" >
+            <Border.Background>
+                <SolidColorBrush Color="#F2F5F5F5"/>
+            </Border.Background>
+            <Grid Margin="10">
                 <lvc:CartesianChart x:Name="chart" Grid.Column="1" Margin="2,10,2,10" Grid.RowSpan="3">
                     <lvc:CartesianChart.Series>
                         <lvc:LineSeries x:Name="graph_Plant"
@@ -92,7 +92,6 @@
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Grid>
-        </DockPanel>
-
-    </Border>
+        </Border>
+    </DockPanel>
 </Window>

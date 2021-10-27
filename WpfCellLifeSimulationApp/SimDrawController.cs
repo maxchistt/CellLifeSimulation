@@ -57,10 +57,21 @@ namespace WpfCellLifeSimulationApp
             stop();
         }
 
+        public void setSize(int w, int h)
+        {
+            simulation.setSize(w, h);
+        }
+
         public void setImage(Canvas image)
         {
-            view = image;
-            simulation.setSize((int)view.Width, (int)view.Height);
+            if (view != image)
+            {
+                view = image;
+                view.SizeChanged += new SizeChangedEventHandler((object sender, SizeChangedEventArgs e) =>
+                {
+                    setSize((int)e.NewSize.Width, (int)e.NewSize.Height);
+                });
+            }
         }
 
         public void setGraph(LinegraphicWindow graphic)
