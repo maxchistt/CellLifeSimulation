@@ -32,11 +32,11 @@
         <DockPanel >
             <Grid DockPanel.Dock="Top" Height="45" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="16*"/>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="16*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="29"/>
+                    <ColumnDefinition Width="117"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="91"/>
+                    <ColumnDefinition Width="17"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="3" Margin="16,0,0,0">
