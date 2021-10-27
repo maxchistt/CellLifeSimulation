@@ -21,7 +21,7 @@
         <SolidColorBrush Opacity="0"/>
     </Window.Background>
     <DockPanel >
-        <Border CornerRadius="20,20,0,0" DockPanel.Dock="Top" >
+        <Border CornerRadius="5,5,0,0" DockPanel.Dock="Top" >
             <Border.Background>
                 <SolidColorBrush Color="Teal"/>
             </Border.Background>
@@ -96,7 +96,7 @@
             </Grid>
         </Border>
 
-        <Border CornerRadius="0,0,0,20" DockPanel.Dock="Bottom" >
+        <Border CornerRadius="0,0,5,5" DockPanel.Dock="Bottom" >
             <Border.Background>
                 <SolidColorBrush Color="#F2F5F5F5"/>
             </Border.Background>
