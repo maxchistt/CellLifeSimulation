@@ -13,28 +13,6 @@ using SimulationModelCLR;
 
 namespace WpfCellLifeSimulationApp
 {
-    class DTimer : DispatcherTimer
-    {
-        public DTimer(DispatcherPriority priority) : base(priority)
-        {
-            setInterval(50);
-            Stop();
-        }
-
-        public void setInterval(int ms)
-        {
-            Interval = TimeSpan.FromMilliseconds(ms);
-        }
-
-        public void addHandler(Action handler)
-        {
-            Tick += new EventHandler((object sender, EventArgs e) =>
-            {
-                handler();
-            });
-        }
-    }
-
     public partial class SimDrawController
     {
         private SimulationCLR simulation;
@@ -42,30 +20,30 @@ namespace WpfCellLifeSimulationApp
         private Canvas view = null;
         private LinegraphicWindow graphic = null;
 
-        private DTimer dispatch_timer_image;
-        private DTimer dispatch_timer_chart;
+        private DispatcherTimer dispatch_timer_image;
+        private DispatcherTimer dispatch_timer_chart;
         private Timer simulation_timer;
 
-        Brush[] brushes;
+        private Brush[] brushes;
 
         public SimDrawController()
         {
-            frame = Array.Empty<DrawEntity>();
             simulation = new SimulationCLR();
-
-            dispatch_timer_image = new DTimer(System.Windows.Threading.DispatcherPriority.Normal);
-            dispatch_timer_image.addHandler(onDispatchTimerImageTick);
-            dispatch_timer_chart = new DTimer(System.Windows.Threading.DispatcherPriority.SystemIdle);
-            dispatch_timer_chart.addHandler(onDispatchTimerChartTick);
-            simulation_timer = new Timer();
-            simulation_timer.Elapsed += onNextFrameTimerTick;
-            setTimeSettings(30, 30, 30);
-
+            frame = Array.Empty<DrawEntity>();
             brushes = new Brush[3] {
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString("SeaGreen")),
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1295D3")),
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString("Red"))
             };
+
+            dispatch_timer_image = new DispatcherTimer(System.Windows.Threading.DispatcherPriority.Normal);
+            dispatch_timer_image.Tick += new EventHandler(onDispatchTimerImageTick);
+            dispatch_timer_chart = new DispatcherTimer(System.Windows.Threading.DispatcherPriority.SystemIdle);
+            dispatch_timer_chart.Tick += new EventHandler(onDispatchTimerChartTick);
+            simulation_timer = new Timer();
+            simulation_timer.Elapsed += new ElapsedEventHandler(onNextFrameTimerTick);
+            setTimeSettings(30, 30, 30);
+            stop();
         }
 
         public SimDrawController(Canvas canvas, LinegraphicWindow graphic) : this()
@@ -112,8 +90,8 @@ namespace WpfCellLifeSimulationApp
         {
             simulation_timer.Interval = timer_interval > 0 ? timer_interval : 100;
             simulation.setTimelapse(simulation_timelapse);
-            dispatch_timer_chart.setInterval(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
-            dispatch_timer_image.setInterval(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
+            dispatch_timer_chart.Interval = TimeSpan.FromMilliseconds(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
+            dispatch_timer_image.Interval = TimeSpan.FromMilliseconds(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
         }
 
         private void onNextFrameTimerTick(Object source, ElapsedEventArgs e)
@@ -121,7 +99,7 @@ namespace WpfCellLifeSimulationApp
             frame = simulation.getNextFrame();
         }
 
-        private void onDispatchTimerImageTick()
+        private void onDispatchTimerImageTick(object sender, EventArgs e)
         {
             if (view != null)
             {
@@ -142,7 +120,7 @@ namespace WpfCellLifeSimulationApp
             };
         }
 
-        private void onDispatchTimerChartTick()
+        private void onDispatchTimerChartTick(object sender, EventArgs e)
         {
             if (graphic != null)
             {
