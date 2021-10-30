@@ -105,6 +105,13 @@ namespace WpfCellLifeSimulationApp
             dispatch_timer_image.Interval = TimeSpan.FromMilliseconds(dispatch_timer_interval > 0 ? dispatch_timer_interval : 100);
         }
 
+        public void updOneFrame()
+        {
+            if (!simulation_timer.Enabled) onNextFrameTimerTick(null, null);
+            if (!dispatch_timer_image.IsEnabled) onDispatchTimerImageTick(null, null);
+            if (!dispatch_timer_chart.IsEnabled) onNextFrameTimerTick(null, null);
+        }
+
         private void onNextFrameTimerTick(Object source, ElapsedEventArgs e)
         {
             frame = simulation.getNextFrame();

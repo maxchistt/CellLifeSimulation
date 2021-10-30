@@ -59,13 +59,13 @@ namespace WpfCellLifeSimulationApp
         private void onClear(object sender, RoutedEventArgs e)
         {
             simulation.clearCells();
+            simulation.updOneFrame();
         }
 
         private void onGenerateCells(object sender, RoutedEventArgs e)
         {
             simulation.generateCells(7);
-            simulation.start();
-            PlayPause.Content = "=";
+            simulation.updOneFrame();
         }
 
         private void onPlayPause(object sender, RoutedEventArgs e)
