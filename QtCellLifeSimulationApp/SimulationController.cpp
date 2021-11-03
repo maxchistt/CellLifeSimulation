@@ -8,7 +8,7 @@ SimulationController::SimulationController(SimulationModel::Simulation* model, S
 	timer = new QTimer(this);
 	setTimeSettings(30, 30);
 	model->setSize(view->width(), view->height());
-	connect(timer, SIGNAL(timeout()), this, SLOT(drawNextFrame()));
+	connect(timer, &QTimer::timeout, this, &SimulationController::drawNextFrame);
 }
 
 SimulationController::~SimulationController()
