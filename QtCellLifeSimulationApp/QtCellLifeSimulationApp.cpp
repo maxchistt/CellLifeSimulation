@@ -13,14 +13,14 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 {
 	ui.setupUi(this);
 
-	generationSettings = new GenerationSettingsWidget(parent);
-
 	model = new Simulation();
 	view = new SimulationView(this);
 	setCentralWidget(view);
 	controller = new SimulationController(model, view);
 	controller->setTimeSettings(30, 30);
 	setPlayPause(false);
+	generationSettings = new GenerationSettingsWidget(parent);
+	generationSettings->setFactory(model->cellFactory);
 
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &QtCellLifeSimulationApp::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerate);

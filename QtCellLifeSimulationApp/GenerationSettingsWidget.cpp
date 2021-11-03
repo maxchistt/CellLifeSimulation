@@ -1,6 +1,6 @@
 #include "GenerationSettingsWidget.h"
 
-GenerationSettingsWidget::GenerationSettingsWidget(QWidget *parent)
+GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -8,4 +8,9 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget *parent)
 
 GenerationSettingsWidget::~GenerationSettingsWidget()
 {
+}
+
+void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* factory)
+{
+	this->factory = factory;
 }
