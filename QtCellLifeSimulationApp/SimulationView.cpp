@@ -2,13 +2,19 @@
 #include <QGraphicsLineItem>
 #include <QResizeEvent>
 
-SimulationView::SimulationView(QGraphicsView* parent)
+SimulationView::SimulationView(QWidget* parent)
 	: QGraphicsView(parent)
 {
-	view = new QGraphicsView();
-	scene = new QGraphicsScene();
-	scene->setSceneRect(0, 0, view->width(), view->height());
+	scene = new QGraphicsScene(this);
 	setScene(scene);
+	setFrameShape(QFrame::Shape::NoFrame);
+	resize(parent->size());
+}
+
+void SimulationView::setParent(QWidget* parent)
+{
+	resize(parent->size());
+	QGraphicsView::setParent(parent);
 }
 
 void SimulationView::drawCircle(int x, int y, int size, QColor color)

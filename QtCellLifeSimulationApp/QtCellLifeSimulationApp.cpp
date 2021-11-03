@@ -11,7 +11,7 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 	ui.setupUi(this);
 	model = new Simulation();
 
-	view = new SimulationView();
+	view = new SimulationView(this);
 	setCentralWidget(view);
 
 	controller = new SimulationController(model, view);

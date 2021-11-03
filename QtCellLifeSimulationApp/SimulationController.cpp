@@ -2,6 +2,7 @@
 
 SimulationController::SimulationController(SimulationModel::Simulation* model, SimulationView* view)
 {
+	this->setParent(view->parent());
 	this->model = model;
 	this->view = view;
 	timer = new QTimer(this);
