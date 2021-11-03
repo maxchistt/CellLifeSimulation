@@ -9,13 +9,17 @@
 class QtCellLifeSimulationApp : public QMainWindow
 {
 	Q_OBJECT
-
 public:
 	QtCellLifeSimulationApp(QWidget* parent = Q_NULLPTR);
 	~QtCellLifeSimulationApp();
+private:
 	SimulationModel::Simulation* model;
 	SimulationView* view;
 	SimulationController* controller;
-private:
 	Ui::QtCellLifeSimulationAppClass ui;
+	void setPlayPause(bool on);
+private slots:
+	void onPlayPause();
+	void onGenerate();
+	void onClear();
 };

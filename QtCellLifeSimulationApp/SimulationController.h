@@ -21,8 +21,10 @@ public:
 
 	void setTimeSettings(int timer_ms, float sim_timelapse);
 	void start();
+	void stop();
 	void generateCells(int amount);
-
+	bool isPlaying();
+	void drawOneFrameIfInactive();
 private slots:
 	void drawNextFrame();
 };

@@ -59,7 +59,22 @@ void SimulationController::start()
 	timer->start();
 }
 
+void SimulationController::stop()
+{
+	timer->stop();
+}
+
 void SimulationController::generateCells(int amount)
 {
 	model->cellFactory->generateCells(amount);
+}
+
+bool SimulationController::isPlaying()
+{
+	return timer->isActive();
+}
+
+void SimulationController::drawOneFrameIfInactive()
+{
+	if (!timer->isActive()) drawNextFrame();
 }
