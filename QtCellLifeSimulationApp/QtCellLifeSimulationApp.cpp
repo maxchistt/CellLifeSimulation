@@ -56,7 +56,7 @@ void QtCellLifeSimulationApp::setPlayPause(bool on)
 void QtCellLifeSimulationApp::onLimitSettings()
 {
 	bool ok;
-	int val = QInputDialog::getInt(this, tr("Reproduction limit"), tr("Limit"), model->cellsLimit, 1, 3000, 1, &ok);
+	int val = QInputDialog::getInt(this, tr("Limit settings"), tr("Reproduction limit"), model->cellsLimit, 1, 3000, 1, &ok);
 	if (ok) model->cellsLimit = val;
 }
 
