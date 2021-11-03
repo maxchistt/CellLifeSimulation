@@ -33,7 +33,55 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuCells">
+    <property name="title">
+     <string>Simulation</string>
+    </property>
+    <addaction name="actionPlay_Pause"/>
+    <addaction name="actionGenerate"/>
+    <addaction name="actionClear"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionGenerationSettings"/>
+    <addaction name="actionLimitSettings"/>
+    <addaction name="actionTimeSettings"/>
+   </widget>
+   <addaction name="menuCells"/>
+   <addaction name="menuSettings"/>
   </widget>
+  <action name="actionGenerate">
+   <property name="text">
+    <string>Generate</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionGenerationSettings">
+   <property name="text">
+    <string>Generation</string>
+   </property>
+  </action>
+  <action name="actionTimeSettings">
+   <property name="text">
+    <string>Time</string>
+   </property>
+  </action>
+  <action name="actionPlay_Pause">
+   <property name="text">
+    <string>Play/Pause</string>
+   </property>
+  </action>
+  <action name="actionLimitSettings">
+   <property name="text">
+    <string>Limit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
