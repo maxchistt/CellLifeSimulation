@@ -2,4 +2,10 @@
     <qresource prefix="/QtCellLifeSimulationApp">
         <file>bacteria.ico</file>
     </qresource>
+    <qresource prefix="/toolbar">
+        <file>resources/add.png</file>
+        <file>resources/clear.png</file>
+        <file>resources/pause.png</file>
+        <file>resources/play.png</file>
+    </qresource>
 </RCC>

@@ -40,10 +40,12 @@ void QtCellLifeSimulationApp::setPlayPause(bool on)
 	if (on) {
 		controller->start();
 		ui.actionPlay_Pause->setText("Pause");
+		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/pause.png"));
 	}
 	else {
 		controller->stop();
 		ui.actionPlay_Pause->setText("Play");
+		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/play.png"));
 	}
 }
 
