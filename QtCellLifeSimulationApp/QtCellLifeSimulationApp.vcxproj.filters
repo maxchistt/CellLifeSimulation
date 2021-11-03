@@ -49,6 +49,9 @@
     <ClCompile Include="TimeSettingsDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GenerationSettingsWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationView.h">
@@ -58,6 +61,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TimeSettingsDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GenerationSettingsWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -73,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="TimeSettingsDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="GenerationSettingsWidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -95,10 +95,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GenerationSettingsWidget.cpp" />
     <ClCompile Include="SimulationController.cpp" />
     <ClCompile Include="SimulationView.cpp" />
     <ClCompile Include="TimeSettingsDialog.cpp" />
     <QtRcc Include="QtCellLifeSimulationApp.qrc" />
+    <QtUic Include="GenerationSettingsWidget.ui" />
     <QtUic Include="QtCellLifeSimulationApp.ui" />
     <QtMoc Include="QtCellLifeSimulationApp.h" />
     <ClCompile Include="QtCellLifeSimulationApp.cpp" />
@@ -117,6 +119,7 @@
     <QtMoc Include="SimulationController.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="GenerationSettingsWidget.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="TimeSettingsDialog.h" />
   </ItemGroup>

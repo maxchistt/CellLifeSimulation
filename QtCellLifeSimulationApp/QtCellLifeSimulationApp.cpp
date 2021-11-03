@@ -58,6 +58,7 @@ void QtCellLifeSimulationApp::onLimitSettings()
 
 void QtCellLifeSimulationApp::onGenerationSettings()
 {
+	generationSettings.show();
 }
 
 void QtCellLifeSimulationApp::onTimeSettings()

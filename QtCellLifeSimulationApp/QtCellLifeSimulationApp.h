@@ -5,6 +5,7 @@
 #include "SimulationModel.h"
 #include "SimulationView.h"
 #include "SimulationController.h"
+#include "GenerationSettingsWidget.h"
 
 class QtCellLifeSimulationApp : public QMainWindow
 {
@@ -13,6 +14,7 @@ public:
 	QtCellLifeSimulationApp(QWidget* parent = Q_NULLPTR);
 	~QtCellLifeSimulationApp();
 private:
+	GenerationSettingsWidget generationSettings;
 	SimulationModel::Simulation* model;
 	SimulationView* view;
 	SimulationController* controller;
