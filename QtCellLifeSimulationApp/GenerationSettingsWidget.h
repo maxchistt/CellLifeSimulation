@@ -9,7 +9,7 @@ class GenerationSettingsWidget : public QWidget
 	Q_OBJECT
 
 public:
-	GenerationSettingsWidget(QWidget* parent = Q_NULLPTR);
+	GenerationSettingsWidget(QWidget* parent = Q_NULLPTR, SimulationModel::Cells::CellFactory* factory = nullptr);
 	~GenerationSettingsWidget();
 	void setFactory(SimulationModel::Cells::CellFactory* factory);
 
