@@ -7,6 +7,7 @@ SimulationView::SimulationView(QWidget* parent)
 {
 	scene = new QGraphicsScene(this);
 	setScene(scene);
+	setStyleSheet("background-image:url(\":/backgrounds/resources/bg.png\");background-position: center;");
 	setFrameShape(QFrame::Shape::NoFrame);
 	resize(parent->size());
 }

@@ -8,4 +8,7 @@
         <file>resources/pause.png</file>
         <file>resources/play.png</file>
     </qresource>
+    <qresource prefix="/backgrounds">
+        <file>resources/bg.png</file>
+    </qresource>
 </RCC>
