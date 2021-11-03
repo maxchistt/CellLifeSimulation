@@ -54,6 +54,12 @@ void SimulationController::setTimeSettings(int timer_ms, float sim_timelapse)
 	model->setTimelapse(sim_timelapse);
 }
 
+void SimulationController::getTimeSettings(int* timer_ms, float* sim_timelapse)
+{
+	*timer_ms = timer->interval();
+	*sim_timelapse = model->timelapse;
+}
+
 void SimulationController::start()
 {
 	timer->start();

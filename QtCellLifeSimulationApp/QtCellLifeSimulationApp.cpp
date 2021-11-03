@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <QVBoxLayout>
 #include <QInputDialog>
+#include "TimeSettingsDialog.h"
 
 using namespace SimulationModel;
 
@@ -59,6 +60,7 @@ void QtCellLifeSimulationApp::onGenerationSettings()
 
 void QtCellLifeSimulationApp::onTimeSettings()
 {
+	TimeSettingsDialog(this, controller).exec();
 }
 
 void QtCellLifeSimulationApp::onPlayPause() {

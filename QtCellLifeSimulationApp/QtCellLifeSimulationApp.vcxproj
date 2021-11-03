@@ -60,12 +60,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\CellLifeSimulationModel;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\CellLifeSimulationModel;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -97,11 +97,13 @@
   <ItemGroup>
     <ClCompile Include="SimulationController.cpp" />
     <ClCompile Include="SimulationView.cpp" />
+    <ClCompile Include="TimeSettingsDialog.cpp" />
     <QtRcc Include="QtCellLifeSimulationApp.qrc" />
     <QtUic Include="QtCellLifeSimulationApp.ui" />
     <QtMoc Include="QtCellLifeSimulationApp.h" />
     <ClCompile Include="QtCellLifeSimulationApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="TimeSettingsDialog.ui" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CellLifeSimulationModel\CellLifeSimulationModel.vcxproj">
@@ -116,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <QtMoc Include="TimeSettingsDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="QtCellLifeSimulationApp.rc" />

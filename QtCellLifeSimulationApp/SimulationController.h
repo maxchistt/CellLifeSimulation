@@ -20,6 +20,7 @@ public:
 	~SimulationController();
 
 	void setTimeSettings(int timer_ms, float sim_timelapse);
+	void getTimeSettings(int* timer_ms, float* sim_timelapse);
 	void start();
 	void stop();
 	void generateCells(int amount);
