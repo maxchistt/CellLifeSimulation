@@ -22,4 +22,7 @@ private slots:
 	void onPlayPause();
 	void onGenerate();
 	void onClear();
+	void onLimitSettings();
+	void onGenerationSettings();
+	void onTimeSettings();
 };

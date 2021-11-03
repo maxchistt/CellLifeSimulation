@@ -2,6 +2,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QVBoxLayout>
+#include <QInputDialog>
 
 using namespace SimulationModel;
 
@@ -20,6 +21,10 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &QtCellLifeSimulationApp::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerate);
 	connect(ui.actionClear, &QAction::triggered, this, &QtCellLifeSimulationApp::onClear);
+
+	connect(ui.actionLimitSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onLimitSettings);
+	connect(ui.actionGenerationSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerationSettings);
+	connect(ui.actionTimeSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onTimeSettings);
 }
 
 QtCellLifeSimulationApp::~QtCellLifeSimulationApp()
@@ -39,6 +44,21 @@ void QtCellLifeSimulationApp::setPlayPause(bool on)
 		controller->stop();
 		ui.actionPlay_Pause->setText("Play");
 	}
+}
+
+void QtCellLifeSimulationApp::onLimitSettings()
+{
+	bool ok;
+	int val = QInputDialog::getInt(this, tr("Reproduction limit"), tr("Limit"), 300, 1, 3000, 1, &ok);
+	if (ok) model->cellsLimit = val;
+}
+
+void QtCellLifeSimulationApp::onGenerationSettings()
+{
+}
+
+void QtCellLifeSimulationApp::onTimeSettings()
+{
 }
 
 void QtCellLifeSimulationApp::onPlayPause() {
