@@ -61,7 +61,15 @@ int Simulation::cellsCount()
 
 void Simulation::setTimelapse(float val)
 {
-	this->timelapse = val;
+	if (timelapse > 0) {
+		this->timelapse = val;
+	}
+	else if (timelapse < 0) {
+		this->timelapse = -1.0 / val;
+	}
+	else {
+		this->timelapse = TIMELAPSE;
+	}
 }
 
 Simulation::Simulation() {
