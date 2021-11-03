@@ -13,6 +13,8 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 {
 	ui.setupUi(this);
 
+	generationSettings = new GenerationSettingsWidget(parent);
+
 	model = new Simulation();
 	view = new SimulationView(this);
 	setCentralWidget(view);
@@ -31,6 +33,7 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 
 QtCellLifeSimulationApp::~QtCellLifeSimulationApp()
 {
+	delete generationSettings;
 	delete model;
 	delete view;
 	delete controller;
@@ -59,7 +62,7 @@ void QtCellLifeSimulationApp::onLimitSettings()
 
 void QtCellLifeSimulationApp::onGenerationSettings()
 {
-	generationSettings.show();
+	generationSettings->show();
 }
 
 void QtCellLifeSimulationApp::onTimeSettings()
@@ -77,7 +80,7 @@ void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event)
 		event->ignore();
 	}
 	else {
-		generationSettings.close();
+		generationSettings->close();
 		event->accept();
 	}
 }

@@ -15,7 +15,7 @@ public:
 	QtCellLifeSimulationApp(QWidget* parent = Q_NULLPTR);
 	~QtCellLifeSimulationApp();
 private:
-	GenerationSettingsWidget generationSettings;
+	GenerationSettingsWidget* generationSettings;
 	SimulationModel::Simulation* model;
 	SimulationView* view;
 	SimulationController* controller;
