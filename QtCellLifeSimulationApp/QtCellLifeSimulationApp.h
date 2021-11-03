@@ -6,6 +6,7 @@
 #include "SimulationView.h"
 #include "SimulationController.h"
 #include "GenerationSettingsWidget.h"
+#include <QCloseEvent>
 
 class QtCellLifeSimulationApp : public QMainWindow
 {
@@ -27,4 +28,5 @@ private slots:
 	void onLimitSettings();
 	void onGenerationSettings();
 	void onTimeSettings();
+	void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event);
 };

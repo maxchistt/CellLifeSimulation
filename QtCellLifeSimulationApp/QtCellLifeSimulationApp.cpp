@@ -4,6 +4,7 @@
 #include <QVBoxLayout>
 #include <QInputDialog>
 #include "TimeSettingsDialog.h"
+#include <QMessageBox>
 
 using namespace SimulationModel;
 
@@ -64,6 +65,21 @@ void QtCellLifeSimulationApp::onGenerationSettings()
 void QtCellLifeSimulationApp::onTimeSettings()
 {
 	TimeSettingsDialog(this, controller).exec();
+}
+
+void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event)
+{
+	QMessageBox::StandardButton resBtn = QMessageBox::question(this, tr("Close"),
+		tr("Are you sure?\n"),
+		QMessageBox::No | QMessageBox::Yes,
+		QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+		event->ignore();
+	}
+	else {
+		generationSettings.close();
+		event->accept();
+	}
 }
 
 void QtCellLifeSimulationApp::onPlayPause() {
