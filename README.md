@@ -13,10 +13,12 @@ Thats six projects here :
 - WPF C# client
 - Web C# ASP.NET / Angular client
 
-![image.png](https://i.postimg.cc/YCcTkCyb/image.png)
+![WPF](https://i.postimg.cc/YCcTkCyb/image.png)
 
-![image.png](https://i.postimg.cc/4428WPvN/image.png)
+![Qt](https://i.postimg.cc/BnDtbf8b/image.png)
 
-![image.png](https://i.postimg.cc/kX5W4QL5/image.png)
+![ASP.NET](https://i.postimg.cc/kX5W4QL5/image.png)
+
+![WinForms](https://i.postimg.cc/4428WPvN/image.png)
 
 Inspired by [OnigiriScience](https://www.youtube.com/c/OnigiriScience)
