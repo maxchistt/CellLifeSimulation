@@ -26,7 +26,7 @@ namespace SimulationModel {
 			RED, GREEN, BLUE, GRAY, ORANGE, YELLOW, BROWN
 		};
 
-		struct CellOptions {
+		struct CellDNA {
 			float feed_damage = BASIC_FEED_DAMAGE;
 			float max_food = BASIC_MAX_FOOD_AMOUNT;
 			float max_speed = BASIC_MAX_SPEED;
@@ -53,7 +53,7 @@ namespace SimulationModel {
 			Vect2D<float> position{ 0,0 };
 			Vect2D<float> speed{ 0,0 };
 			Vect2D<float> acceleration{ 0,0 };
-			CellOptions options;
+			CellDNA dna_options;
 			Simulation* parentSimulation = nullptr;
 			int nearCellsCounter = 0, nearSameCellsCounter = 0;
 			void generateFood();
@@ -79,7 +79,7 @@ namespace SimulationModel {
 			int getSize();
 			CellColor getColor();
 			void lifeCircle();
-			Cell(Simulation* parentSimulation, CellOptions options);
+			Cell(Simulation* parentSimulation, CellDNA dna_options);
 		};
 	};
 };

@@ -8,14 +8,14 @@ using namespace Structs2D;
 
 Cell::doType Cell::howToDo(Cell* cell_finder, Cell* cell_to_find)
 {
-	auto mycolor = cell_to_find->options.color;
+	auto mycolor = cell_to_find->dna_options.color;
 
-	for (auto color : cell_finder->options.colors_beware)
+	for (auto color : cell_finder->dna_options.colors_beware)
 	{
 		if (color == mycolor)return doType::beware;
 	}
 
-	for (auto color : cell_finder->options.colors_hunt)
+	for (auto color : cell_finder->dna_options.colors_hunt)
 	{
 		if (color == mycolor)return doType::hunt;
 	}
@@ -36,7 +36,7 @@ void Cell::scanClosestCellsOnField()
 		else {
 			Vect2D<float> curDistVect = this->getPosition().getDistanceVect(other_cell->getPosition());
 			double neardistnce = (static_cast<double>(this->getSize()) + static_cast<double>(other_cell->getSize())) / 2.0;
-			if (curDistVect.getAbs() < (neardistnce * this->options.neardistance_calcfactor)) {
+			if (curDistVect.getAbs() < (neardistnce * this->dna_options.neardistance_calcfactor)) {
 				this->nearCellsCounter++;
 				if (this->getColor() == other_cell->getColor())this->nearSameCellsCounter++;
 			};
@@ -62,14 +62,14 @@ void Cell::scanClosestCellsOnField()
 
 void Cell::generateFood()
 {
-	float generatedFood = options.food_generation / (1 + nearCellsCounter * options.foodgen_nearcells_factor);
+	float generatedFood = dna_options.food_generation / (1 + nearCellsCounter * dna_options.foodgen_nearcells_factor);
 	this->food += generatedFood / parentSimulation->timelapse;
 }
 
 void Cell::checkSpeed(Vect2D<float>& speed)
 {
-	if (speed.getAbs() > options.max_speed) {
-		const double ofMax = speed.getAbs() / options.max_speed;
+	if (speed.getAbs() > dna_options.max_speed) {
+		const double ofMax = speed.getAbs() / dna_options.max_speed;
 		speed /= ofMax;
 	}
 }
@@ -101,7 +101,7 @@ void Cell::move()
 	speed_lapsed /= parentSimulation->timelapse;
 	position += speed_lapsed;
 	checkBorder();
-	speed /= 1 + options.stoping_param / parentSimulation->timelapse;
+	speed /= 1 + dna_options.stoping_param / parentSimulation->timelapse;
 }
 
 void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
@@ -112,8 +112,8 @@ void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
 
 void Cell::duplicate()
 {
-	if (isAlive() && food > options.foods_to_duplicate && nearSameCellsCounter < options.dupl_nearsamecells_limit && parentSimulation->cellsCount() < parentSimulation->cellsLimit) {
-		if (rand() % static_cast<int>(100 * parentSimulation->timelapse) < options.dupl_chanse_percent) new Cell(*this);
+	if (isAlive() && food > dna_options.foods_to_duplicate && nearSameCellsCounter < dna_options.dupl_nearsamecells_limit && parentSimulation->cellsCount() < parentSimulation->cellsLimit) {
+		if (rand() % static_cast<int>(100 * parentSimulation->timelapse) < dna_options.dupl_chanse_percent) new Cell(*this);
 	};
 }
 
@@ -141,7 +141,7 @@ void Cell::interactWith(Cell* other, doType how, Vect2D<float> vectorToOther)
 
 void Cell::foodDamage()
 {
-	food -= options.feed_damage / parentSimulation->timelapse;
+	food -= dna_options.feed_damage / parentSimulation->timelapse;
 }
 
 bool Cell::isAlive()
@@ -156,17 +156,17 @@ Vect2D<float> Cell::getPosition()
 
 int Cell::getSearchRadius()
 {
-	return options.detect_radius;
+	return dna_options.detect_radius;
 }
 
 int Cell::getSize()
 {
-	return options.size;
+	return dna_options.size;
 }
 
 CellColor Cell::getColor()
 {
-	return this->options.color;
+	return this->dna_options.color;
 }
 
 void Cell::accelerate()
@@ -185,13 +185,13 @@ void Cell::accelerateByVectTarget(Vect2D<float> vectorToPoint, bool inversion)
 		return;
 	};
 
-	speed_delta /= speed_delta.getAbs() / options.max_speed;
+	speed_delta /= speed_delta.getAbs() / dna_options.max_speed;
 
 	double degree = 2;
 	//double compression_factor = 1;
 	double stretch_factor = 1.2;
 
-	double ratio = 1.0 - (vectorToPoint.getAbs() / this->options.detect_radius);
+	double ratio = 1.0 - (vectorToPoint.getAbs() / this->dna_options.detect_radius);
 
 	ratio = 1.0 + (ratio - 1) / stretch_factor; //stretch
 	ratio = pow(ratio, degree); //power
@@ -232,7 +232,7 @@ Cell::Cell(Simulation* parentSimulation)
 
 Cell::Cell(Cell& parentCell) : Cell(parentCell.parentSimulation)
 {
-	this->options = parentCell.options;
+	this->dna_options = parentCell.dna_options;
 	this->position = parentCell.getPosition();
 	parentCell.food /= 2;
 	this->food = parentCell.food;
@@ -242,9 +242,9 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentSimulation)
 	};
 }
 
-Cell::Cell(Simulation* parentSimulation, CellOptions options) : Cell(parentSimulation)
+Cell::Cell(Simulation* parentSimulation, CellDNA dna_options) : Cell(parentSimulation)
 {
-	this->options = options;
+	this->dna_options = dna_options;
 	this->position = Vect2D<float>{
 	static_cast<float>(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
 	static_cast<float>(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))

@@ -6,8 +6,8 @@ using namespace SimulationModel;
 using namespace Cells;
 using namespace Structs2D;
 
-struct Plant :CellOptions {
-	Plant() {
+struct PlantDNA :CellDNA {
+	PlantDNA() {
 		this->color = CellColor::GREEN;
 		this->max_speed = rand() % 3 + 4;
 		this->colors_beware.push_back(CellColor::BLUE);
@@ -19,8 +19,8 @@ struct Plant :CellOptions {
 	}
 };
 
-struct Planter :CellOptions {
-	Planter() {
+struct PlanterDNA :CellDNA {
+	PlanterDNA() {
 		this->color = CellColor::BLUE;
 		this->colors_beware.push_back(CellColor::RED);
 		this->colors_hunt.push_back(CellColor::GREEN);
@@ -32,8 +32,8 @@ struct Planter :CellOptions {
 	}
 };
 
-struct Hunter :CellOptions {
-	Hunter() {
+struct HunterDNA :CellDNA {
+	HunterDNA() {
 		this->color = CellColor::RED;
 		this->max_speed = rand() % 10 + 30;
 		this->colors_hunt.push_back(CellColor::BLUE);
@@ -53,35 +53,52 @@ void CellFactory::createStartOptions()
 {
 	for (int i = 0; i < 30; i++)
 	{
-		this->addOption(Plant(), generationTypes::Plant);
+		this->addOption(PlantDNA(), basicGenerationTypes::Plant);
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		this->addOption(Planter(), generationTypes::Planter);
+		this->addOption(PlanterDNA(), basicGenerationTypes::Planter);
 	}
 
 	for (int i = 0; i < 2; i++)
 	{
-		this->addOption(Hunter(), generationTypes::Hunter);
+		this->addOption(HunterDNA(), basicGenerationTypes::Hunter);
 	}
 }
 
-void CellFactory::createCell(CellOptions opt)
+void CellFactory::createCell(CellDNA opt)
 {
 	new Cells::Cell(this->simulation, opt);
 }
 
-void CellFactory::addOption(CellOptions option,generationTypes type)
+void CellFactory::addOption(CellDNA option, int typeID)
 {
-	this->options_arr.push_back(generateOption{option,type});
+	this->options_arr.push_back(generateOption{ option,typeID });
+}
+
+void CellFactory::clearOptions()
+{
+	this->options_arr.clear();
+}
+
+std::vector<CellFactory::generateOption> CellFactory::getOptions()
+{
+	return options_arr;
+}
+
+void CellFactory::deleteOption(int index)
+{
+	if (index >= 0 && index < options_arr.size()) {
+		options_arr.erase(options_arr.begin() + index);
+	}
 }
 
 CellFactory::CellFactory(Simulation* sim)
 {
 	this->simulation = sim;
 	this->createStartOptions();
-	generationTypeSetting = generationTypes::Any;
+	generationTypeID_Setting = basicGenerationTypes::Any;
 }
 
 void CellFactory::generateCells()
@@ -92,33 +109,34 @@ void CellFactory::generateCells()
 
 void CellFactory::generateCells(int n)
 {
-	std::vector<CellOptions> cellOptionsArr;
+	std::vector<CellDNA> cellDnaOptionsArr;
+
 	for (auto option : options_arr) {
-		if (generationTypeSetting == generationTypes::Any || option.type == generationTypeSetting)cellOptionsArr.push_back(option.options);
+		if (generationTypeID_Setting == basicGenerationTypes::Any || option.typeID == generationTypeID_Setting) {
+			cellDnaOptionsArr.push_back(option.dna_options);
+		}
 	}
-	if (cellOptionsArr.size() > 0) {
+
+	if (cellDnaOptionsArr.size() > 0) {
 		for (int i = 0; i < n; i++) {
-			int opt_id = rand() % cellOptionsArr.size();
-			createCell(cellOptionsArr[opt_id]);
+			int opt_id = rand() % cellDnaOptionsArr.size();
+			createCell(cellDnaOptionsArr[opt_id]);
 		}
 	}
 }
 
-void CellFactory::setGenerationType(int type)
+void CellFactory::setGenerationType(int typeID)
 {
-	switch (type)
-	{
-	case 1:
-		generationTypeSetting = generationTypes::Plant;
-		break;
-	case 2:
-		generationTypeSetting = generationTypes::Planter;
-		break;
-	case 3:
-		generationTypeSetting = generationTypes::Hunter;
-		break;
-	default:
-		generationTypeSetting = generationTypes::Any;
-		break;
+	bool contains = false;
+
+	for (auto option : options_arr) {
+		if (option.typeID == typeID) contains = true;
+	}
+
+	if (contains) {
+		generationTypeID_Setting = typeID;
+	}
+	else {
+		generationTypeID_Setting = basicGenerationTypes::Any;
 	}
 }

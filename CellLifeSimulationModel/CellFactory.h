@@ -7,25 +7,30 @@ namespace SimulationModel {
 	namespace Cells {
 		class CellFactory
 		{
-			enum class generationTypes
+			struct generateOption {
+				Cells::CellDNA dna_options;
+				int typeID;
+			};
+		protected:
+			virtual enum basicGenerationTypes
 			{
 				Any, Plant, Planter, Hunter
 			};
-			struct generateOption {
-				Cells::CellOptions options;
-				generationTypes type;
-			};
+			virtual void createStartOptions();
 		private:
-			generationTypes generationTypeSetting;
+			int generationTypeID_Setting;
 			Simulation* simulation;
 			std::vector<generateOption>options_arr;
-			void createStartOptions();
-			void createCell(Cells::CellOptions opt);
+			void createCell(Cells::CellDNA opt);
 		public:
-			void addOption(Cells::CellOptions option, generationTypes type);
+			void addOption(Cells::CellDNA option, int typeID);
+			void clearOptions();
+			std::vector<generateOption> getOptions();
+			void deleteOption(int index);
+
 			void generateCells();
 			void generateCells(int n);
-			void setGenerationType(int type);
+			void setGenerationType(int typeID);
 			CellFactory(Simulation* sim);
 		};
 	}
