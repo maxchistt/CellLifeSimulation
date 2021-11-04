@@ -52,6 +52,9 @@
     <ClCompile Include="GenerationSettingsWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColorConverter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationView.h">
@@ -69,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

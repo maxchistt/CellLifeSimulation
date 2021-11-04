@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>640</width>
-    <height>401</height>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,6 +17,304 @@
    <iconset resource="QtCellLifeSimulationApp.qrc">
     <normaloff>:/QtCellLifeSimulationApp/bacteria.ico</normaloff>:/QtCellLifeSimulationApp/bacteria.ico</iconset>
   </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab_list">
+      <attribute name="title">
+       <string>List</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="3">
+        <widget class="QPushButton" name="button_clear">
+         <property name="text">
+          <string>Clear all</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="button_delete">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="button_edit">
+         <property name="text">
+          <string>Edit</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="3">
+        <widget class="QListWidget" name="listWidgetOptions"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_editor">
+      <attribute name="title">
+       <string>Editor</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="button_new">
+         <property name="text">
+          <string>New option</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="typeIdLabel">
+           <property name="text">
+            <string>TypeId</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="typeIdSpinBox">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="value">
+            <number>4</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="feedDamageLabel">
+           <property name="text">
+            <string>feedDamage</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QDoubleSpinBox" name="feedDamageDoubleSpinBox">
+           <property name="maximum">
+            <double>100.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="maxFoodLabel">
+           <property name="text">
+            <string>maxFood</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QDoubleSpinBox" name="maxFoodDoubleSpinBox"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="maxSpeedLabel">
+           <property name="text">
+            <string>maxSpeed</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QDoubleSpinBox" name="maxSpeedDoubleSpinBox"/>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="detectRadiusLabel">
+           <property name="text">
+            <string>detectRadius</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QDoubleSpinBox" name="detectRadiusDoubleSpinBox"/>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="foodsToDuplicateLabel">
+           <property name="text">
+            <string>foodsToDuplicate</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QDoubleSpinBox" name="foodsToDuplicateDoubleSpinBox"/>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="stopingFactorLabel">
+           <property name="text">
+            <string>stopingFactor</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QDoubleSpinBox" name="stopingFactorDoubleSpinBox"/>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="duplChancePercentLabel">
+           <property name="text">
+            <string>duplChancePercent</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QSpinBox" name="duplChancePercentSpinBox"/>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="duplNearcellsLimitLabel">
+           <property name="text">
+            <string>duplNearcellsLimit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QSpinBox" name="duplNearcellsLimitSpinBox"/>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="foodgenNearcellsFactorLabel">
+           <property name="text">
+            <string>foodgenNearcellsFactor</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QDoubleSpinBox" name="foodgenNearcellsFactorDoubleSpinBox"/>
+         </item>
+         <item row="11" column="0">
+          <widget class="QLabel" name="neardistanceCalcfactorLabel">
+           <property name="text">
+            <string>neardistanceCalcfactor</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QDoubleSpinBox" name="neardistanceCalcfactorDoubleSpinBox"/>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="sizeLabel">
+           <property name="text">
+            <string>size</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
+          <widget class="QSpinBox" name="sizeSpinBox"/>
+         </item>
+         <item row="13" column="0">
+          <widget class="QLabel" name="foodGenerationLabel">
+           <property name="text">
+            <string>foodGeneration</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <widget class="QDoubleSpinBox" name="foodGenerationDoubleSpinBox"/>
+         </item>
+         <item row="14" column="0">
+          <widget class="QLabel" name="colorLabel">
+           <property name="text">
+            <string>color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="1">
+          <widget class="QComboBox" name="colorComboBox"/>
+         </item>
+         <item row="15" column="0">
+          <widget class="QLabel" name="colorsBewareLabel">
+           <property name="text">
+            <string>colorsBeware</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="1">
+          <widget class="QComboBox" name="colorsBewareComboBox"/>
+         </item>
+         <item row="16" column="0">
+          <widget class="QLabel" name="colorsHuntLabel">
+           <property name="text">
+            <string>colorsHunt</string>
+           </property>
+          </widget>
+         </item>
+         <item row="16" column="1">
+          <widget class="QComboBox" name="colorsHuntComboBox"/>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_editor">
+         <property name="text">
+          <string>Selected</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="button_save">
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="button_reset">
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

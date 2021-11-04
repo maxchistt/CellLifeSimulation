@@ -13,7 +13,6 @@ private:
 	QTimer* timer;
 	SimulationModel::Simulation* model;
 	SimulationView* view;
-	QColor convertColor(Cells::CellColor cellcolor);
 
 public:
 	SimulationController(SimulationModel::Simulation* model, SimulationView* view);
