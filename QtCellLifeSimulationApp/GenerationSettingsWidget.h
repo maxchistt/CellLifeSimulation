@@ -16,6 +16,8 @@ public:
 private:
 	void updateTable();
 	void prepareColorSelections();
+	void setEditorDNAParams(SimulationModel::Cells::CellDNA dna_options);
+	void setEditorParams(SimulationModel::Cells::Genera)
 
 private slots:
 	void clearAllOptions();
@@ -26,8 +28,8 @@ private slots:
 	void editor_save();
 
 private:
-	//std::vector<QCheckBox*> colorsBeware_checkboxes;
-	//std::vector<QCheckBox*> colorsHunt_checkboxes;
+	std::vector<QCheckBox*> colorsBeware_checkboxes;
+	std::vector<QCheckBox*> colorsHunt_checkboxes;
 	SimulationModel::Cells::CellFactory* factory;
 	Ui::GenerationSettingsWidget ui;
 };
