@@ -14,7 +14,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::clearAllOptions);
 	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::deleteSelectedOption);
 	connect(ui.button_edit, &QPushButton::clicked, this, &GenerationSettingsWidget::editSelectedOption);
-	connect(ui.button_new, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_new);
+	connect(ui.button_changemode, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_changemode);
 	connect(ui.button_save, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_save);
 	connect(ui.button_reset, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_reset);
 }
@@ -108,6 +108,59 @@ void GenerationSettingsWidget::setEditorDNAParams(SimulationModel::Cells::CellDN
 	}
 }
 
+void GenerationSettingsWidget::setEditorParams(SimulationModel::Cells::CellFactory::GenerateOption option)
+{
+	ui.typeIdSpinBox->setValue(option.typeID);
+	setEditorDNAParams(option.dna_options);
+}
+
+void GenerationSettingsWidget::setEditorMode(bool editmode)
+{
+	edit_editmode = editmode;
+	if (edit_editmode) {
+		ui.label_editor->setText("Editing Id " + QString::number(edit_id));
+	}
+	else {
+		ui.label_editor->setText("Creating new");
+	}
+}
+
+SimulationModel::Cells::CellFactory::GenerateOption GenerationSettingsWidget::getOptionFromControls()
+{
+	int typeID = ui.typeIdSpinBox->value();
+	SimulationModel::Cells::CellDNA dna_options;
+	dna_options.feed_damage = ui.feedDamageDoubleSpinBox->value();
+	dna_options.max_food = ui.maxFoodDoubleSpinBox->value();
+	dna_options.max_speed = ui.maxSpeedDoubleSpinBox->value();
+	dna_options.detect_radius = ui.detectRadiusDoubleSpinBox->value();
+	dna_options.foods_to_duplicate = ui.foodsToDuplicateDoubleSpinBox->value();
+	dna_options.stoping_factor = ui.stopingFactorDoubleSpinBox->value();
+	dna_options.dupl_chanse_percent = ui.duplChancePercentSpinBox->value();
+	dna_options.dupl_nearsamecells_limit = ui.duplNearcellsLimitSpinBox->value();
+	dna_options.foodgen_nearcells_factor = ui.foodgenNearcellsFactorDoubleSpinBox->value();
+	dna_options.neardistance_calcfactor = ui.neardistanceCalcfactorDoubleSpinBox->value();
+	dna_options.size = ui.sizeSpinBox->value();
+	dna_options.food_generation = ui.foodGenerationDoubleSpinBox->value();
+
+	dna_options.color = SimulationModel::Cells::CellColor(ui.colorComboBox->currentIndex());
+
+	int index = 0;
+	for (auto cellColor : SimulationModel::Cells::ALL_CELL_COLORS) {
+
+		if (colorsBeware_checkboxes[index]->isChecked()) {
+			dna_options.colors_beware.push_back(SimulationModel::Cells::CellColor(index));
+		};
+
+		if (colorsHunt_checkboxes[index]->isChecked()) {
+			dna_options.colors_hunt.push_back(SimulationModel::Cells::CellColor(index));
+		};
+
+		index++;
+	}
+
+	return SimulationModel::Cells::CellFactory::GenerateOption{ dna_options,typeID };
+}
+
 void GenerationSettingsWidget::clearAllOptions()
 {
 	factory->clearOptions();
@@ -116,23 +169,57 @@ void GenerationSettingsWidget::clearAllOptions()
 
 void GenerationSettingsWidget::deleteSelectedOption()
 {
-	factory->deleteOption(ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem()));
+	int currentindex = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
+	factory->deleteOption(currentindex);
 	updateTable();
+	setEditorMode(false);
 }
 
 void GenerationSettingsWidget::editSelectedOption()
 {
+	edit_id = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
+
+	setEditorParams(factory->getOptions()[edit_id]);
+	setEditorMode(true);
+
 	ui.tabWidget->setCurrentIndex(1);
 }
 
-void GenerationSettingsWidget::editor_new()
+void GenerationSettingsWidget::editor_changemode()
 {
+	setEditorMode(!edit_editmode);
+	if (edit_editmode) {
+		auto options = factory->getOptions();
+		if (edit_id < options.size()) {
+			setEditorParams(options[edit_id]);
+		}
+		else {
+			setEditorMode(!edit_editmode);
+		}
+	}
 }
 
 void GenerationSettingsWidget::editor_reset()
 {
+	if (edit_editmode) {
+		setEditorParams(factory->getOptions()[edit_id]);
+	}
+	else {
+		setEditorDNAParams(SimulationModel::Cells::CellDNA());
+	}
 }
 
 void GenerationSettingsWidget::editor_save()
 {
+	auto option = getOptionFromControls();
+
+	if (edit_editmode) {
+		factory->updateOption(edit_id, option);
+	}
+	else {
+		factory->addOption(option);
+	}
+	setEditorMode(false);
+	updateTable();
+	ui.tabWidget->setCurrentIndex(0);
 }

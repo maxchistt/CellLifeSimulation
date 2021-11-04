@@ -70,9 +70,9 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="button_new">
+        <widget class="QPushButton" name="button_changemode">
          <property name="text">
-          <string>New option</string>
+          <string>Change mode</string>
          </property>
         </widget>
        </item>
