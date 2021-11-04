@@ -10,6 +10,8 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	updateOptionsList();
 	ui.tabWidget->setCurrentIndex(0);
 	prepareColorSelections();
+	setEditorMode(false);
+	editor_reset();
 
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::clearAllOptions);
 	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::deleteSelectedOption);
@@ -42,7 +44,7 @@ void GenerationSettingsWidget::updateOptionsList()
 		QListWidgetItem* item = new QListWidgetItem();
 		item->setBackgroundColor(color);
 		item->setTextColor(Qt::white);
-		item->setText(" " + QString::number(index) + " TypeID: " + QString::number(option.typeID));
+		item->setText(" " + QString::number(index) + "	Type:   " + QString::number(option.typeID));
 		ui.listWidgetOptions->addItem(item);
 
 		bool wasAdded = false;
@@ -132,10 +134,12 @@ void GenerationSettingsWidget::setEditorMode(bool editmode)
 {
 	edit_editmode = editmode;
 	if (edit_editmode) {
-		ui.label_editor->setText("Editing Id " + QString::number(edit_id));
+		ui.label_editor->setText("Editing Id <b>" + QString::number(edit_id) + "</b>");
+		ui.label_editor->setStyleSheet("background-color: lightgreen;");
 	}
 	else {
 		ui.label_editor->setText("Creating new");
+		ui.label_editor->setStyleSheet("background-color: lightskyblue;");
 	}
 }
 
