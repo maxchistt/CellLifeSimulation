@@ -97,6 +97,7 @@ void QtCellLifeSimulationApp::onGenerate()
 void QtCellLifeSimulationApp::onClear()
 {
 	model->clearAll();
+	controller->drawOneFrameIfInactive();
 }
 
 
