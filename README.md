@@ -4,7 +4,7 @@ Project of 2D cell life simulation with C++ and C#
 
 I realised it with MVC pattern
 
-Thats six projects here :
+There are six projects here :
 
 - C++ static library for simulation model
 - C++/CLR DLL wrapper
@@ -15,7 +15,7 @@ Thats six projects here :
 
 ![WPF](https://i.postimg.cc/YCcTkCyb/image.png)
 
-![Qt](https://i.postimg.cc/BnDtbf8b/image.png)
+![Qt](https://i.postimg.cc/DZcR4smk/image.png)
 
 ![ASP.NET](https://i.postimg.cc/kX5W4QL5/image.png)
 
