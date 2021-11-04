@@ -5,22 +5,22 @@
 <div class="container mb-2">
   <div class="row text-center">
     <div class="col-sm m-2">
-      <button class="btn btn-secondary p-2 m-0  w-100 h-100" (click)="this.base.reqGenerateCells()">
+      <button class="btn btn-primary p-2 m-0  w-100 h-100" (click)="this.base.reqGenerateCells()">
         generateCells
       </button>
     </div>
     <div class="col-sm m-2">
-      <button class="btn btn-light p-2 m-0 w-100  h-100" (click)="this.base.reqClearCells()">
+      <button class="btn btn-outline-secondary p-2 m-0 w-100  h-100" (click)="this.base.reqClearCells()">
         clearCells
       </button>
     </div>
     <div class="col-sm m-2">
-      <div class="alert bg-light p-2 m-0 w-100  h-100">
+      <div class="alert text-secondary bg-light p-2 m-0 w-100 h-100">
         <span>Connections: {{connections}}</span>
       </div>
     </div>
     <div *ngIf="frame.length>0" class="col-md m-2" [ngClass]="{'collapse': !collapse}">
-      <button (click)="collapse=!collapse" class="btn btn-light p-2 m-0  w-100 h-100"
+      <button (click)="collapse=!collapse" class="btn btn-light text-secondary p-2 m-0 w-100 h-100"
         [ngClass]="{'collapse': !collapse}">
         Open view
       </button>
