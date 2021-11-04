@@ -18,7 +18,7 @@ private:
 	void prepareColorSelections();
 	void setEditorDNAParams(SimulationModel::Cells::CellDNA dna_options);
 	void setEditorParams(SimulationModel::Cells::CellFactory::GenerateOption option);
-	void setEditorMode(bool editmode);
+	void setEditorModeAndUpdLabel(bool editmode);
 	SimulationModel::Cells::CellFactory::GenerateOption getOptionFromControls();
 
 private slots:

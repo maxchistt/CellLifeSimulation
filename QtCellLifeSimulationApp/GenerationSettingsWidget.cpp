@@ -10,7 +10,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	updateOptionsList();
 	ui.tabWidget->setCurrentIndex(0);
 	prepareColorSelections();
-	setEditorMode(false);
+	setEditorModeAndUpdLabel(false);
 	editor_reset();
 
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::clearAllOptions);
@@ -137,7 +137,7 @@ void GenerationSettingsWidget::setEditorParams(SimulationModel::Cells::CellFacto
 	setEditorDNAParams(option.dna_options);
 }
 
-void GenerationSettingsWidget::setEditorMode(bool editmode)
+void GenerationSettingsWidget::setEditorModeAndUpdLabel(bool editmode)
 {
 	edit_editmode = editmode;
 	if (edit_editmode) {
@@ -191,7 +191,7 @@ void GenerationSettingsWidget::clearAllOptions()
 	factory->clearOptions();
 	updateOptionsList();
 	edit_id = 0;
-	setEditorMode(false);
+	setEditorModeAndUpdLabel(false);
 }
 
 void GenerationSettingsWidget::deleteSelectedOption()
@@ -199,16 +199,17 @@ void GenerationSettingsWidget::deleteSelectedOption()
 	int currentindex = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
 	factory->deleteOption(currentindex);
 	updateOptionsList();
-	if (edit_id > currentindex) {
+	if (edit_id >= currentindex) {
 		if (currentindex == edit_id) {
 			edit_id = 0;
+			setEditorModeAndUpdLabel(false);
 		}
 		else {
 			edit_id--;
+			setEditorModeAndUpdLabel(edit_editmode);
+			setEditorParams(factory->getOptions()[edit_id]);
 		}
-		setEditorParams(factory->getOptions()[edit_id]);
 	}
-	setEditorMode(edit_editmode);
 }
 
 void GenerationSettingsWidget::editSelectedOption()
@@ -216,21 +217,21 @@ void GenerationSettingsWidget::editSelectedOption()
 	edit_id = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
 
 	setEditorParams(factory->getOptions()[edit_id]);
-	setEditorMode(true);
+	setEditorModeAndUpdLabel(true);
 
 	ui.tabWidget->setCurrentIndex(2);
 }
 
 void GenerationSettingsWidget::editor_changemode()
 {
-	setEditorMode(!edit_editmode);
+	setEditorModeAndUpdLabel(!edit_editmode);
 	if (edit_editmode) {
 		auto options = factory->getOptions();
 		if (edit_id < options.size()) {
 			setEditorParams(options[edit_id]);
 		}
 		else {
-			setEditorMode(!edit_editmode);
+			setEditorModeAndUpdLabel(!edit_editmode);
 		}
 	}
 }
