@@ -190,6 +190,8 @@ void GenerationSettingsWidget::clearAllOptions()
 {
 	factory->clearOptions();
 	updateOptionsList();
+	edit_id = 0;
+	setEditorMode(false);
 }
 
 void GenerationSettingsWidget::deleteSelectedOption()
@@ -197,7 +199,16 @@ void GenerationSettingsWidget::deleteSelectedOption()
 	int currentindex = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
 	factory->deleteOption(currentindex);
 	updateOptionsList();
-	setEditorMode(false);
+	if (edit_id > currentindex) {
+		if (currentindex == edit_id) {
+			edit_id = 0;
+		}
+		else {
+			edit_id--;
+		}
+		setEditorParams(factory->getOptions()[edit_id]);
+	}
+	setEditorMode(edit_editmode);
 }
 
 void GenerationSettingsWidget::editSelectedOption()
@@ -244,7 +255,6 @@ void GenerationSettingsWidget::editor_save()
 	else {
 		factory->addOption(option);
 	}
-	setEditorMode(false);
 	updateOptionsList();
 	ui.tabWidget->setCurrentIndex(1);
 }
