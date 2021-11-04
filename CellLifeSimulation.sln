@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtCellLifeSimulationApp", "QtCellLifeSimulationApp\QtCellLifeSimulationApp.vcxproj", "{021E48BD-AA35-475F-8B91-9E9EF6A59BA8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinFormsCellLifeSimulationApp", "WinFormsCellLifeSimulationApp\WinFormsCellLifeSimulationApp.vcxproj", "{4D767318-7902-4C1A-827C-F55015D389E8}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModel", "CellLifeSimulationModel\CellLifeSimulationModel.vcxproj", "{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModelCLR", "CellLifeSimulationModelCLR\CellLifeSimulationModelCLR.vcxproj", "{E5C4317C-A74D-4C35-A06C-CF94CDECAC9E}"
@@ -29,14 +27,6 @@ Global
 		{021E48BD-AA35-475F-8B91-9E9EF6A59BA8}.Release|x64.ActiveCfg = Release|x64
 		{021E48BD-AA35-475F-8B91-9E9EF6A59BA8}.Release|x64.Build.0 = Release|x64
 		{021E48BD-AA35-475F-8B91-9E9EF6A59BA8}.Release|x86.ActiveCfg = Release|x64
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Debug|x64.ActiveCfg = Debug|x64
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Debug|x64.Build.0 = Debug|x64
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Debug|x86.ActiveCfg = Debug|Win32
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Debug|x86.Build.0 = Debug|Win32
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x64.ActiveCfg = Release|x64
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x64.Build.0 = Release|x64
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x86.ActiveCfg = Release|Win32
-		{4D767318-7902-4C1A-827C-F55015D389E8}.Release|x86.Build.0 = Release|Win32
 		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x64.ActiveCfg = Debug|x64
 		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x64.Build.0 = Debug|x64
 		{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}.Debug|x86.ActiveCfg = Debug|Win32
