@@ -9,6 +9,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	setFactory(factory);
 	updateTable();
 	ui.tabWidget->setCurrentIndex(0);
+	prepareColorSelections();
 
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::clearAllOptions);
 	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::deleteSelectedOption);
@@ -38,6 +39,31 @@ void GenerationSettingsWidget::updateTable()
 		item->setTextColor(Qt::white);
 		item->setText(" " + QString::number(index) + " TypeID: " + QString::number(option.typeID));
 		ui.listWidgetOptions->addItem(item);
+
+		index++;
+	}
+}
+
+void GenerationSettingsWidget::prepareColorSelections()
+{
+	int index = 0;
+	for (auto cellColor : SimulationModel::Cells::ALL_CELL_COLORS) {
+		QColor color = ColorConverter::convertColor(cellColor);
+		QString colorstr = ColorConverter::convertColorToString(cellColor);
+		QString checkBoxStyle = "background-color: " + color.name() + ";" + "border: 3px solid " + color.name() + ";";
+
+		QCheckBox* checkbox1 = new QCheckBox(this);
+		checkbox1->setObjectName("colorsBewareCheckbox" + colorstr);
+		checkbox1->setStyleSheet(checkBoxStyle);
+		ui.colorsBewareLayout->addWidget(checkbox1);
+
+		QCheckBox* checkbox2 = new QCheckBox(this);
+		checkbox1->setObjectName("colorsHuntCheckbox" + colorstr);
+		checkbox2->setStyleSheet(checkBoxStyle);
+		ui.colorsHuntLayout->addWidget(checkbox2);
+
+		ui.colorComboBox->addItem(colorstr);
+		ui.colorComboBox->setItemData(index, color, Qt::BackgroundRole);
 
 		index++;
 	}

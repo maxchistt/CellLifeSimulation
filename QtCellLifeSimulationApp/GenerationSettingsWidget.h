@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_GenerationSettingsWidget.h"
 #include "SimulationModel.h"
+#include <QCheckbox>
 
 class GenerationSettingsWidget : public QWidget
 {
@@ -14,6 +15,7 @@ public:
 	void setFactory(SimulationModel::Cells::CellFactory* factory);
 private:
 	void updateTable();
+	void prepareColorSelections();
 
 private slots:
 	void clearAllOptions();
@@ -24,6 +26,8 @@ private slots:
 	void editor_save();
 
 private:
+	//std::vector<QCheckBox*> colorsBeware_checkboxes;
+	//std::vector<QCheckBox*> colorsHunt_checkboxes;
 	SimulationModel::Cells::CellFactory* factory;
 	Ui::GenerationSettingsWidget ui;
 };

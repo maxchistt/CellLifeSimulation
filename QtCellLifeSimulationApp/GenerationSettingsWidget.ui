@@ -255,9 +255,6 @@
            </property>
           </widget>
          </item>
-         <item row="15" column="1">
-          <widget class="QComboBox" name="colorsBewareComboBox"/>
-         </item>
          <item row="16" column="0">
           <widget class="QLabel" name="colorsHuntLabel">
            <property name="text">
@@ -265,8 +262,11 @@
            </property>
           </widget>
          </item>
+         <item row="15" column="1">
+          <layout class="QHBoxLayout" name="colorsBewareLayout"/>
+         </item>
          <item row="16" column="1">
-          <widget class="QComboBox" name="colorsHuntComboBox"/>
+          <layout class="QHBoxLayout" name="colorsHuntLayout"/>
          </item>
         </layout>
        </item>
