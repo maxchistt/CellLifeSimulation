@@ -16,15 +16,15 @@
 #define FOODGEN_NEARCELLS_FACTOR		0.1
 #define NEARDISTANCE_CALCFACTOR			14
 
+#define ENUM_CellColors RED, GREEN, BLUE, GRAY, ORANGE, YELLOW, BROWN
+
 namespace SimulationModel {
 	class Simulation;
 	namespace Cells {
 		using namespace Structs2D;
 
-		enum class CellColor
-		{
-			RED, GREEN, BLUE, GRAY, ORANGE, YELLOW, BROWN
-		};
+		enum CellColor { ENUM_CellColors };
+		static const CellColor ALL_CELL_COLORS[] = { ENUM_CellColors };
 
 		struct CellDNA {
 			float feed_damage = BASIC_FEED_DAMAGE;
