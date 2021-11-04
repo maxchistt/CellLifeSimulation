@@ -149,3 +149,8 @@ void CellFactory::setGenerationType(int typeID)
 		generationTypeID_Setting = basicGenerationTypes::Any;
 	}
 }
+
+int CellFactory::getGenerationType()
+{
+	return generationTypeID_Setting;
+}

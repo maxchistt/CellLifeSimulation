@@ -34,11 +34,10 @@ void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* f
 void GenerationSettingsWidget::updateOptionsList()
 {
 	int index = 0;
-	std::vector<int> typesAdded;
+	std::vector<int> typesInList;
 	ui.listWidgetOptions->clear();
 	ui.selectTypeIDComboBox->clear();
 	ui.selectTypeIDComboBox->addItem("Any");
-	ui.selectTypeIDComboBox->setCurrentIndex(0);
 	for (auto option : factory->getOptions()) {
 		auto color = ColorConverter::convertColor(option.dna_options.color);
 		QListWidgetItem* item = new QListWidgetItem();
@@ -48,16 +47,24 @@ void GenerationSettingsWidget::updateOptionsList()
 		ui.listWidgetOptions->addItem(item);
 
 		bool wasAdded = false;
-		for (auto type : typesAdded) {
+		for (auto type : typesInList) {
 			if (type == option.typeID)wasAdded = true;
 		}
 		if (!wasAdded) {
-			ui.selectTypeIDComboBox->addItem(QString::number(option.typeID));
-			typesAdded.push_back(option.typeID);
+			typesInList.push_back(option.typeID);
 		}
 
 		index++;
 	}
+
+	std::sort(typesInList.begin(), typesInList.end());
+	bool isContained = false;
+	for (auto typeID : typesInList) {
+		ui.selectTypeIDComboBox->addItem(QString::number(typeID));
+		if (typeID == factory->getGenerationType())isContained = true;
+	}
+	int findindex = factory->getGenerationType() == 0 || !isContained ? 0 : ui.selectTypeIDComboBox->findText(QString::number(factory->getGenerationType()));
+	ui.selectTypeIDComboBox->setCurrentIndex(findindex);
 }
 
 void GenerationSettingsWidget::prepareColorSelections()

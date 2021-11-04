@@ -34,6 +34,7 @@ namespace SimulationModel {
 			void generateCells();
 			void generateCells(int n);
 			void setGenerationType(int typeID);
+			int getGenerationType();
 			CellFactory(Simulation* sim);
 		};
 	}
