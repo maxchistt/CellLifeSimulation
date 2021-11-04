@@ -7,7 +7,8 @@ namespace SimulationModel {
 	namespace Cells {
 		class CellFactory
 		{
-			struct generateOption {
+		public:
+			struct GenerateOption {
 				Cells::CellDNA dna_options;
 				int typeID;
 			};
@@ -20,12 +21,12 @@ namespace SimulationModel {
 		private:
 			int generationTypeID_Setting;
 			Simulation* simulation;
-			std::vector<generateOption>options_arr;
+			std::vector<GenerateOption>options_arr;
 			void createCell(Cells::CellDNA opt);
 		public:
 			void addOption(Cells::CellDNA option, int typeID);
 			void clearOptions();
-			std::vector<generateOption> getOptions();
+			std::vector<GenerateOption> getOptions();
 			void deleteOption(int index);
 
 			void generateCells();

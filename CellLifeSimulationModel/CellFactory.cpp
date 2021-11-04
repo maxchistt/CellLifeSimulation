@@ -74,7 +74,7 @@ void CellFactory::createCell(CellDNA opt)
 
 void CellFactory::addOption(CellDNA option, int typeID)
 {
-	this->options_arr.push_back(generateOption{ option,typeID });
+	this->options_arr.push_back(GenerateOption{ option,typeID });
 }
 
 void CellFactory::clearOptions()
@@ -82,7 +82,7 @@ void CellFactory::clearOptions()
 	this->options_arr.clear();
 }
 
-std::vector<CellFactory::generateOption> CellFactory::getOptions()
+std::vector<CellFactory::GenerateOption> CellFactory::getOptions()
 {
 	return options_arr;
 }
