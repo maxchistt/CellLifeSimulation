@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>665</height>
+    <width>465</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,6 +62,13 @@
        <string>Editor</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_editor">
+         <property name="text">
+          <string>Selected</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QPushButton" name="button_new">
          <property name="text">
@@ -263,13 +270,6 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_editor">
-         <property name="text">
-          <string>Selected</string>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="0">
         <widget class="QPushButton" name="button_save">
          <property name="text">
@@ -277,15 +277,8 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="button_reset">
-         <property name="text">
-          <string>Reset</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0" colspan="2">
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer_4">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -297,8 +290,15 @@
          </property>
         </spacer>
        </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="button_reset">
+         <property name="text">
+          <string>Reset</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="0" colspan="2">
-        <spacer name="verticalSpacer_3">
+        <spacer name="verticalSpacer_5">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
