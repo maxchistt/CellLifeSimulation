@@ -14,7 +14,7 @@ public:
 	~GenerationSettingsWidget();
 	void setFactory(SimulationModel::Cells::CellFactory* factory);
 private:
-	void updateTable();
+	void updateOptionsList();
 	void prepareColorSelections();
 	void setEditorDNAParams(SimulationModel::Cells::CellDNA dna_options);
 	void setEditorParams(SimulationModel::Cells::CellFactory::GenerateOption option);
@@ -28,6 +28,7 @@ private slots:
 	void editor_changemode();
 	void editor_reset();
 	void editor_save();
+	void selectTypeID();
 
 private:
 	int edit_id = 0;

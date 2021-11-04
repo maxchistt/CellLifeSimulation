@@ -7,7 +7,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 {
 	ui.setupUi(this);
 	setFactory(factory);
-	updateTable();
+	updateOptionsList();
 	ui.tabWidget->setCurrentIndex(0);
 	prepareColorSelections();
 
@@ -17,6 +17,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	connect(ui.button_changemode, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_changemode);
 	connect(ui.button_save, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_save);
 	connect(ui.button_reset, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_reset);
+	connect(ui.button_selectTypeID, &QPushButton::clicked, this, &GenerationSettingsWidget::selectTypeID);
 }
 
 GenerationSettingsWidget::~GenerationSettingsWidget()
@@ -28,10 +29,14 @@ void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* f
 	this->factory = factory;
 }
 
-void GenerationSettingsWidget::updateTable()
+void GenerationSettingsWidget::updateOptionsList()
 {
 	int index = 0;
+	std::vector<int> typesAdded;
 	ui.listWidgetOptions->clear();
+	ui.selectTypeIDComboBox->clear();
+	ui.selectTypeIDComboBox->addItem("Any");
+	ui.selectTypeIDComboBox->setCurrentIndex(0);
 	for (auto option : factory->getOptions()) {
 		auto color = ColorConverter::convertColor(option.dna_options.color);
 		QListWidgetItem* item = new QListWidgetItem();
@@ -39,6 +44,15 @@ void GenerationSettingsWidget::updateTable()
 		item->setTextColor(Qt::white);
 		item->setText(" " + QString::number(index) + " TypeID: " + QString::number(option.typeID));
 		ui.listWidgetOptions->addItem(item);
+
+		bool wasAdded = false;
+		for (auto type : typesAdded) {
+			if (type == option.typeID)wasAdded = true;
+		}
+		if (!wasAdded) {
+			ui.selectTypeIDComboBox->addItem(QString::number(option.typeID));
+			typesAdded.push_back(option.typeID);
+		}
 
 		index++;
 	}
@@ -164,14 +178,14 @@ SimulationModel::Cells::CellFactory::GenerateOption GenerationSettingsWidget::ge
 void GenerationSettingsWidget::clearAllOptions()
 {
 	factory->clearOptions();
-	updateTable();
+	updateOptionsList();
 }
 
 void GenerationSettingsWidget::deleteSelectedOption()
 {
 	int currentindex = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
 	factory->deleteOption(currentindex);
-	updateTable();
+	updateOptionsList();
 	setEditorMode(false);
 }
 
@@ -182,7 +196,7 @@ void GenerationSettingsWidget::editSelectedOption()
 	setEditorParams(factory->getOptions()[edit_id]);
 	setEditorMode(true);
 
-	ui.tabWidget->setCurrentIndex(1);
+	ui.tabWidget->setCurrentIndex(2);
 }
 
 void GenerationSettingsWidget::editor_changemode()
@@ -220,6 +234,12 @@ void GenerationSettingsWidget::editor_save()
 		factory->addOption(option);
 	}
 	setEditorMode(false);
-	updateTable();
-	ui.tabWidget->setCurrentIndex(0);
+	updateOptionsList();
+	ui.tabWidget->setCurrentIndex(1);
+}
+
+void GenerationSettingsWidget::selectTypeID()
+{
+	auto str = ui.selectTypeIDComboBox->currentText();
+	factory->setGenerationType(str == "Any" ? 0 : str.toInt());
 }
