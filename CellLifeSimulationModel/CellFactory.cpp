@@ -38,7 +38,6 @@ struct HunterDNA :CellDNA {
 		this->max_speed = rand() % 10 + 30;
 		this->colors_hunt.push_back(CellColor::BLUE);
 		this->food_generation = 0;
-		this->feed_damage = 1.5;
 		this->feed_damage = 2;
 		this->size = rand() % 3 + 10;
 		this->detect_radius = rand() % 100 + 200;
