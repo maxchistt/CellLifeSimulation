@@ -65,6 +65,7 @@
    <addaction name="actionPlay_Pause"/>
    <addaction name="actionGenerate"/>
    <addaction name="actionClear"/>
+   <addaction name="actionGenerationSettings"/>
   </widget>
   <action name="actionGenerate">
    <property name="icon">
@@ -85,11 +86,19 @@
    </property>
   </action>
   <action name="actionGenerationSettings">
+   <property name="icon">
+    <iconset resource="QtCellLifeSimulationApp.qrc">
+     <normaloff>:/toolbar/resources/dna.png</normaloff>:/toolbar/resources/dna.png</iconset>
+   </property>
    <property name="text">
     <string>Generation</string>
    </property>
   </action>
   <action name="actionTimeSettings">
+   <property name="icon">
+    <iconset resource="QtCellLifeSimulationApp.qrc">
+     <normaloff>:/toolbar/resources/time.png</normaloff>:/toolbar/resources/time.png</iconset>
+   </property>
    <property name="text">
     <string>Time</string>
    </property>
@@ -104,6 +113,10 @@
    </property>
   </action>
   <action name="actionLimitSettings">
+   <property name="icon">
+    <iconset resource="QtCellLifeSimulationApp.qrc">
+     <normaloff>:/toolbar/resources/limit.png</normaloff>:/toolbar/resources/limit.png</iconset>
+   </property>
    <property name="text">
     <string>Limit</string>
    </property>
