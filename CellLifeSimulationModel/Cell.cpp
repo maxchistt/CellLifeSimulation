@@ -245,6 +245,7 @@ Cell::Cell(Cell& parentCell) : Cell(parentCell.parentSimulation)
 Cell::Cell(Simulation* parentSimulation, CellDNA dna_options) : Cell(parentSimulation)
 {
 	this->dna_options = dna_options;
+	this->food = (BASIC_START_FOOD_AMOUNT * 2 + dna_options.feed_damage * 10 + dna_options.foods_to_duplicate) / 4;
 	this->position = Vect2D<float>{
 	static_cast<float>(rand() % (parentSimulation->fieldSize.x ? parentSimulation->fieldSize.x : 1)),
 	static_cast<float>(rand() % (parentSimulation->fieldSize.y ? parentSimulation->fieldSize.y : 1))
