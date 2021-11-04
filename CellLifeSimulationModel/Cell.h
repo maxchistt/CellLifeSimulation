@@ -10,7 +10,7 @@
 #define BASIC_MAX_SPEED					10
 #define BASIC_DETECT_RADIUS				190
 #define FOODS_TO_DUPLICATE				10
-#define STOPING_PARAM					0.1
+#define STOPING_FACTOR					0.1
 #define DUPLICATE_CHANSE_PERCENT		10
 #define DUPLICATE_NEARSAMECELLS_LIMIT	35
 #define FOODGEN_NEARCELLS_FACTOR		0.1
@@ -32,7 +32,7 @@ namespace SimulationModel {
 			float max_speed = BASIC_MAX_SPEED;
 			float detect_radius = BASIC_DETECT_RADIUS;
 			float foods_to_duplicate = FOODS_TO_DUPLICATE;
-			float stoping_param = STOPING_PARAM;
+			float stoping_factor = STOPING_FACTOR;
 			int dupl_chanse_percent = DUPLICATE_CHANSE_PERCENT;
 			int dupl_nearsamecells_limit = DUPLICATE_NEARSAMECELLS_LIMIT;
 			float foodgen_nearcells_factor = FOODGEN_NEARCELLS_FACTOR;

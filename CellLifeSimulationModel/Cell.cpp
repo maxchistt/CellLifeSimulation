@@ -101,7 +101,7 @@ void Cell::move()
 	speed_lapsed /= parentSimulation->timelapse;
 	position += speed_lapsed;
 	checkBorder();
-	speed /= 1 + dna_options.stoping_param / parentSimulation->timelapse;
+	speed /= 1 + dna_options.stoping_factor / parentSimulation->timelapse;
 }
 
 void Cell::seeClosest(Vect2D<float> vectorToOther, doType how)
