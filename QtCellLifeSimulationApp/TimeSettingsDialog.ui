@@ -19,7 +19,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="fpsLabel">
        <property name="text">
-        <string>FPS</string>
+        <string>Max FPS</string>
        </property>
       </widget>
      </item>
