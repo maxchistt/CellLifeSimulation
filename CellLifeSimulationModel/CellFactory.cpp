@@ -72,9 +72,19 @@ void CellFactory::createCell(CellDNA opt)
 	new Cells::Cell(this->simulation, opt);
 }
 
-void CellFactory::addOption(CellDNA option, int typeID)
+void CellFactory::addOption(CellDNA dna_option, int typeID)
 {
-	this->options_arr.push_back(GenerateOption{ option,typeID });
+	addOption(GenerateOption{ dna_option,typeID });
+}
+
+void CellFactory::addOption(GenerateOption option)
+{
+	this->options_arr.push_back(option);
+}
+
+void CellFactory::updateOption(int index, GenerateOption option)
+{
+	if (index >= 0 && index < options_arr.size())this->options_arr[index] = option;
 }
 
 void CellFactory::clearOptions()

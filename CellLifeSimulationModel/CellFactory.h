@@ -24,7 +24,9 @@ namespace SimulationModel {
 			std::vector<GenerateOption>options_arr;
 			void createCell(Cells::CellDNA opt);
 		public:
-			void addOption(Cells::CellDNA option, int typeID);
+			void addOption(Cells::CellDNA dna_option, int typeID);
+			void addOption(GenerateOption option);
+			void updateOption(int index, GenerateOption option);
 			void clearOptions();
 			std::vector<GenerateOption> getOptions();
 			void deleteOption(int index);
