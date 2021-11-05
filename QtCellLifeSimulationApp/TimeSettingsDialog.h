@@ -2,18 +2,18 @@
 
 #include <QDialog>
 #include "ui_TimeSettingsDialog.h"
-#include "SimulationController.h"
+#include "SimulationTimeController.h"
 
 class TimeSettingsDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	TimeSettingsDialog(QWidget* parent, SimulationController* controller);
+	TimeSettingsDialog(QWidget* parent, SimulationTimeController* controller);
 	~TimeSettingsDialog();
 
 private:
-	SimulationController* controller;
+	SimulationTimeController* controller;
 	Ui::TimeSettingsDialog ui;
 	void setupParams();
 	void applySettings();

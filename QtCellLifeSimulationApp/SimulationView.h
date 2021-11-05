@@ -12,7 +12,7 @@ class SimulationView : public QGraphicsView
 public:
 	SimulationView(QWidget* parent = Q_NULLPTR);
 	void setParent(QWidget* parent);
-	void drawCircle(int x, int y, int size, QColor color);
+	void drawItem(int x, int y, int size, QColor color);
 	void clear();
 
 signals:

@@ -43,9 +43,6 @@
     <ClCompile Include="SimulationView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TimeSettingsDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,18 +52,27 @@
     <ClCompile Include="ColorConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SimulationTimeController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationViewController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationView.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="SimulationController.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TimeSettingsDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="GenerationSettingsWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SimulationTimeController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SimulationViewController.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

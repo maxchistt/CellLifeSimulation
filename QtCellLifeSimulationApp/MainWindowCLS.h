@@ -4,7 +4,8 @@
 #include "ui_MainWindowCLS.h"
 #include "SimulationModel.h"
 #include "SimulationView.h"
-#include "SimulationController.h"
+#include "SimulationTimeController.h"
+#include "SimulationViewController.h"
 #include "GenerationSettingsWidget.h"
 #include <QCloseEvent>
 
@@ -15,10 +16,11 @@ public:
 	MainWindowCLS(QWidget* parent = Q_NULLPTR);
 	~MainWindowCLS();
 private:
-	GenerationSettingsWidget* generationSettings;
+	GenerationSettingsWidget* generationSettingsWidget;
 	SimulationModel::Simulation* model;
 	SimulationView* view;
-	SimulationController* controller;
+	SimulationTimeController* controller_time;
+	SimulationViewController* controller_view;
 	Ui::MainWindowCLS ui;
 	void setPlayPause(bool on);
 private slots:

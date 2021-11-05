@@ -1,6 +1,6 @@
 #include "TimeSettingsDialog.h"
 
-TimeSettingsDialog::TimeSettingsDialog(QWidget* parent, SimulationController* controller)
+TimeSettingsDialog::TimeSettingsDialog(QWidget* parent, SimulationTimeController* controller)
 	: QDialog(parent)
 {
 	ui.setupUi(this);

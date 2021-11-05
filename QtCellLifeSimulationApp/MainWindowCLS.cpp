@@ -16,10 +16,14 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	model = new Simulation();
 	view = new SimulationView(this);
 	setCentralWidget(view);
-	controller = new SimulationController(model, view);
-	controller->setTimeSettings(30, 30);
+	controller_view = new SimulationViewController(this, model, view);
+	controller_time = new SimulationTimeController(this, model);
+	controller_time->setTimeSettings(30, 30);
 	setPlayPause(false);
-	generationSettings = new GenerationSettingsWidget(parent, model->cellFactory);
+	generationSettingsWidget = new GenerationSettingsWidget(parent, model->cellFactory);
+
+	connect(controller_time, &SimulationTimeController::fitToViewSizeSignal, controller_view, &SimulationViewController::fitModelToViewSlot);
+	connect(controller_time, &SimulationTimeController::drawFrameSignal, controller_view, &SimulationViewController::drawFrameSlot);
 
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &MainWindowCLS::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &MainWindowCLS::onGenerate);
@@ -35,21 +39,22 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 
 MainWindowCLS::~MainWindowCLS()
 {
-	delete generationSettings;
+	delete generationSettingsWidget;
 	delete model;
 	delete view;
-	delete controller;
+	delete controller_time;
+	delete controller_view;
 }
 
 void MainWindowCLS::setPlayPause(bool on)
 {
 	if (on) {
-		controller->start();
+		controller_time->start();
 		ui.actionPlay_Pause->setText("Pause");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/pause.png"));
 	}
 	else {
-		controller->stop();
+		controller_time->stop();
 		ui.actionPlay_Pause->setText("Play");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/play.png"));
 	}
@@ -64,12 +69,12 @@ void MainWindowCLS::onLimitSettings()
 
 void MainWindowCLS::onGenerationSettings()
 {
-	generationSettings->show();
+	generationSettingsWidget->show();
 }
 
 void MainWindowCLS::onTimeSettings()
 {
-	TimeSettingsDialog(this, controller).exec();
+	TimeSettingsDialog(this, controller_time).exec();
 }
 
 void MainWindowCLS::closeEvent(QCloseEvent* event)
@@ -82,7 +87,7 @@ void MainWindowCLS::closeEvent(QCloseEvent* event)
 		event->ignore();
 	}
 	else {
-		generationSettings->close();
+		generationSettingsWidget->close();
 		event->accept();
 	}
 }
@@ -101,19 +106,19 @@ void MainWindowCLS::aboutQt()
 }
 
 void MainWindowCLS::onPlayPause() {
-	setPlayPause(!controller->isPlaying());
+	setPlayPause(!controller_time->isPlaying());
 }
 
 void MainWindowCLS::onGenerate()
 {
 	model->cellFactory->generateCells(30);
-	controller->drawOneFrameIfInactive();
+	controller_time->drawOneFrameIfInactive();
 }
 
 void MainWindowCLS::onClear()
 {
 	model->clearAll();
-	controller->drawOneFrameIfInactive();
+	controller_time->drawOneFrameIfInactive();
 }
 
 

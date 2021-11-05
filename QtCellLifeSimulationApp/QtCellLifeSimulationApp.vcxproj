@@ -97,7 +97,8 @@
   <ItemGroup>
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="GenerationSettingsWidget.cpp" />
-    <ClCompile Include="SimulationController.cpp" />
+    <ClCompile Include="SimulationViewController.cpp" />
+    <ClCompile Include="SimulationTimeController.cpp" />
     <ClCompile Include="SimulationView.cpp" />
     <ClCompile Include="TimeSettingsDialog.cpp" />
     <QtRcc Include="QtCellLifeSimulationApp.qrc" />
@@ -117,9 +118,8 @@
     <QtMoc Include="SimulationView.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="SimulationController.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <QtMoc Include="SimulationViewController.h" />
+    <QtMoc Include="SimulationTimeController.h" />
     <QtMoc Include="GenerationSettingsWidget.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="resource.h" />

@@ -18,7 +18,7 @@ void SimulationView::setParent(QWidget* parent)
 	QGraphicsView::setParent(parent);
 }
 
-void SimulationView::drawCircle(int x, int y, int size, QColor color)
+void SimulationView::drawItem(int x, int y, int size, QColor color)
 {
 	scene->addEllipse(x, y, size, size, Qt::NoPen, color);
 }

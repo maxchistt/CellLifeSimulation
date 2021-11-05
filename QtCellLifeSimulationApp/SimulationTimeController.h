@@ -1,31 +1,29 @@
 #pragma once
-#include <qobject.h>
+
+#include <QObject>
 #include "SimulationModel.h"
-#include "SimulationView.h"
 #include <QTimer>
 
-class SimulationController :
-	public QObject
+class SimulationTimeController : public QObject
 {
 	Q_OBJECT
-
 private:
 	QTimer* timer;
 	SimulationModel::Simulation* model;
-	SimulationView* view;
-
 public:
-	SimulationController(SimulationModel::Simulation* model, SimulationView* view);
-	~SimulationController();
+	SimulationTimeController(QObject* parent, SimulationModel::Simulation* model);
+	~SimulationTimeController();
 
 	void setTimeSettings(int timer_ms, float sim_timelapse);
 	void getTimeSettings(int* timer_ms, float* sim_timelapse);
 	void start();
 	void stop();
-	void generateCells(int amount);
 	bool isPlaying();
 	void drawOneFrameIfInactive();
+signals:
+	void drawFrameSignal(std::vector<SimulationModel::drawEntity> frame);
+	void fitToViewSizeSignal();
 private slots:
-	void drawNextFrame();
-};
+	void nextFrameSlot();
 
+};
