@@ -102,9 +102,9 @@
     <ClCompile Include="TimeSettingsDialog.cpp" />
     <QtRcc Include="QtCellLifeSimulationApp.qrc" />
     <QtUic Include="GenerationSettingsWidget.ui" />
-    <QtUic Include="QtCellLifeSimulationApp.ui" />
-    <QtMoc Include="QtCellLifeSimulationApp.h" />
-    <ClCompile Include="QtCellLifeSimulationApp.cpp" />
+    <QtUic Include="MainWindowCLS.ui" />
+    <QtMoc Include="MainWindowCLS.h" />
+    <ClCompile Include="MainWindowCLS.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="TimeSettingsDialog.ui" />
   </ItemGroup>

@@ -1,25 +1,25 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_QtCellLifeSimulationApp.h"
+#include "ui_MainWindowCLS.h"
 #include "SimulationModel.h"
 #include "SimulationView.h"
 #include "SimulationController.h"
 #include "GenerationSettingsWidget.h"
 #include <QCloseEvent>
 
-class QtCellLifeSimulationApp : public QMainWindow
+class MainWindowCLS : public QMainWindow
 {
 	Q_OBJECT
 public:
-	QtCellLifeSimulationApp(QWidget* parent = Q_NULLPTR);
-	~QtCellLifeSimulationApp();
+	MainWindowCLS(QWidget* parent = Q_NULLPTR);
+	~MainWindowCLS();
 private:
 	GenerationSettingsWidget* generationSettings;
 	SimulationModel::Simulation* model;
 	SimulationView* view;
 	SimulationController* controller;
-	Ui::QtCellLifeSimulationAppClass ui;
+	Ui::MainWindowCLS ui;
 	void setPlayPause(bool on);
 private slots:
 	void onPlayPause();
@@ -30,5 +30,5 @@ private slots:
 	void onTimeSettings();
 	void about();
 	void aboutQt();
-	void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event);
+	void MainWindowCLS::closeEvent(QCloseEvent* event);
 };

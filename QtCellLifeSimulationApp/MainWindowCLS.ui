@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QtCellLifeSimulationAppClass</class>
- <widget class="QMainWindow" name="QtCellLifeSimulationAppClass">
+ <class>MainWindowCLS</class>
+ <widget class="QMainWindow" name="MainWindowCLS">
   <property name="geometry">
    <rect>
     <x>0</x>

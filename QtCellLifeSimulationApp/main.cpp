@@ -1,10 +1,10 @@
-#include "QtCellLifeSimulationApp.h"
+#include "MainWindowCLS.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QtCellLifeSimulationApp w;
+    MainWindowCLS w;
     w.show();
     return a.exec();
 }

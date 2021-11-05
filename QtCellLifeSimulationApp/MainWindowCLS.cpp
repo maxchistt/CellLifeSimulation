@@ -1,4 +1,4 @@
-#include "QtCellLifeSimulationApp.h"
+#include "MainWindowCLS.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QVBoxLayout>
@@ -8,7 +8,7 @@
 
 using namespace SimulationModel;
 
-QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
+MainWindowCLS::MainWindowCLS(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -21,19 +21,19 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 	setPlayPause(false);
 	generationSettings = new GenerationSettingsWidget(parent, model->cellFactory);
 
-	connect(ui.actionPlay_Pause, &QAction::triggered, this, &QtCellLifeSimulationApp::onPlayPause);
-	connect(ui.actionGenerate, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerate);
-	connect(ui.actionClear, &QAction::triggered, this, &QtCellLifeSimulationApp::onClear);
+	connect(ui.actionPlay_Pause, &QAction::triggered, this, &MainWindowCLS::onPlayPause);
+	connect(ui.actionGenerate, &QAction::triggered, this, &MainWindowCLS::onGenerate);
+	connect(ui.actionClear, &QAction::triggered, this, &MainWindowCLS::onClear);
 
-	connect(ui.actionLimitSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onLimitSettings);
-	connect(ui.actionGenerationSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerationSettings);
-	connect(ui.actionTimeSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onTimeSettings);
+	connect(ui.actionLimitSettings, &QAction::triggered, this, &MainWindowCLS::onLimitSettings);
+	connect(ui.actionGenerationSettings, &QAction::triggered, this, &MainWindowCLS::onGenerationSettings);
+	connect(ui.actionTimeSettings, &QAction::triggered, this, &MainWindowCLS::onTimeSettings);
 
-	connect(ui.actionAbout, &QAction::triggered, this, &QtCellLifeSimulationApp::about);
-	connect(ui.actionAboutQt, &QAction::triggered, this, &QtCellLifeSimulationApp::aboutQt);
+	connect(ui.actionAbout, &QAction::triggered, this, &MainWindowCLS::about);
+	connect(ui.actionAboutQt, &QAction::triggered, this, &MainWindowCLS::aboutQt);
 }
 
-QtCellLifeSimulationApp::~QtCellLifeSimulationApp()
+MainWindowCLS::~MainWindowCLS()
 {
 	delete generationSettings;
 	delete model;
@@ -41,7 +41,7 @@ QtCellLifeSimulationApp::~QtCellLifeSimulationApp()
 	delete controller;
 }
 
-void QtCellLifeSimulationApp::setPlayPause(bool on)
+void MainWindowCLS::setPlayPause(bool on)
 {
 	if (on) {
 		controller->start();
@@ -55,24 +55,24 @@ void QtCellLifeSimulationApp::setPlayPause(bool on)
 	}
 }
 
-void QtCellLifeSimulationApp::onLimitSettings()
+void MainWindowCLS::onLimitSettings()
 {
 	bool ok;
 	int val = QInputDialog::getInt(this, tr("Limit settings"), tr("Reproduction limit"), model->cellsLimit, 1, 3000, 1, &ok);
 	if (ok) model->cellsLimit = val;
 }
 
-void QtCellLifeSimulationApp::onGenerationSettings()
+void MainWindowCLS::onGenerationSettings()
 {
 	generationSettings->show();
 }
 
-void QtCellLifeSimulationApp::onTimeSettings()
+void MainWindowCLS::onTimeSettings()
 {
 	TimeSettingsDialog(this, controller).exec();
 }
 
-void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event)
+void MainWindowCLS::closeEvent(QCloseEvent* event)
 {
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, tr("Close"),
 		tr("Are you sure?\n"),
@@ -87,7 +87,7 @@ void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event)
 	}
 }
 
-void QtCellLifeSimulationApp::about()
+void MainWindowCLS::about()
 {
 	QString str;
 	str += "Project of 2D simulation of cell life with several clients in C# and C++. This is a Qt client.<br/>";
@@ -95,22 +95,22 @@ void QtCellLifeSimulationApp::about()
 	QMessageBox::about(this, "About", str);
 }
 
-void QtCellLifeSimulationApp::aboutQt()
+void MainWindowCLS::aboutQt()
 {
 	QMessageBox::aboutQt(this);
 }
 
-void QtCellLifeSimulationApp::onPlayPause() {
+void MainWindowCLS::onPlayPause() {
 	setPlayPause(!controller->isPlaying());
 }
 
-void QtCellLifeSimulationApp::onGenerate()
+void MainWindowCLS::onGenerate()
 {
 	model->cellFactory->generateCells(30);
 	controller->drawOneFrameIfInactive();
 }
 
-void QtCellLifeSimulationApp::onClear()
+void MainWindowCLS::onClear()
 {
 	model->clearAll();
 	controller->drawOneFrameIfInactive();

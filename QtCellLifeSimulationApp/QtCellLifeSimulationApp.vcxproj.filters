@@ -26,13 +26,13 @@
     <QtRcc Include="QtCellLifeSimulationApp.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="QtCellLifeSimulationApp.ui">
+    <QtUic Include="MainWindowCLS.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="QtCellLifeSimulationApp.h">
+    <QtMoc Include="MainWindowCLS.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="QtCellLifeSimulationApp.cpp">
+    <ClCompile Include="MainWindowCLS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
