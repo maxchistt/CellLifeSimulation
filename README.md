@@ -16,6 +16,6 @@ There are five projects here :
 
 ![Qt](https://i.postimg.cc/DZcR4smk/image.png)
 
-![ASP.NET](https://i.postimg.cc/kX5W4QL5/image.png)
+![ASP.NET](https://i.postimg.cc/R0vbwhtc/image.png)
 
 Inspired by [OnigiriScience](https://www.youtube.com/c/OnigiriScience)
