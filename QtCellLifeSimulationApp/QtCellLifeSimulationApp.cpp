@@ -28,6 +28,9 @@ QtCellLifeSimulationApp::QtCellLifeSimulationApp(QWidget* parent)
 	connect(ui.actionLimitSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onLimitSettings);
 	connect(ui.actionGenerationSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onGenerationSettings);
 	connect(ui.actionTimeSettings, &QAction::triggered, this, &QtCellLifeSimulationApp::onTimeSettings);
+
+	connect(ui.actionAbout, &QAction::triggered, this, &QtCellLifeSimulationApp::about);
+	connect(ui.actionAboutQt, &QAction::triggered, this, &QtCellLifeSimulationApp::aboutQt);
 }
 
 QtCellLifeSimulationApp::~QtCellLifeSimulationApp()
@@ -82,6 +85,19 @@ void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event)
 		generationSettings->close();
 		event->accept();
 	}
+}
+
+void QtCellLifeSimulationApp::about()
+{
+	QString str;
+	str += "Project of 2D simulation of cell life with several clients in C# and C++. This is a Qt client.<br/>";
+	str += "For more information see <a href=\"https://github.com/maxchistt/CellLifeSimulation\">GitHub page</a>";
+	QMessageBox::about(this, "About", str);
+}
+
+void QtCellLifeSimulationApp::aboutQt()
+{
+	QMessageBox::aboutQt(this);
 }
 
 void QtCellLifeSimulationApp::onPlayPause() {

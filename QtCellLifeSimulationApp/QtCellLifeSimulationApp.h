@@ -28,5 +28,7 @@ private slots:
 	void onLimitSettings();
 	void onGenerationSettings();
 	void onTimeSettings();
+	void about();
+	void aboutQt();
 	void QtCellLifeSimulationApp::closeEvent(QCloseEvent* event);
 };
