@@ -13,28 +13,46 @@ public:
 	GenerationSettingsWidget(QWidget* parent = Q_NULLPTR, SimulationModel::Cells::CellFactory* factory = nullptr);
 	~GenerationSettingsWidget();
 	void setFactory(SimulationModel::Cells::CellFactory* factory);
+	void setButtonsStatus(bool disabled = false);
+
 private:
-	void updateOptionsList();
-	void prepareColorSelections();
-	void setEditorDNAParams(SimulationModel::Cells::CellDNA dna_options);
-	void setEditorParams(SimulationModel::Cells::CellFactory::GenerateOption option);
-	void setEditorModeAndUpdLabel(bool editmode);
-	SimulationModel::Cells::CellFactory::GenerateOption getOptionFromControls();
+	void generateColorSelectionEditorControls();
+	void updateOptions();
+
+	void selecter_setOptionsList(std::vector<SimulationModel::Cells::CellFactory::GenerateOption> options);
+	int selecter_getSelectedIndex();
+
+	void list_setOptionsList(std::vector<SimulationModel::Cells::CellFactory::GenerateOption> options);
+	int list_getSelectedIndex();
+
+	void editor_setDNAParams(SimulationModel::Cells::CellDNA dna_options);
+	void editor_setParams(SimulationModel::Cells::CellFactory::GenerateOption option);
+	SimulationModel::Cells::CellFactory::GenerateOption editor_getParams();
+	SimulationModel::Cells::CellDNA editor_getDNAParams();
+
+	void editor_editOptionByID(int editId);
+	void editor_setEditId(int editId);
+	void editor_setEditMode(bool editmode);
+	void editor_updateStatusLabel();
 
 private slots:
-	void clearAllOptions();
-	void deleteSelectedOption();
-	void editSelectedOption();
+	void selecter_selectTypeID();
+
+	void list_clearAllOptions();
+	void list_deleteSelectedOption();
+	void list_editSelectedOption();
+
 	void editor_changemode();
 	void editor_reset();
 	void editor_save();
-	void selectTypeID();
 
 private:
-	int edit_id = 0;
-	bool edit_editmode = false;
+	int editor_editid = 0;
+	bool editor_editmode = false;
+
 	std::vector<QCheckBox*> colorsBeware_checkboxes;
 	std::vector<QCheckBox*> colorsHunt_checkboxes;
+
 	SimulationModel::Cells::CellFactory* factory;
 	Ui::GenerationSettingsWidget ui;
 };

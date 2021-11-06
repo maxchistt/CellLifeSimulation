@@ -1,25 +1,29 @@
 #include "GenerationSettingsWidget.h"
 #include "ColorConverter.h"
 #include <QListWidgetItem>
+#define ANY_STR "Any"
+
+using namespace SimulationModel;
+using namespace Cells;
 
 GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationModel::Cells::CellFactory* factory)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 	setFactory(factory);
-	updateOptionsList();
+	updateOptions();
 	ui.tabWidget->setCurrentIndex(0);
-	prepareColorSelections();
-	setEditorModeAndUpdLabel(false);
+	generateColorSelectionEditorControls();
+	editor_setEditMode(false);
 	editor_reset();
 
-	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::clearAllOptions);
-	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::deleteSelectedOption);
-	connect(ui.button_edit, &QPushButton::clicked, this, &GenerationSettingsWidget::editSelectedOption);
+	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::list_clearAllOptions);
+	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::list_deleteSelectedOption);
+	connect(ui.button_edit, &QPushButton::clicked, this, &GenerationSettingsWidget::list_editSelectedOption);
 	connect(ui.button_changemode, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_changemode);
 	connect(ui.button_save, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_save);
 	connect(ui.button_reset, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_reset);
-	connect(ui.button_selectTypeID, &QPushButton::clicked, this, &GenerationSettingsWidget::selectTypeID);
+	connect(ui.button_selectTypeID, &QPushButton::clicked, this, &GenerationSettingsWidget::selecter_selectTypeID);
 }
 
 GenerationSettingsWidget::~GenerationSettingsWidget()
@@ -29,45 +33,30 @@ GenerationSettingsWidget::~GenerationSettingsWidget()
 void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* factory)
 {
 	this->factory = factory;
+	setButtonsStatus();
 }
 
-void GenerationSettingsWidget::updateOptionsList()
+void GenerationSettingsWidget::setButtonsStatus(bool disabled)
 {
-	int index = 0;
-	std::vector<int> typesInList;
-	ui.listWidgetOptions->clear();
-	ui.selectTypeIDComboBox->clear();
-	ui.selectTypeIDComboBox->addItem("Any");
-	for (auto option : factory->getOptions()) {
-		auto color = ColorConverter::convertColor(option.dna_options.color);
-		QListWidgetItem* item = new QListWidgetItem();
-		item->setBackgroundColor(color);
-		item->setTextColor(Qt::white);
-		item->setText(" " + QString::number(index) + "	Type:   " + QString::number(option.typeID));
-		ui.listWidgetOptions->addItem(item);
-
-		bool wasAdded = false;
-		for (auto type : typesInList) {
-			if (type == option.typeID)wasAdded = true;
-		}
-		if (!wasAdded) {
-			typesInList.push_back(option.typeID);
-		}
-
-		index++;
-	}
-
-	std::sort(typesInList.begin(), typesInList.end());
-	bool isContained = false;
-	for (auto typeID : typesInList) {
-		ui.selectTypeIDComboBox->addItem(QString::number(typeID));
-		if (typeID == factory->getGenerationType())isContained = true;
-	}
-	int findindex = factory->getGenerationType() == 0 || !isContained ? 0 : ui.selectTypeIDComboBox->findText(QString::number(factory->getGenerationType()));
-	ui.selectTypeIDComboBox->setCurrentIndex(findindex);
+	if (factory == nullptr) disabled = true;
+	ui.button_changemode->setDisabled(disabled);
+	ui.button_clear->setDisabled(disabled);
+	ui.button_delete->setDisabled(disabled);
+	ui.button_edit->setDisabled(disabled);
+	ui.button_reset->setDisabled(disabled);
+	ui.button_save->setDisabled(disabled);
+	ui.button_selectTypeID->setDisabled(disabled);
 }
 
-void GenerationSettingsWidget::prepareColorSelections()
+void GenerationSettingsWidget::updateOptions()
+{
+	auto options = factory->getOptions();
+	list_setOptionsList(options);
+	selecter_setOptionsList(options);
+	if (editor_editmode)editor_reset();
+}
+
+void GenerationSettingsWidget::generateColorSelectionEditorControls()
 {
 	int index = 0;
 	for (auto cellColor : SimulationModel::Cells::ALL_CELL_COLORS) {
@@ -94,7 +83,7 @@ void GenerationSettingsWidget::prepareColorSelections()
 	}
 }
 
-void GenerationSettingsWidget::setEditorDNAParams(SimulationModel::Cells::CellDNA dna_options)
+void GenerationSettingsWidget::editor_setDNAParams(CellDNA dna_options)
 {
 	ui.feedDamageDoubleSpinBox->setValue(dna_options.feed_damage);
 	ui.maxFoodDoubleSpinBox->setValue(dna_options.max_food);
@@ -131,28 +120,21 @@ void GenerationSettingsWidget::setEditorDNAParams(SimulationModel::Cells::CellDN
 	}
 }
 
-void GenerationSettingsWidget::setEditorParams(SimulationModel::Cells::CellFactory::GenerateOption option)
+void GenerationSettingsWidget::editor_setParams(CellFactory::GenerateOption option)
 {
 	ui.typeIdSpinBox->setValue(option.typeID);
-	setEditorDNAParams(option.dna_options);
+	editor_setDNAParams(option.dna_options);
 }
 
-void GenerationSettingsWidget::setEditorModeAndUpdLabel(bool editmode)
-{
-	edit_editmode = editmode;
-	if (edit_editmode) {
-		ui.label_editor->setText("Editing Id <b>" + QString::number(edit_id) + "</b>");
-		ui.label_editor->setStyleSheet("background-color: lightgreen;");
-	}
-	else {
-		ui.label_editor->setText("Creating new");
-		ui.label_editor->setStyleSheet("background-color: lightskyblue;");
-	}
-}
-
-SimulationModel::Cells::CellFactory::GenerateOption GenerationSettingsWidget::getOptionFromControls()
+CellFactory::GenerateOption GenerationSettingsWidget::editor_getParams()
 {
 	int typeID = ui.typeIdSpinBox->value();
+	SimulationModel::Cells::CellDNA dna_options = editor_getDNAParams();
+	return SimulationModel::Cells::CellFactory::GenerateOption{ dna_options,typeID };
+}
+
+CellDNA GenerationSettingsWidget::editor_getDNAParams()
+{
 	SimulationModel::Cells::CellDNA dna_options;
 	dna_options.feed_damage = ui.feedDamageDoubleSpinBox->value();
 	dna_options.max_food = ui.maxFoodDoubleSpinBox->value();
@@ -183,85 +165,161 @@ SimulationModel::Cells::CellFactory::GenerateOption GenerationSettingsWidget::ge
 		index++;
 	}
 
-	return SimulationModel::Cells::CellFactory::GenerateOption{ dna_options,typeID };
+	return dna_options;
 }
 
-void GenerationSettingsWidget::clearAllOptions()
+void GenerationSettingsWidget::selecter_setOptionsList(std::vector<CellFactory::GenerateOption> options)
+{
+	QStringList typesList;
+
+	ui.selectTypeIDComboBox->clear();
+
+	for (auto option : options) {
+		QString typeID_Str = QString::number(option.typeID);
+		bool wasAdded = false;
+		for (auto type : typesList) {
+			if (type == typeID_Str)wasAdded = true;
+		}
+		if (!wasAdded) {
+			typesList.push_back(typeID_Str);
+		}
+	}
+	typesList.sort();
+	typesList.push_front(ANY_STR);
+
+	ui.selectTypeIDComboBox->addItems(typesList);
+
+	QString currentTypeStr = QString::number(factory->getGenerationType());
+	bool isContained = typesList.contains(currentTypeStr);
+	int findindex = !isContained ? 0 : typesList.indexOf(currentTypeStr);
+	ui.selectTypeIDComboBox->setCurrentIndex(findindex);
+}
+
+int GenerationSettingsWidget::selecter_getSelectedIndex()
+{
+	QString selected_str = ui.selectTypeIDComboBox->currentText();
+	return selected_str == ANY_STR ? 0 : selected_str.toInt();
+}
+
+void GenerationSettingsWidget::list_setOptionsList(std::vector<CellFactory::GenerateOption> options)
+{
+	ui.listWidgetOptions->clear();
+	for (int index = 0; index < options.size(); index++) {
+		QListWidgetItem* item = new QListWidgetItem();
+		item->setBackgroundColor(ColorConverter::convertColor(options[index].dna_options.color));
+		item->setTextColor(Qt::white);
+		item->setText(" " + QString::number(index) + "	Type:   " + QString::number(options[index].typeID));
+		ui.listWidgetOptions->addItem(item);
+	}
+}
+
+int GenerationSettingsWidget::list_getSelectedIndex()
+{
+	return ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
+}
+
+void GenerationSettingsWidget::editor_editOptionByID(int editId)
+{
+	editor_setEditId(editId);
+	editor_reset();
+	editor_setEditMode(true);
+}
+
+void GenerationSettingsWidget::editor_setEditId(int editId)
+{
+	editor_editid = editId;
+	editor_updateStatusLabel();
+}
+
+void GenerationSettingsWidget::editor_setEditMode(bool editmode)
+{
+	bool reset = editmode == true && editor_editmode == false;
+	editor_editmode = editmode;
+	editor_updateStatusLabel();
+	if (reset) editor_reset();
+}
+
+void GenerationSettingsWidget::editor_updateStatusLabel()
+{
+	if (editor_editmode) {
+		ui.label_editor->setText("Editing Id <b>" + QString::number(editor_editid) + "</b>");
+		ui.label_editor->setStyleSheet("background-color: lightgreen;");
+	}
+	else {
+		ui.label_editor->setText("Creating new");
+		ui.label_editor->setStyleSheet("background-color: lightskyblue;");
+	}
+}
+
+void GenerationSettingsWidget::list_clearAllOptions()
 {
 	factory->clearOptions();
-	updateOptionsList();
-	edit_id = 0;
-	setEditorModeAndUpdLabel(false);
+	updateOptions();
+	editor_setEditId(0);
+	editor_setEditMode(false);
 }
 
-void GenerationSettingsWidget::deleteSelectedOption()
+void GenerationSettingsWidget::list_deleteSelectedOption()
 {
-	int currentindex = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
-	factory->deleteOption(currentindex);
-	updateOptionsList();
-	if (edit_id >= currentindex) {
-		if (currentindex == edit_id) {
-			edit_id = 0;
-			setEditorModeAndUpdLabel(false);
+	int currentDeleteIndex = list_getSelectedIndex();
+	factory->deleteOption(currentDeleteIndex);
+	updateOptions();
+	if (editor_editid >= currentDeleteIndex) {
+		if (editor_editid == currentDeleteIndex || editor_editid == 0) {
+			editor_setEditId(0);
+			editor_setEditMode(false);
 		}
 		else {
-			edit_id--;
-			setEditorModeAndUpdLabel(edit_editmode);
-			setEditorParams(factory->getOptions()[edit_id]);
+			editor_setEditId(editor_editid - 1);
+			editor_reset();
 		}
 	}
 }
 
-void GenerationSettingsWidget::editSelectedOption()
+void GenerationSettingsWidget::list_editSelectedOption()
 {
-	edit_id = ui.listWidgetOptions->row(ui.listWidgetOptions->currentItem());
-
-	setEditorParams(factory->getOptions()[edit_id]);
-	setEditorModeAndUpdLabel(true);
-
+	editor_editOptionByID(list_getSelectedIndex());
 	ui.tabWidget->setCurrentIndex(2);
 }
 
 void GenerationSettingsWidget::editor_changemode()
 {
-	setEditorModeAndUpdLabel(!edit_editmode);
-	if (edit_editmode) {
-		auto options = factory->getOptions();
-		if (edit_id < options.size()) {
-			setEditorParams(options[edit_id]);
+	if (!editor_editmode) {
+		if (editor_editid < factory->getOptions().size()) {
+			editor_setEditMode(!editor_editmode);
+			editor_reset();
 		}
-		else {
-			setEditorModeAndUpdLabel(!edit_editmode);
-		}
+	}
+	else {
+		editor_setEditMode(!editor_editmode);
 	}
 }
 
 void GenerationSettingsWidget::editor_reset()
 {
-	if (edit_editmode) {
-		setEditorParams(factory->getOptions()[edit_id]);
+	if (editor_editmode) {
+		editor_setParams(factory->getOptions()[editor_editid]);
 	}
 	else {
-		setEditorDNAParams(SimulationModel::Cells::CellDNA());
+		editor_setDNAParams(SimulationModel::Cells::CellDNA());
 	}
 }
 
 void GenerationSettingsWidget::editor_save()
 {
-	auto option = getOptionFromControls();
+	auto option = editor_getParams();
 
-	if (edit_editmode) {
-		factory->updateOption(edit_id, option);
+	if (editor_editmode) {
+		factory->updateOption(editor_editid, option);
 	}
 	else {
 		factory->addOption(option);
 	}
-	updateOptionsList();
+	updateOptions();
 	ui.tabWidget->setCurrentIndex(1);
 }
 
-void GenerationSettingsWidget::selectTypeID()
+void GenerationSettingsWidget::selecter_selectTypeID()
 {
-	auto str = ui.selectTypeIDComboBox->currentText();
-	factory->setGenerationType(str == "Any" ? 0 : str.toInt());
+	factory->setGenerationType(selecter_getSelectedIndex());
 }
