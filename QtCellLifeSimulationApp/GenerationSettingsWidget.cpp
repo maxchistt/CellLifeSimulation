@@ -10,12 +10,9 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	: QWidget(parent)
 {
 	ui.setupUi(this);
-	setFactory(factory);
-	updateOptions();
-	ui.tabWidget->setCurrentIndex(0);
 	generateColorSelectionEditorControls();
-	editor_setEditMode(false);
-	editor_reset();
+	setFactory(factory);
+	ui.tabWidget->setCurrentIndex(0);
 
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::list_clearAllOptions);
 	connect(ui.button_delete, &QPushButton::clicked, this, &GenerationSettingsWidget::list_deleteSelectedOption);
@@ -33,6 +30,9 @@ GenerationSettingsWidget::~GenerationSettingsWidget()
 void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* factory)
 {
 	this->factory = factory;
+	updateOptions();
+	editor_setEditMode(false);
+	editor_reset();
 	setButtonsStatus();
 }
 
