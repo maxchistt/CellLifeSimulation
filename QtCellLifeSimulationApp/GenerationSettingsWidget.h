@@ -50,7 +50,7 @@ private slots:
 
 signals:
 	void setGenerationAmountSignal(int amount);
-	int getGenerationAmountSignal();
+	void setupGenerationAmountSignal(int& amount);
 
 private:
 	int editor_editid = 0;

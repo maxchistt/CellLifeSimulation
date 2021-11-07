@@ -5,9 +5,11 @@ SimulationGenerationController::SimulationGenerationController(QObject* parent, 
 {
 	this->model = model;
 	this->settings_widget = settings_widget;
+
+	connect(settings_widget, &GenerationSettingsWidget::setGenerationAmountSignal, this, &SimulationGenerationController::setGenerationAmountSlot);
+	connect(settings_widget, &GenerationSettingsWidget::setupGenerationAmountSignal, this, &SimulationGenerationController::getGenerationAmountSlot);
+
 	settings_widget->setCellFactory(model->cellFactory);
-	connect(settings_widget, &GenerationSettingsWidget::setGenerationAmountSignal, this, setGenerationAmountSlot);
-	connect(settings_widget, &GenerationSettingsWidget::getGenerationAmountSignal, this, getGenerationAmountSlot);
 }
 
 SimulationGenerationController::~SimulationGenerationController()
@@ -34,9 +36,9 @@ void SimulationGenerationController::closeSettings()
 	settings_widget->close();
 }
 
-int SimulationGenerationController::getGenerationAmountSlot()
+void SimulationGenerationController::getGenerationAmountSlot(int& amount)
 {
-	return generationAmount;
+	amount = generationAmount;
 }
 
 void SimulationGenerationController::setGenerationAmountSlot(int amount)

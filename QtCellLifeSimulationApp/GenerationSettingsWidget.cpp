@@ -21,6 +21,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 	connect(ui.button_save, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_save);
 	connect(ui.button_reset, &QPushButton::clicked, this, &GenerationSettingsWidget::editor_reset);
 	connect(ui.button_selectTypeID, &QPushButton::clicked, this, &GenerationSettingsWidget::selecter_selectTypeID);
+	connect(ui.button_setGenerationAmount, &QPushButton::clicked, this, &GenerationSettingsWidget::selecter_selectAmount);
 }
 
 GenerationSettingsWidget::~GenerationSettingsWidget()
@@ -46,15 +47,18 @@ void GenerationSettingsWidget::setButtonsStatus(bool disabled)
 	ui.button_reset->setDisabled(disabled);
 	ui.button_save->setDisabled(disabled);
 	ui.button_selectTypeID->setDisabled(disabled);
+	ui.button_setGenerationAmount->setDisabled(disabled);
 }
 
 void GenerationSettingsWidget::updateOptions()
 {
-	auto options = factory->getOptions();
-	list_setOptionsList(options);
-	selecter_setOptionsList(options);
-	selecter_setupGenerationAmont();
-	if (editor_editmode)editor_reset();
+	if (factory != nullptr) {
+		auto options = factory->getOptions();
+		list_setOptionsList(options);
+		selecter_setOptionsList(options);
+		selecter_setupGenerationAmont();
+		if (editor_editmode)editor_reset();
+	}
 }
 
 void GenerationSettingsWidget::generateColorSelectionEditorControls()
@@ -171,8 +175,11 @@ CellDNA GenerationSettingsWidget::editor_getDNAParams()
 
 void GenerationSettingsWidget::selecter_setupGenerationAmont()
 {
-	int amount = emit getGenerationAmountSignal();
-	///
+	int amount = -1;
+	emit setupGenerationAmountSignal(amount);
+	if (amount > -1) {
+		ui.generationAmountSpinBox->setValue(amount);
+	}
 }
 
 void GenerationSettingsWidget::selecter_setOptionsList(std::vector<CellFactory::GenerateOption> options)
@@ -260,8 +267,7 @@ void GenerationSettingsWidget::editor_updateStatusLabel()
 
 void GenerationSettingsWidget::selecter_selectAmount()
 {
-	//int amount = ui
-	emit setGenerationAmountSignal(amount);
+	emit setGenerationAmountSignal(ui.generationAmountSpinBox->value());
 }
 
 void GenerationSettingsWidget::list_clearAllOptions()

@@ -22,5 +22,5 @@ public:
 
 private slots:
 	void setGenerationAmountSlot(int amount);
-	int getGenerationAmountSlot();
+	void getGenerationAmountSlot(int& amount);
 };
