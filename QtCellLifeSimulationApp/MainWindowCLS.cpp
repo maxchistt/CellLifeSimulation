@@ -113,7 +113,7 @@ void MainWindowCLS::onPlayPause() {
 
 void MainWindowCLS::onGenerate()
 {
-	controller_generation->generate(30);
+	controller_generation->generate();
 	controller_time->drawOneFrameIfInactive();
 }
 

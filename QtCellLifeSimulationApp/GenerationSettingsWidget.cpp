@@ -53,6 +53,7 @@ void GenerationSettingsWidget::updateOptions()
 	auto options = factory->getOptions();
 	list_setOptionsList(options);
 	selecter_setOptionsList(options);
+	selecter_setupGenerationAmont();
 	if (editor_editmode)editor_reset();
 }
 
@@ -168,6 +169,12 @@ CellDNA GenerationSettingsWidget::editor_getDNAParams()
 	return dna_options;
 }
 
+void GenerationSettingsWidget::selecter_setupGenerationAmont()
+{
+	int amount = emit getGenerationAmountSignal();
+	///
+}
+
 void GenerationSettingsWidget::selecter_setOptionsList(std::vector<CellFactory::GenerateOption> options)
 {
 	QStringList typesList;
@@ -249,6 +256,12 @@ void GenerationSettingsWidget::editor_updateStatusLabel()
 		ui.label_editor->setText("Creating new");
 		ui.label_editor->setStyleSheet("background-color: lightskyblue;");
 	}
+}
+
+void GenerationSettingsWidget::selecter_selectAmount()
+{
+	//int amount = ui
+	emit setGenerationAmountSignal(amount);
 }
 
 void GenerationSettingsWidget::list_clearAllOptions()

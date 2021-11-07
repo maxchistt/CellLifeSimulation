@@ -19,6 +19,7 @@ private:
 	void generateColorSelectionEditorControls();
 	void updateOptions();
 
+	void selecter_setupGenerationAmont();
 	void selecter_setOptionsList(std::vector<SimulationModel::Cells::CellFactory::GenerateOption> options);
 	int selecter_getSelectedIndex();
 
@@ -37,6 +38,7 @@ private:
 
 private slots:
 	void selecter_selectTypeID();
+	void selecter_selectAmount();
 
 	void list_clearAllOptions();
 	void list_deleteSelectedOption();
@@ -45,6 +47,10 @@ private slots:
 	void editor_changemode();
 	void editor_reset();
 	void editor_save();
+
+signals:
+	void setGenerationAmountSignal(int amount);
+	int getGenerationAmountSignal();
 
 private:
 	int editor_editid = 0;
