@@ -184,28 +184,27 @@ void GenerationSettingsWidget::selecter_setupGenerationAmont()
 
 void GenerationSettingsWidget::selecter_setOptionsList(std::vector<CellFactory::GenerateOption> options)
 {
-	QStringList typesList;
-
-	ui.selectTypeIDComboBox->clear();
-
+	std::vector<int> typesList;
 	for (auto option : options) {
-		QString typeID_Str = QString::number(option.typeID);
 		bool wasAdded = false;
 		for (auto type : typesList) {
-			if (type == typeID_Str)wasAdded = true;
+			if (type == option.typeID) wasAdded = true;
 		}
 		if (!wasAdded) {
-			typesList.push_back(typeID_Str);
+			typesList.push_back(option.typeID);
 		}
 	}
-	typesList.sort();
-	typesList.push_front(ANY_STR);
+	std::sort(typesList.begin(), typesList.end());
 
-	ui.selectTypeIDComboBox->addItems(typesList);
-
-	QString currentTypeStr = QString::number(factory->getGenerationType());
-	bool isContained = typesList.contains(currentTypeStr);
-	int findindex = !isContained ? 0 : typesList.indexOf(currentTypeStr);
+	int currentType = factory->getGenerationType();
+	bool isContained = false;
+	ui.selectTypeIDComboBox->clear();
+	ui.selectTypeIDComboBox->addItem(ANY_STR);
+	for (int item : typesList) {
+		ui.selectTypeIDComboBox->addItem(QString::number(item));
+		if (item = currentType)isContained = true;
+	}
+	int findindex = !isContained ? 0 : ui.selectTypeIDComboBox->findText(QString::number(currentType));
 	ui.selectTypeIDComboBox->setCurrentIndex(findindex);
 }
 
