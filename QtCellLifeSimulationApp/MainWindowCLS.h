@@ -6,6 +6,7 @@
 #include "SimulationView.h"
 #include "SimulationTimeController.h"
 #include "SimulationViewController.h"
+#include "SimulationGenerationController.h"
 #include "GenerationSettingsWidget.h"
 #include <QCloseEvent>
 
@@ -21,6 +22,7 @@ private:
 	SimulationView* view;
 	SimulationTimeController* controller_time;
 	SimulationViewController* controller_view;
+	SimulationGenerationController* controller_generation;
 	Ui::MainWindowCLS ui;
 	void setPlayPause(bool on);
 private slots:

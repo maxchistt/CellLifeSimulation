@@ -11,7 +11,7 @@ GenerationSettingsWidget::GenerationSettingsWidget(QWidget* parent, SimulationMo
 {
 	ui.setupUi(this);
 	generateColorSelectionEditorControls();
-	setFactory(factory);
+	setCellFactory(factory);
 	ui.tabWidget->setCurrentIndex(0);
 
 	connect(ui.button_clear, &QPushButton::clicked, this, &GenerationSettingsWidget::list_clearAllOptions);
@@ -27,7 +27,7 @@ GenerationSettingsWidget::~GenerationSettingsWidget()
 {
 }
 
-void GenerationSettingsWidget::setFactory(SimulationModel::Cells::CellFactory* factory)
+void GenerationSettingsWidget::setCellFactory(SimulationModel::Cells::CellFactory* factory)
 {
 	this->factory = factory;
 	updateOptions();

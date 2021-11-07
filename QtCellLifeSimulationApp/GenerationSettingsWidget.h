@@ -12,7 +12,7 @@ class GenerationSettingsWidget : public QWidget
 public:
 	GenerationSettingsWidget(QWidget* parent = Q_NULLPTR, SimulationModel::Cells::CellFactory* factory = nullptr);
 	~GenerationSettingsWidget();
-	void setFactory(SimulationModel::Cells::CellFactory* factory);
+	void setCellFactory(SimulationModel::Cells::CellFactory* factory);
 	void setButtonsStatus(bool disabled = false);
 
 private:

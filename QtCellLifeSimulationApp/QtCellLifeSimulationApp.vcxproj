@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="GenerationSettingsWidget.cpp" />
+    <ClCompile Include="SimulationGenerationController.cpp" />
     <ClCompile Include="SimulationViewController.cpp" />
     <ClCompile Include="SimulationTimeController.cpp" />
     <ClCompile Include="SimulationView.cpp" />
@@ -118,6 +119,7 @@
     <QtMoc Include="SimulationView.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="SimulationGenerationController.h" />
     <QtMoc Include="SimulationViewController.h" />
     <QtMoc Include="SimulationTimeController.h" />
     <QtMoc Include="GenerationSettingsWidget.h" />

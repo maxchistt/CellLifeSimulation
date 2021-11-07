@@ -20,7 +20,8 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	controller_time = new SimulationTimeController(this, model);
 	controller_time->setTimeSettings(30, 30);
 	setPlayPause(false);
-	generationSettingsWidget = new GenerationSettingsWidget(parent, model->cellFactory);
+	generationSettingsWidget = new GenerationSettingsWidget(parent);
+	controller_generation = new SimulationGenerationController(this, model, generationSettingsWidget);
 
 	connect(controller_time, &SimulationTimeController::fitToViewSizeSignal, controller_view, &SimulationViewController::fitModelToViewSlot);
 	connect(controller_time, &SimulationTimeController::drawFrameSignal, controller_view, &SimulationViewController::drawFrameSlot);
@@ -39,11 +40,12 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 
 MainWindowCLS::~MainWindowCLS()
 {
-	delete generationSettingsWidget;
 	delete model;
 	delete view;
 	delete controller_time;
 	delete controller_view;
+	delete controller_generation;
+	delete generationSettingsWidget;
 }
 
 void MainWindowCLS::setPlayPause(bool on)
@@ -69,7 +71,7 @@ void MainWindowCLS::onLimitSettings()
 
 void MainWindowCLS::onGenerationSettings()
 {
-	generationSettingsWidget->show();
+	controller_generation->openSettings();
 }
 
 void MainWindowCLS::onTimeSettings()
@@ -87,7 +89,7 @@ void MainWindowCLS::closeEvent(QCloseEvent* event)
 		event->ignore();
 	}
 	else {
-		generationSettingsWidget->close();
+		controller_generation->closeSettings();
 		event->accept();
 	}
 }
@@ -111,13 +113,13 @@ void MainWindowCLS::onPlayPause() {
 
 void MainWindowCLS::onGenerate()
 {
-	model->cellFactory->generateCells(30);
+	controller_generation->generate(30);
 	controller_time->drawOneFrameIfInactive();
 }
 
 void MainWindowCLS::onClear()
 {
-	model->clearAll();
+	controller_generation->clear();
 	controller_time->drawOneFrameIfInactive();
 }
 
