@@ -61,6 +61,16 @@ void GenerationSettingsWidget::updateOptions()
 	}
 }
 
+bool GenerationSettingsWidget::checkEditEnable()
+{
+	return checkEditEnable(editor_editid);
+}
+
+bool GenerationSettingsWidget::checkEditEnable(int editid)
+{
+	return factory != nullptr && editid >= 0 && editid < factory->getOptions().size();
+}
+
 void GenerationSettingsWidget::generateColorSelectionEditorControls()
 {
 	int index = 0;
@@ -240,7 +250,7 @@ void GenerationSettingsWidget::editor_editOptionByID(int editId)
 
 void GenerationSettingsWidget::editor_setEditId(int editId)
 {
-	editor_editid = editId;
+	if (checkEditEnable(editId))editor_editid = editId;
 	editor_updateStatusLabel();
 }
 
@@ -303,7 +313,7 @@ void GenerationSettingsWidget::list_editSelectedOption()
 void GenerationSettingsWidget::editor_changemode()
 {
 	if (!editor_editmode) {
-		if (editor_editid < factory->getOptions().size()) {
+		if (checkEditEnable()) {
 			editor_setEditMode(!editor_editmode);
 			editor_reset();
 		}
@@ -315,6 +325,9 @@ void GenerationSettingsWidget::editor_changemode()
 
 void GenerationSettingsWidget::editor_reset()
 {
+	if (!checkEditEnable()) {
+		editor_changemode();
+	}
 	if (editor_editmode) {
 		editor_setParams(factory->getOptions()[editor_editid]);
 	}

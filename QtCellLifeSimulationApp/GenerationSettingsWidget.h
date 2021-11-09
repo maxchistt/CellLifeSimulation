@@ -18,6 +18,8 @@ public:
 private:
 	void generateColorSelectionEditorControls();
 	void updateOptions();
+	bool checkEditEnable();
+	bool checkEditEnable(int editid);
 
 	void selecter_setupGenerationAmont();
 	void selecter_setOptionsList(std::vector<SimulationModel::Cells::CellFactory::GenerateOption> options);
