@@ -61,6 +61,12 @@
     <ClCompile Include="SimulationGenerationController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AdaptiveQGraphicsView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulationView2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SimulationView.h">
@@ -79,6 +85,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="SimulationGenerationController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AdaptiveQGraphicsView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SimulationView2D.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

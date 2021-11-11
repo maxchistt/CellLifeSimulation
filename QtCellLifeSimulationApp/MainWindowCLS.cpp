@@ -5,6 +5,7 @@
 #include <QInputDialog>
 #include "TimeSettingsDialog.h"
 #include <QMessageBox>
+#include "SimulationView2D.h"
 
 using namespace SimulationModel;
 
@@ -14,7 +15,7 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	ui.setupUi(this);
 
 	model = new Simulation();
-	view = new SimulationView(this);
+	view = new SimulationView2D(this);
 	setCentralWidget(view);
 	controller_view = new SimulationViewController(this, model, view);
 	controller_time = new SimulationTimeController(this, model);

@@ -1,26 +1,17 @@
 #pragma once
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include "SimulationModel.h"
+#include <QWidget>
+#include <QColor>
 
-using namespace SimulationModel;
-
-class SimulationView : public QGraphicsView
+class SimulationView : public QWidget
 {
 	Q_OBJECT
-
 public:
-	SimulationView(QWidget* parent = Q_NULLPTR);
-	void setParent(QWidget* parent);
-	void drawItem(int x, int y, int size, QColor color);
-	void clear();
-
-signals:
-
-public slots:
-
-private:
-	QGraphicsScene* scene;
+	virtual void drawItem(int x, int y, int size, QColor color) = 0;
+	virtual void clear() = 0;
+	SimulationView(QWidget* parent);
+	virtual ~SimulationView() = default;
 protected:
-	void resizeEvent(QResizeEvent* event);
+	void setCentralWidget(QWidget* viewWidget);
+private:
+	void setupLayout();
 };

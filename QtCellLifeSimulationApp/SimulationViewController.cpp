@@ -23,7 +23,7 @@ void SimulationViewController::fitModelToViewSlot()
 void SimulationViewController::drawFrameSlot(std::vector<SimulationModel::drawEntity> frame)
 {
 	view->clear();
-	for (auto item : frame) {
+	for (SimulationModel::drawEntity item : frame) {
 		view->drawItem(item.point.x - item.size / 2, item.point.y - item.size / 2, item.size, ColorConverter::convertColor(item.color));
 	}
 }

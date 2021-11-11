@@ -105,9 +105,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AdaptiveQGraphicsView.cpp" />
     <ClCompile Include="ColorConverter.cpp" />
     <ClCompile Include="GenerationSettingsWidget.cpp" />
     <ClCompile Include="SimulationGenerationController.cpp" />
+    <ClCompile Include="SimulationView2D.cpp" />
     <ClCompile Include="SimulationViewController.cpp" />
     <ClCompile Include="SimulationTimeController.cpp" />
     <ClCompile Include="SimulationView.cpp" />
@@ -132,10 +134,12 @@
     <QtMoc Include="SimulationView.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="SimulationView2D.h" />
     <QtMoc Include="SimulationGenerationController.h" />
     <QtMoc Include="SimulationViewController.h" />
     <QtMoc Include="SimulationTimeController.h" />
     <QtMoc Include="GenerationSettingsWidget.h" />
+    <QtMoc Include="AdaptiveQGraphicsView.h" />
     <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="resource.h" />
     <QtMoc Include="TimeSettingsDialog.h" />
