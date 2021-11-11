@@ -19,31 +19,30 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 #	ifndef C3D_USAGE
 	ui.actionGenerationSettings->setEnabled(false);
 #	endif
+
 	view = new SimulationView2D(this);
 	setCentralWidget(view);
 	controller_view = new SimulationViewController(this, model, view);
+
 	controller_time = new SimulationTimeController(this, model);
 	controller_time->setTimeSettings(30, 30);
 	setPlayPause(false);
+
 	generationSettingsWidget = new GenerationSettingsWidget(parent);
 	controller_generation = new SimulationGenerationController(this, model, generationSettingsWidget);
 
 	connect(controller_time, &SimulationTimeController::drawNewFrameSignal, controller_view, &SimulationViewController::drawNewFrameSlot);
+	connect(this, &MainWindowCLS::viewChangedSignal, controller_view, &SimulationViewController::changeViewSlot);
 
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &MainWindowCLS::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &MainWindowCLS::onGenerate);
 	connect(ui.actionClear, &QAction::triggered, this, &MainWindowCLS::onClear);
-
 	connect(ui.actionLimitSettings, &QAction::triggered, this, &MainWindowCLS::onLimitSettings);
 	connect(ui.actionGenerationSettings, &QAction::triggered, this, &MainWindowCLS::onGenerationSettings);
 	connect(ui.actionTimeSettings, &QAction::triggered, this, &MainWindowCLS::onTimeSettings);
-
 	connect(ui.actionAbout, &QAction::triggered, this, &MainWindowCLS::about);
 	connect(ui.actionAboutQt, &QAction::triggered, this, &MainWindowCLS::aboutQt);
-
 	connect(ui.actionChange_view, &QAction::triggered, this, &MainWindowCLS::changeViewSlot);
-
-	connect(this, &MainWindowCLS::viewChangedSignal, controller_view, &SimulationViewController::changeViewSlot);
 }
 
 MainWindowCLS::~MainWindowCLS()
@@ -68,6 +67,28 @@ void MainWindowCLS::setPlayPause(bool on)
 		ui.actionPlay_Pause->setText("Play");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/play.png"));
 	}
+}
+
+void MainWindowCLS::setNewView()
+{
+	auto oldview = view;
+
+	if (basicView) {
+		view = new SimulationView2D(this);
+	}
+	else {
+#		ifdef C3D_USAGE
+		view = new SimulationViewC3D(this);
+#		else
+		view = new SimulationView2D(this);
+#		endif
+	}
+
+	controller_view->setResizeMode(basicView);
+	setCentralWidget(view);
+	emit viewChangedSignal(view);
+
+	delete oldview;
 }
 
 void MainWindowCLS::onLimitSettings()
@@ -137,27 +158,15 @@ void MainWindowCLS::changeViewSlot()
 {
 	if (basicView) {
 #		ifdef C3D_USAGE
-		auto oldview = view;
-		view = new SimulationViewC3D(this);
-		controller_view->setResizeMode(false);
-		setCentralWidget(view);
-		emit viewChangedSignal(view);
 		basicView = false;
-		delete oldview;
 #		endif
 	}
 	else {
-		auto oldview = view;
-		view = new SimulationView2D(this);
-		controller_view->setResizeMode(true);
-		setCentralWidget(view);
-		emit viewChangedSignal(view);
 		basicView = true;
-		delete oldview;
 	}
+	setNewView();
 	controller_view->drawCurrentFrame();
 	controller_view->fit3DSceneView();
-
 }
 
 
