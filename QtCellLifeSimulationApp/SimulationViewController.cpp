@@ -34,7 +34,15 @@ void SimulationViewController::drawCurrentFrame()
 
 void SimulationViewController::fitModelSizeToView()
 {
-	if(resizeMode)model->setSize(view->width(), view->height());
+	if (resizeMode) {
+		model->setSize(view->width(), view->height());
+	}
+	else {
+		model->setSize(
+			view->width() < 250 ? 250 : view->width() > 550 ? 550 : view->width(),
+			view->height() < 200 ? 200 : view->height() > 450 ? 450 : view->height()
+		);
+	}
 }
 
 void SimulationViewController::changeViewSlot(SimulationView* newView)
