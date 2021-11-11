@@ -25,29 +25,14 @@ SimulationViewC3D::~SimulationViewC3D()
 	delete glWidget;
 }
 
-void SimulationViewC3D::drawItem(int x, int y, int size, QColor color)
+void SimulationViewC3D::addDrawItem(int x, int y, int size, QColor color)
 {
 	frame.push_back(DrawItem{ x,y,float(0.5 * size),Color(color.red(), color.green(), color.blue()) });
 }
 
 void SimulationViewC3D::clear()
 {
-	if (!processStartCheck())return;
 	frame.clear();
-	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
-	Q_ASSERT(pTopSegment != nullptr);
-	pTopSegment->RemoveChildren();
-	processEndCheck();
-}
-
-int SimulationViewC3D::width()
-{
-	return 300;
-}
-
-int SimulationViewC3D::height()
-{
-	return 300;
 }
 
 void SimulationViewC3D::resize3DScene()
@@ -66,6 +51,8 @@ void SimulationViewC3D::frameComplete()
 	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
 	Q_ASSERT(pTopSegment != nullptr);
 	std::vector<DrawItem> temp = frame;
+	pTopSegment->RemoveChildren();
+
 	for (auto item : temp) {
 		::createShapeSegment(
 			SceneGenerator::Instance()->CreateSphere(item.size),

@@ -8,7 +8,7 @@ class SimulationView2D : public SimulationView
 public:
 	SimulationView2D(QWidget* parent);
 	~SimulationView2D();
-	void drawItem(int x, int y, int size, QColor color) override;
+	void addDrawItem(int x, int y, int size, QColor color) override;
 	void clear() override;
 private:
 	AdaptiveQGraphicsView* view;

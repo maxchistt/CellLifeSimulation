@@ -6,7 +6,7 @@ SimulationTimeController::SimulationTimeController(QObject* parent, SimulationMo
 	this->model = model;
 	timer = new QTimer(this);
 	setTimeSettings(30, 30);
-	connect(timer, &QTimer::timeout, this, &SimulationTimeController::nextFrameSlot);
+	connect(timer, &QTimer::timeout, this, &SimulationTimeController::emitNextFrameSlot);
 }
 
 SimulationTimeController::~SimulationTimeController()
@@ -41,13 +41,12 @@ bool SimulationTimeController::isPlaying()
 	return timer->isActive();
 }
 
-void SimulationTimeController::drawOneFrameIfInactive()
+void SimulationTimeController::emitOneNextFrameIfInactive()
 {
-	if (!timer->isActive()) nextFrameSlot();
+	if (!timer->isActive()) emitNextFrameSlot();
 }
 
-void SimulationTimeController::nextFrameSlot()
+void SimulationTimeController::emitNextFrameSlot()
 {
-	emit fitToViewSizeSignal();
-	emit drawFrameSignal(model->getNextFrame());
+	emit drawNewFrameSignal(model->getNextFrame());
 }

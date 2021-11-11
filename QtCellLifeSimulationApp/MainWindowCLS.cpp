@@ -28,8 +28,7 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	generationSettingsWidget = new GenerationSettingsWidget(parent);
 	controller_generation = new SimulationGenerationController(this, model, generationSettingsWidget);
 
-	connect(controller_time, &SimulationTimeController::fitToViewSizeSignal, controller_view, &SimulationViewController::fitModelToViewSlot);
-	connect(controller_time, &SimulationTimeController::drawFrameSignal, controller_view, &SimulationViewController::drawFrameSlot);
+	connect(controller_time, &SimulationTimeController::drawNewFrameSignal, controller_view, &SimulationViewController::drawNewFrameSlot);
 
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &MainWindowCLS::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &MainWindowCLS::onGenerate);
@@ -44,7 +43,7 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 
 	connect(ui.actionChange_view, &QAction::triggered, this, &MainWindowCLS::changeViewSlot);
 
-	connect(this, &MainWindowCLS::viewUpdatedSignal, controller_view, &SimulationViewController::onChangeViewSlot);
+	connect(this, &MainWindowCLS::viewChangedSignal, controller_view, &SimulationViewController::changeViewSlot);
 }
 
 MainWindowCLS::~MainWindowCLS()
@@ -122,35 +121,43 @@ void MainWindowCLS::onPlayPause() {
 
 void MainWindowCLS::onGenerate()
 {
+	controller_view->fitModelSizeToView();
 	controller_generation->generate();
-	controller_time->drawOneFrameIfInactive();
+	controller_time->emitOneNextFrameIfInactive();
 	controller_view->fit3DSceneView();
 }
 
 void MainWindowCLS::onClear()
 {
 	controller_generation->clear();
-	controller_time->drawOneFrameIfInactive();
+	controller_time->emitOneNextFrameIfInactive();
 }
 
 void MainWindowCLS::changeViewSlot()
 {
 	if (basicView) {
 #		ifdef C3D_USAGE
-		delete view;
+		auto oldview = view;
 		view = new SimulationViewC3D(this);
+		controller_view->setResizeMode(false);
 		setCentralWidget(view);
-		emit viewUpdatedSignal(view);
+		emit viewChangedSignal(view);
 		basicView = false;
+		delete oldview;
 #		endif
 	}
 	else {
-		delete view;
+		auto oldview = view;
 		view = new SimulationView2D(this);
+		controller_view->setResizeMode(true);
 		setCentralWidget(view);
-		emit viewUpdatedSignal(view);
+		emit viewChangedSignal(view);
 		basicView = true;
+		delete oldview;
 	}
+	controller_view->drawCurrentFrame();
+	controller_view->fit3DSceneView();
+
 }
 
 

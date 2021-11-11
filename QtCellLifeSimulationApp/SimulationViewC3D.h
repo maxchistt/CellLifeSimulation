@@ -21,10 +21,8 @@ class SimulationViewC3D : public SimulationView
 public:
 	SimulationViewC3D(QWidget* parent);
 	~SimulationViewC3D();
-	void drawItem(int x, int y, int size, QColor color) override;
+	void addDrawItem(int x, int y, int size, QColor color) override;
 	void clear() override;
-	int width() override;
-	int height() override;
 	void resize3DScene() override;
 	void frameComplete() override;
 private:

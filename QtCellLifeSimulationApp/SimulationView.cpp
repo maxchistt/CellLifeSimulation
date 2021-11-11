@@ -8,16 +8,6 @@ SimulationView::SimulationView(QWidget* parent)
 	setupLayout();
 }
 
-int SimulationView::width()
-{
-	return this->QWidget::width();
-}
-
-int SimulationView::height()
-{
-	return this->QWidget::height();
-}
-
 void SimulationView::setCentralWidget(QWidget* viewWidget)
 {
 	setupLayout();

@@ -27,7 +27,7 @@ private:
 	bool basicView = true;
 	void setPlayPause(bool on);
 signals:
-	void viewUpdatedSignal(SimulationView* newView);
+	void viewChangedSignal(SimulationView* newView);
 private slots:
 	void onPlayPause();
 	void onGenerate();

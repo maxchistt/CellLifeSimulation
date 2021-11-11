@@ -19,11 +19,10 @@ public:
 	void start();
 	void stop();
 	bool isPlaying();
-	void drawOneFrameIfInactive();
+	void emitOneNextFrameIfInactive();
 signals:
-	void drawFrameSignal(std::vector<SimulationModel::drawEntity> frame);
-	void fitToViewSizeSignal();
+	void drawNewFrameSignal(std::vector<SimulationModel::drawEntity> frame);
 private slots:
-	void nextFrameSlot();
+	void emitNextFrameSlot();
 
 };

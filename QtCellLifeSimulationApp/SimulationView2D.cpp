@@ -14,7 +14,7 @@ SimulationView2D::~SimulationView2D()
 	delete view;
 }
 
-void SimulationView2D::drawItem(int x, int y, int size, QColor color)
+void SimulationView2D::addDrawItem(int x, int y, int size, QColor color)
 {
 	view->scene()->addEllipse(x, y, size, size, Qt::NoPen, color);
 }
