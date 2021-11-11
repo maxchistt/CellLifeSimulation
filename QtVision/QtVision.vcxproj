@@ -140,6 +140,10 @@
     <Lib>
       <AdditionalLibraryDirectories>..\C3D\Vision\$(Configuration);..\C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
+xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -157,6 +161,10 @@
     <Lib>
       <AdditionalLibraryDirectories>..\C3D\Vision\$(Configuration);..\C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
+xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
