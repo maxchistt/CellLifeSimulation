@@ -2,6 +2,20 @@
 
 #ifdef C3D_USAGE
 
+static inline Image ConvertToImage(QImage image)
+{
+	/// convert to vision image
+	Image::Format format = Image::Format::UINT32;
+	image = image.convertToFormat(QImage::Format_RGBA8888);
+	image = image.mirrored();
+	image = image.rgbSwapped();
+
+	Image result;
+	result.Init(image.width(), image.height(), format, (const unsigned char*)image.bits());
+
+	return result;
+}
+
 static void createShapeSegment(GeometryRep* pShapeRep, const MbVector3D& vecMove, const Color& color, SceneSegment* pParent)
 {
 	SceneSegment* pSegment = new SceneSegment(pShapeRep, pParent);
@@ -85,7 +99,9 @@ void SimulationViewC3D::prepareScene()
 {
 	glWidget->mainLight()->SetDoubleSided(true);
 	glWidget->viewport()->SetBackgroundColour(Color(250, 250, 250, 50));
-	glWidget->viewport()->LoadBackgroundImage(Image(QString("./resources/bg.png").toStdString()));
+
+	QImage img(":/backgrounds/resources/bg.png");
+	glWidget->viewport()->LoadBackgroundImage(ConvertToImage(img));
 
 	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
 	Q_ASSERT(pTopSegment != nullptr);
