@@ -6,6 +6,7 @@
 #include "TimeSettingsDialog.h"
 #include <QMessageBox>
 #include "SimulationView2D.h"
+#include "SimulationViewC3D.h"
 
 using namespace SimulationModel;
 
@@ -15,7 +16,11 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	ui.setupUi(this);
 
 	model = new Simulation();
+#	ifdef C3D_USAGE
+	view = new SimulationViewC3D(this);
+#	else
 	view = new SimulationView2D(this);
+#	endif
 	setCentralWidget(view);
 	controller_view = new SimulationViewController(this, model, view);
 	controller_time = new SimulationTimeController(this, model);
