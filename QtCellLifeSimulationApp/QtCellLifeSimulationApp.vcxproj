@@ -70,7 +70,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\QtVision\Include;..\C3D\Kernel\Include;..\C3D\Vision\Include;..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>QT_VISION_STATIC</PreprocessorDefinitions>
     </ClCompile>
     <Link>
