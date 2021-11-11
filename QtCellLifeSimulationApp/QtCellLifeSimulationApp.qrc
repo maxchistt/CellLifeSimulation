@@ -11,6 +11,7 @@
         <file>resources/limit.png</file>
         <file>resources/time.png</file>
         <file>resources/eye.png</file>
+        <file>resources/next.png</file>
     </qresource>
     <qresource prefix="/backgrounds">
         <file>resources/bg.png</file>

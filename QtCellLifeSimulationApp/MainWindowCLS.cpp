@@ -55,9 +55,9 @@ MainWindowCLS::~MainWindowCLS()
 	delete generationSettingsWidget;
 }
 
-void MainWindowCLS::setPlayPause(bool on)
+void MainWindowCLS::setPlayPause(bool setPlay)
 {
-	if (on) {
+	if (setPlay) {
 		controller_time->start();
 		ui.actionPlay_Pause->setText("Pause");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/pause.png"));
@@ -137,7 +137,12 @@ void MainWindowCLS::aboutQt()
 }
 
 void MainWindowCLS::onPlayPause() {
-	setPlayPause(!controller_time->isPlaying());
+	if (basicView) {
+		setPlayPause(!controller_time->isPlaying());
+	}
+	else {
+		controller_time->emitOneNextFrameIfInactive();
+	}
 }
 
 void MainWindowCLS::onGenerate()
@@ -159,10 +164,14 @@ void MainWindowCLS::changeViewSlot()
 	if (basicView) {
 #		ifdef C3D_USAGE
 		basicView = false;
+		setPlayPause(false);
+		ui.actionPlay_Pause->setText("Play step");
+		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/next.png"));
 #		endif
 	}
 	else {
 		basicView = true;
+		setPlayPause(controller_time->isPlaying());
 	}
 	setNewView();
 	controller_view->drawCurrentFrame();
