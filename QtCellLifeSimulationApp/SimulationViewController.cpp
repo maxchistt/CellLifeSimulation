@@ -25,6 +25,12 @@ void SimulationViewController::fitModelToViewSlot()
 	if (fitToView)model->setSize(view->width(), view->height());
 }
 
+void SimulationViewController::onChangeViewSlot(SimulationView* newView)
+{
+	this->view = newView;
+	fitModelToViewSlot();
+}
+
 void SimulationViewController::drawFrameSlot(std::vector<SimulationModel::drawEntity> frame)
 {
 	view->clear();

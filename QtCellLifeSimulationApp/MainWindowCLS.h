@@ -24,11 +24,15 @@ private:
 	SimulationViewController* controller_view;
 	SimulationGenerationController* controller_generation;
 	Ui::MainWindowCLS ui;
+	bool basicView = true;
 	void setPlayPause(bool on);
+signals:
+	void viewUpdatedSignal(SimulationView* newView);
 private slots:
 	void onPlayPause();
 	void onGenerate();
 	void onClear();
+	void changeViewSlot();
 	void onLimitSettings();
 	void onGenerationSettings();
 	void onTimeSettings();

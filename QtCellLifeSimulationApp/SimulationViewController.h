@@ -18,4 +18,5 @@ public:
 public slots:
 	void drawFrameSlot(std::vector<SimulationModel::drawEntity> frame);
 	void fitModelToViewSlot();
+	void onChangeViewSlot(SimulationView* newView);
 };

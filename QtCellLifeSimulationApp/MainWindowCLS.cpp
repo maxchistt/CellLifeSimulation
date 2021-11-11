@@ -8,19 +8,18 @@
 #include "SimulationView2D.h"
 #include "SimulationViewC3D.h"
 
+
 using namespace SimulationModel;
 
 MainWindowCLS::MainWindowCLS(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
 	model = new Simulation();
-#	ifdef C3D_USAGE
-	view = new SimulationViewC3D(this);
-#	else
-	view = new SimulationView2D(this);
+#	ifndef C3D_USAGE
+	ui.actionGenerationSettings->setEnabled(false);
 #	endif
+	view = new SimulationView2D(this);
 	setCentralWidget(view);
 	controller_view = new SimulationViewController(this, model, view);
 	controller_time = new SimulationTimeController(this, model);
@@ -42,6 +41,10 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 
 	connect(ui.actionAbout, &QAction::triggered, this, &MainWindowCLS::about);
 	connect(ui.actionAboutQt, &QAction::triggered, this, &MainWindowCLS::aboutQt);
+
+	connect(ui.actionChange_view, &QAction::triggered, this, &MainWindowCLS::changeViewSlot);
+
+	connect(this, &MainWindowCLS::viewUpdatedSignal, controller_view, &SimulationViewController::onChangeViewSlot);
 }
 
 MainWindowCLS::~MainWindowCLS()
@@ -128,6 +131,26 @@ void MainWindowCLS::onClear()
 {
 	controller_generation->clear();
 	controller_time->drawOneFrameIfInactive();
+}
+
+void MainWindowCLS::changeViewSlot()
+{
+	if (basicView) {
+#		ifdef C3D_USAGE
+		delete view;
+		view = new SimulationViewC3D(this);
+		setCentralWidget(view);
+		emit viewUpdatedSignal(view);
+		basicView = false;
+#		endif
+	}
+	else {
+		delete view;
+		view = new SimulationView2D(this);
+		setCentralWidget(view);
+		emit viewUpdatedSignal(view);
+		basicView = true;
+	}
 }
 
 
