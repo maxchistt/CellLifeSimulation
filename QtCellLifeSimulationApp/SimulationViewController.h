@@ -14,6 +14,7 @@ private:
 public:
 	SimulationViewController(QObject* parent, SimulationModel::Simulation* model, SimulationView* view, bool fitToView = true);
 	~SimulationViewController();
+	void fit3DSceneView();
 public slots:
 	void drawFrameSlot(std::vector<SimulationModel::drawEntity> frame);
 	void fitModelToViewSlot();

@@ -15,6 +15,11 @@ SimulationViewController::~SimulationViewController()
 {
 }
 
+void SimulationViewController::fit3DSceneView()
+{
+	view->resize3DScene();
+}
+
 void SimulationViewController::fitModelToViewSlot()
 {
 	if (fitToView)model->setSize(view->width(), view->height());
@@ -26,4 +31,5 @@ void SimulationViewController::drawFrameSlot(std::vector<SimulationModel::drawEn
 	for (SimulationModel::drawEntity item : frame) {
 		view->drawItem(item.point.x - item.size / 2, item.point.y - item.size / 2, item.size, ColorConverter::convertColor(item.color));
 	}
+	view->frameComplete();
 }

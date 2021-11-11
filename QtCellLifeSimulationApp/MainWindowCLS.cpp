@@ -121,6 +121,7 @@ void MainWindowCLS::onGenerate()
 {
 	controller_generation->generate();
 	controller_time->drawOneFrameIfInactive();
+	controller_view->fit3DSceneView();
 }
 
 void MainWindowCLS::onClear()

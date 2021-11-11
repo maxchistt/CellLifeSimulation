@@ -10,6 +10,10 @@ public:
 	virtual void clear() = 0;
 	SimulationView(QWidget* parent);
 	virtual ~SimulationView() = default;
+	virtual int width();
+	virtual int height();
+	virtual void resize3DScene() {};
+	virtual void frameComplete() {};
 protected:
 	void setCentralWidget(QWidget* viewWidget);
 private:

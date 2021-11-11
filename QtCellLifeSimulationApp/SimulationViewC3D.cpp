@@ -15,9 +15,8 @@ SimulationViewC3D::SimulationViewC3D(QWidget* parent)
 {
 	QtVision::setSurfaceFormat();
 	glWidget = new QtVision::QtOpenGLSceneWidget(this);
-	glWidget->setStyleSheet("background-image:url(\":/backgrounds/resources/bg.png\");background-position: center;");
 	setCentralWidget(glWidget);
-	testScene();
+	prepareScene();
 	checkLicense();
 }
 
@@ -28,19 +27,78 @@ SimulationViewC3D::~SimulationViewC3D()
 
 void SimulationViewC3D::drawItem(int x, int y, int size, QColor color)
 {
-	//view->scene()->addEllipse(x, y, size, size, Qt::NoPen, color);
+	frame.push_back(DrawItem{ x,y,float(0.5 * size),Color(color.red(), color.green(), color.blue()) });
 }
 
 void SimulationViewC3D::clear()
 {
-	//view->scene()->clear();
+	if (!processStartCheck())return;
+	frame.clear();
+	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
+	Q_ASSERT(pTopSegment != nullptr);
+	pTopSegment->RemoveChildren();
+	processEndCheck();
 }
 
-void SimulationViewC3D::testScene()
+int SimulationViewC3D::width()
 {
+	return 300;
+}
 
+int SimulationViewC3D::height()
+{
+	return 300;
+}
+
+void SimulationViewC3D::resize3DScene()
+{
+	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
+	Q_ASSERT(pTopSegment != nullptr);
+	glWidget->sceneContent()->GetContainer()->SetUseVertexBufferObjects(true);
+	QtVision::createProcessesCameraControls(glWidget->graphicsEngine()->GetTopEssence());
+	glWidget->viewport()->ZoomToFit(glWidget->sceneContent()->GetBoundingBox());
+	QRect geom = QApplication::desktop()->availableGeometry();
+}
+
+void SimulationViewC3D::frameComplete()
+{
+	if (!processStartCheck())return;
+	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
+	Q_ASSERT(pTopSegment != nullptr);
+	std::vector<DrawItem> temp = frame;
+	for (auto item : temp) {
+		::createShapeSegment(
+			SceneGenerator::Instance()->CreateSphere(item.size),
+			MbVector3D(item.x, item.y, 0.0),
+			item.color,
+			pTopSegment
+		);
+	}
+	frame.clear();
+	processEndCheck();
+}
+
+bool SimulationViewC3D::processStartCheck()
+{
+	if (process <= 0) {
+		process++;
+		return true;
+	}
+	return false;
+}
+
+void SimulationViewC3D::processEndCheck()
+{
+	if (process > 0) {
+		process--;
+	}
+}
+
+void SimulationViewC3D::prepareScene()
+{
 	glWidget->mainLight()->SetDoubleSided(true);
-	glWidget->viewport()->SetBackgroundColour(Color(74, 74, 74));
+	glWidget->viewport()->SetBackgroundColour(Color(250, 250, 250, 50));
+	glWidget->viewport()->LoadBackgroundImage(Image(QString("./resources/bg.png").toStdString()));
 
 	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
 	Q_ASSERT(pTopSegment != nullptr);
@@ -51,17 +109,6 @@ void SimulationViewC3D::testScene()
 	::createShapeSegment(SceneGenerator::Instance()->CreateCylinder(1.5, 1.5), MbVector3D(-5.0, 4.0, -1.5), Color(0, 190, 0), pTopSegment);
 	// 3 Box
 	::createShapeSegment(SceneGenerator::Instance()->CreateBox(2.5, 2.5, 2.5), MbVector3D(5.0, -4.0, 0.0), Color(0, 0, 180), pTopSegment);
-	// 4 Rectangle
-	::createShapeSegment(SceneGenerator::Instance()->CreateRectangle(2.5, 2.5), MbVector3D(0.0, -4.0, 0.0), Color(0, 100, 180), pTopSegment);
-	// 5 Sphere
-	::createShapeSegment(SceneGenerator::Instance()->CreateSphere(1.5), MbVector3D(-5.0, -4.0, 0.0), Color(100, 100, 180), pTopSegment);
-	// 5 Rectangle
-	::createShapeSegment(SceneGenerator::Instance()->CreateRectangle(2.5, 2.5), MbVector3D(5.0, 4.0, 0.0), Color(200, 100, 180), pTopSegment);
-
-	auto pLabel = new LabelGeometry();
-	pLabel->Init(WString("text"), MbPlacement3D(MbVector3D::xAxis, MbVector3D::yAxis, {}));
-	pLabel->SetFontSize(22);
-	new SceneSegment(new GeometryRep(pLabel), pTopSegment);
 
 	glWidget->sceneContent()->GetContainer()->SetUseVertexBufferObjects(true);
 	QtVision::createProcessesCameraControls(glWidget->graphicsEngine()->GetTopEssence());
