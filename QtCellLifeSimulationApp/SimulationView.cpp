@@ -1,35 +1,25 @@
 #include "SimulationView.h"
-#include <QGraphicsLineItem>
-#include <QResizeEvent>
+#include <QHBoxLayout>
 
 SimulationView::SimulationView(QWidget* parent)
-	: QGraphicsView(parent)
+	: QWidget(parent)
 {
-	scene = new QGraphicsScene(this);
-	setScene(scene);
-	setStyleSheet("background-image:url(\":/backgrounds/resources/bg.png\");background-position: center;");
-	setFrameShape(QFrame::Shape::NoFrame);
-	resize(parent->size());
+	setContentsMargins(0, 0, 0, 0);
+	setupLayout();
 }
 
-void SimulationView::setParent(QWidget* parent)
+void SimulationView::setCentralWidget(QWidget* viewWidget)
 {
-	resize(parent->size());
-	QGraphicsView::setParent(parent);
+	setupLayout();
+	for (auto child : this->QWidget::layout()->findChildren<QWidget*>()) {
+		this->QWidget::layout()->removeWidget(child);
+	}
+	this->QWidget::layout()->addWidget(viewWidget);
 }
 
-void SimulationView::drawItem(int x, int y, int size, QColor color)
+void SimulationView::setupLayout()
 {
-	scene->addEllipse(x, y, size, size, Qt::NoPen, color);
-}
-
-void SimulationView::clear()
-{
-	scene->clear();
-}
-
-void SimulationView::resizeEvent(QResizeEvent* event)
-{
-	scene->setSceneRect(0, 0, event->size().width(), event->size().height());
-	QGraphicsView::resizeEvent(event);
+	if (this->QWidget::layout() == Q_NULLPTR) this->QWidget::setLayout(new QHBoxLayout(this));
+	this->QWidget::layout()->setContentsMargins(0, 0, 0, 0);
+	this->QWidget::layout()->setMargin(0);
 }

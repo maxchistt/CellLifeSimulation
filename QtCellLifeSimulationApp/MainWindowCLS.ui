@@ -48,6 +48,7 @@
     <addaction name="actionGenerationSettings"/>
     <addaction name="actionLimitSettings"/>
     <addaction name="actionTimeSettings"/>
+    <addaction name="actionChange_view"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -74,6 +75,7 @@
    <addaction name="actionGenerate"/>
    <addaction name="actionClear"/>
    <addaction name="actionGenerationSettings"/>
+   <addaction name="actionChange_view"/>
   </widget>
   <action name="actionGenerate">
    <property name="icon">
@@ -137,6 +139,15 @@
   <action name="actionAboutQt">
    <property name="text">
     <string>AboutQt</string>
+   </property>
+  </action>
+  <action name="actionChange_view">
+   <property name="icon">
+    <iconset resource="QtCellLifeSimulationApp.qrc">
+     <normaloff>:/toolbar/resources/eye.png</normaloff>:/toolbar/resources/eye.png</iconset>
+   </property>
+   <property name="text">
+    <string>Change view</string>
    </property>
   </action>
  </widget>

@@ -5,6 +5,9 @@
 #include <QInputDialog>
 #include "TimeSettingsDialog.h"
 #include <QMessageBox>
+#include "SimulationView2D.h"
+#include "SimulationViewC3D.h"
+
 
 using namespace SimulationModel;
 
@@ -12,30 +15,34 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
 	model = new Simulation();
-	view = new SimulationView(this);
+#	ifndef C3D_USAGE
+	ui.actionChange_view->setEnabled(false);
+#	endif
+
+	view = new SimulationView2D(this);
 	setCentralWidget(view);
 	controller_view = new SimulationViewController(this, model, view);
+
 	controller_time = new SimulationTimeController(this, model);
 	controller_time->setTimeSettings(30, 30);
 	setPlayPause(false);
+
 	generationSettingsWidget = new GenerationSettingsWidget(parent);
 	controller_generation = new SimulationGenerationController(this, model, generationSettingsWidget);
 
-	connect(controller_time, &SimulationTimeController::fitToViewSizeSignal, controller_view, &SimulationViewController::fitModelToViewSlot);
-	connect(controller_time, &SimulationTimeController::drawFrameSignal, controller_view, &SimulationViewController::drawFrameSlot);
+	connect(controller_time, &SimulationTimeController::drawNewFrameSignal, controller_view, &SimulationViewController::drawNewFrameSlot);
+	connect(this, &MainWindowCLS::viewChangedSignal, controller_view, &SimulationViewController::changeViewSlot);
 
 	connect(ui.actionPlay_Pause, &QAction::triggered, this, &MainWindowCLS::onPlayPause);
 	connect(ui.actionGenerate, &QAction::triggered, this, &MainWindowCLS::onGenerate);
 	connect(ui.actionClear, &QAction::triggered, this, &MainWindowCLS::onClear);
-
 	connect(ui.actionLimitSettings, &QAction::triggered, this, &MainWindowCLS::onLimitSettings);
 	connect(ui.actionGenerationSettings, &QAction::triggered, this, &MainWindowCLS::onGenerationSettings);
 	connect(ui.actionTimeSettings, &QAction::triggered, this, &MainWindowCLS::onTimeSettings);
-
 	connect(ui.actionAbout, &QAction::triggered, this, &MainWindowCLS::about);
 	connect(ui.actionAboutQt, &QAction::triggered, this, &MainWindowCLS::aboutQt);
+	connect(ui.actionChange_view, &QAction::triggered, this, &MainWindowCLS::changeViewSlot);
 }
 
 MainWindowCLS::~MainWindowCLS()
@@ -48,9 +55,9 @@ MainWindowCLS::~MainWindowCLS()
 	delete generationSettingsWidget;
 }
 
-void MainWindowCLS::setPlayPause(bool on)
+void MainWindowCLS::setPlayPause(bool setPlay)
 {
-	if (on) {
+	if (setPlay) {
 		controller_time->start();
 		ui.actionPlay_Pause->setText("Pause");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/pause.png"));
@@ -60,6 +67,28 @@ void MainWindowCLS::setPlayPause(bool on)
 		ui.actionPlay_Pause->setText("Play");
 		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/play.png"));
 	}
+}
+
+void MainWindowCLS::setNewView()
+{
+	auto oldview = view;
+
+	if (basicView) {
+		view = new SimulationView2D(this);
+	}
+	else {
+#		ifdef C3D_USAGE
+		view = new SimulationViewC3D(this);
+#		else
+		view = new SimulationView2D(this);
+#		endif
+	}
+
+	controller_view->setResizeMode(basicView);
+	setCentralWidget(view);
+	emit viewChangedSignal(view);
+
+	delete oldview;
 }
 
 void MainWindowCLS::onLimitSettings()
@@ -108,19 +137,45 @@ void MainWindowCLS::aboutQt()
 }
 
 void MainWindowCLS::onPlayPause() {
-	setPlayPause(!controller_time->isPlaying());
+	if (basicView) {
+		setPlayPause(!controller_time->isPlaying());
+	}
+	else {
+		controller_time->emitOneNextFrameIfInactive();
+	}
 }
 
 void MainWindowCLS::onGenerate()
 {
+	controller_view->fitModelSizeToView();
 	controller_generation->generate();
-	controller_time->drawOneFrameIfInactive();
+	controller_time->emitOneNextFrameIfInactive();
+	controller_view->fit3DSceneView();
 }
 
 void MainWindowCLS::onClear()
 {
 	controller_generation->clear();
-	controller_time->drawOneFrameIfInactive();
+	controller_time->emitOneNextFrameIfInactive();
+}
+
+void MainWindowCLS::changeViewSlot()
+{
+	if (basicView) {
+#		ifdef C3D_USAGE
+		basicView = false;
+		setPlayPause(false);
+		ui.actionPlay_Pause->setText("Play step");
+		ui.actionPlay_Pause->setIcon(QIcon(":/toolbar/resources/next.png"));
+#		endif
+	}
+	else {
+		basicView = true;
+		setPlayPause(controller_time->isPlaying());
+	}
+	setNewView();
+	controller_view->drawCurrentFrame();
+	controller_view->fit3DSceneView();
 }
 
 
