@@ -17,7 +17,7 @@ MainWindowCLS::MainWindowCLS(QWidget* parent)
 	ui.setupUi(this);
 	model = new Simulation();
 #	ifndef C3D_USAGE
-	ui.actionGenerationSettings->setEnabled(false);
+	ui.actionChange_view->setEnabled(false);
 #	endif
 
 	view = new SimulationView2D(this);
