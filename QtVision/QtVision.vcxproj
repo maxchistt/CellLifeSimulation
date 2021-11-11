@@ -134,6 +134,12 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>..\C3D\Vision\$(Configuration);..\C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -145,6 +151,12 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)C3D\Kernel\$(Configuration);$(SolutionDir)C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>..\C3D\Vision\$(Configuration);..\C3D\Kernel\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
