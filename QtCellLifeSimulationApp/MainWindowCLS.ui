@@ -121,6 +121,12 @@
    <property name="text">
     <string>Play/Pause</string>
    </property>
+   <property name="toolTip">
+    <string>Play/Pause F5</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
   </action>
   <action name="actionLimitSettings">
    <property name="icon">
