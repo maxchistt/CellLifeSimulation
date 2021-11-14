@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 #	if defined(WIN32) && defined(C3D_USAGE)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #	endif
-	QCoreApplication::setApplicationName(QStringLiteral("C3DShellCodingTutorial"));
+	QCoreApplication::setApplicationName(QStringLiteral("CellLifeSimulation"));
 	QCoreApplication::setOrganizationName(QStringLiteral("Maxim Chistyakov"));
 	QCoreApplication::setOrganizationDomain(QStringLiteral("https://github.com/maxchistt/CellLifeSimulation"));
 	QApplication::setStyle(QStyleFactory::create("Fusion"));
