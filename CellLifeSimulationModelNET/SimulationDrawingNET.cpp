@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "SimulationDrawingCLR.h"
+#include "SimulationDrawingNET.h"
 
 using namespace System::Drawing;
-using namespace SimulationModelCLR;
+using namespace SimulationModelNET;
 using namespace SimulationModel;
 using namespace SimulationModel::Cells;
 

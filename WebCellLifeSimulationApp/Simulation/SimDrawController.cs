@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using SimulationModelCLR;
+using SimulationModelNET;
 
 namespace WebCellLifeSimulationApp
 {
@@ -40,14 +40,14 @@ namespace WebCellLifeSimulationApp
 
     public partial class SimDrawController
     {
-        private SimulationCLR simulation;
+        private SimulationNET simulation;
         private Timer timer;
         private DrawEntity[] drawEntities;
         private Action<DrawEntity[]>[] handlers;
 
         public SimDrawController()
         {
-            simulation = new SimulationCLR();
+            simulation = new SimulationNET();
             drawEntities = new DrawEntity[0];
             handlers = new Action<DrawEntity[]>[0];
             timer = new Timer();

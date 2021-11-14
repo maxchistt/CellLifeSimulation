@@ -10,7 +10,7 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Text;
 
-using SimulationModelCLR;
+using SimulationModelNET;
 
 namespace WebCellLifeSimulationApp.Controllers
 {

@@ -3,16 +3,16 @@
 
 using namespace System;
 
-namespace SimulationModelCLR {
-	namespace CellsCLR {
-		public ref class CellFactoryCLR sealed
+namespace SimulationModelNET {
+	namespace CellsNET {
+		public ref class CellFactoryNET sealed
 		{
 		private:
 			SimulationModel::Cells::CellFactory* factory;
 		public:
 			void generateCells(int amount);
 			void setGenerationType(int typeId);
-			CellFactoryCLR(SimulationModel::Cells::CellFactory* factory_ptr);
+			CellFactoryNET(SimulationModel::Cells::CellFactory* factory_ptr);
 		};
 	};
 };

@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtCellLifeSimulationApp", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModel", "CellLifeSimulationModel\CellLifeSimulationModel.vcxproj", "{7A01AEBD-767D-4D71-A500-3AEFEE76D1B7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModelCLR", "CellLifeSimulationModelCLR\CellLifeSimulationModelCLR.vcxproj", "{E5C4317C-A74D-4C35-A06C-CF94CDECAC9E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CellLifeSimulationModelNET", "CellLifeSimulationModelNET\CellLifeSimulationModelNET.vcxproj", "{E5C4317C-A74D-4C35-A06C-CF94CDECAC9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCellLifeSimulationApp", "WpfCellLifeSimulationApp\WpfCellLifeSimulationApp.csproj", "{D5AEB578-4C4A-4420-9A39-4CCFD5849C8C}"
 EndProject

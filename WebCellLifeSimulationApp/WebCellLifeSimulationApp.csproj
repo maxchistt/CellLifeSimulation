@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CellLifeSimulationModelCLR\CellLifeSimulationModelCLR.vcxproj">
+    <ProjectReference Include="..\CellLifeSimulationModelNET\CellLifeSimulationModelNET.vcxproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

@@ -3,7 +3,7 @@
 
 using namespace System;
 
-namespace SimulationModelCLR {
+namespace SimulationModelNET {
 	public ref struct DrawEntity sealed {
 		int x = 0;
 		int y = 0;

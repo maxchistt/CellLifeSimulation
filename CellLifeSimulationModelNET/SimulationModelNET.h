@@ -1,17 +1,17 @@
 ﻿#pragma once
 #include "SimulationModel.h"
-#include "SimulationDrawingCLR.h"
-#include "CellsCLR.h"
+#include "SimulationDrawingNET.h"
+#include "CellsNET.h"
 
 using namespace System;
 
-namespace SimulationModelCLR {
-	public ref class SimulationCLR sealed
+namespace SimulationModelNET {
+	public ref class SimulationNET sealed
 	{
 	private:
 		SimulationModel::Simulation* simulation;
 	public:
-		CellsCLR::CellFactoryCLR^ cellFactory;
+		CellsNET::CellFactoryNET^ cellFactory;
 		void clearAll();
 		array<DrawEntity^>^ getNextFrame();
 		void setSize(int x, int y);
@@ -21,8 +21,8 @@ namespace SimulationModelCLR {
 		int% cellsLimit();
 		float% timelapse();
 
-		SimulationCLR();
-		SimulationCLR(int x, int y);
-		~SimulationCLR();
+		SimulationNET();
+		SimulationNET(int x, int y);
+		~SimulationNET();
 	};
 }

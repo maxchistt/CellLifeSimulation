@@ -9,13 +9,13 @@ using System.Windows.Shapes;
 
 using System.Windows.Threading;
 
-using SimulationModelCLR;
+using SimulationModelNET;
 
 namespace WpfCellLifeSimulationApp
 {
     public partial class SimDrawController
     {
-        private SimulationCLR simulation;
+        private SimulationNET simulation;
         private DrawEntity[] frame;
         private Canvas view = null;
         private LinegraphicWindow graphic = null;
@@ -28,7 +28,7 @@ namespace WpfCellLifeSimulationApp
 
         public SimDrawController()
         {
-            simulation = new SimulationCLR();
+            simulation = new SimulationNET();
             frame = Array.Empty<DrawEntity>();
             brushes = new Brush[3] {
                 new SolidColorBrush((Color)ColorConverter.ConvertFromString("SeaGreen")),

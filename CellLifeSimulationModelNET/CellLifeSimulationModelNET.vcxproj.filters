@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SimulationModelCLR.h">
+    <ClInclude Include="SimulationModelNET.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -24,15 +24,15 @@
     <ClInclude Include="pch.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationDrawingCLR.h">
+    <ClInclude Include="SimulationDrawingNET.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CellsCLR.h">
+    <ClInclude Include="CellsNET.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SimulationModelCLR.cpp">
+    <ClCompile Include="SimulationModelNET.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -41,10 +41,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationDrawingCLR.cpp">
+    <ClCompile Include="SimulationDrawingNET.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="CellsCLR.cpp">
+    <ClCompile Include="CellsNET.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
