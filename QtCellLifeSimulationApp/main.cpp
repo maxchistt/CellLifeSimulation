@@ -2,6 +2,7 @@
 #include <QtWidgets/QApplication>
 #include <QStyleFactory>
 #include "C3D_USAGE.h"
+
 #ifdef C3D_USAGE
 #include <qt_openglwidget.h>
 #include <qlogging.h>

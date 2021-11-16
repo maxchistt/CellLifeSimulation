@@ -10,8 +10,6 @@
 #include <mesh_triangle.h>
 #include <mesh.h>
 #include <vsn_labelgeometry.h>
-#include <qlogging.h>
-#include <last.h>
 
 VSN_USE_NAMESPACE
 

@@ -123,8 +123,8 @@ void SimulationViewC3D::prepareScene()
 
 void SimulationViewC3D::checkLicense()
 {
-	QtVision::setLicense(LKEY, LSIGN);
-	QtVision::checkLicense();
+	QtVision::setLicenseKeyValues(LKEY, LSIGN);
+	QtVision::checkLicenseWithInput();
 }
 
 #endif

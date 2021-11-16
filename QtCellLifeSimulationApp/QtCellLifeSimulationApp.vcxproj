@@ -60,23 +60,33 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\QtVision\Include;..\C3D\Kernel\Include;..\C3D\Vision\Include;..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>QT_VISION_STATIC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\C3D\Kernel\Include;..\C3D\Vision\Include;..\QtVision\Include;..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>c3dvision.lib;c3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);..\QtVision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;qtvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
+xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\QtVision\Include;..\C3D\Kernel\Include;..\C3D\Vision\Include;..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>QT_VISION_STATIC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\C3D\Kernel\Include;..\C3D\Vision\Include;..\QtVision\Include;..\CellLifeSimulationModel;.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>c3dvision.lib;c3d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>c3dvision.lib;c3d.lib;qtvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);..\QtVision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
+xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Platform)\$(Configuration)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -124,14 +134,6 @@
     <QtUic Include="TimeSettingsDialog.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CellLifeSimulationModel\CellLifeSimulationModel.vcxproj">
-      <Project>{7a01aebd-767d-4d71-a500-3aefee76d1b7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\QtVision\QtVision.vcxproj">
-      <Project>{24fbaf90-e7bc-4df9-892b-9882e21a1cd0}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <QtMoc Include="SimulationView.h" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +151,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="QtCellLifeSimulationApp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CellLifeSimulationModel\CellLifeSimulationModel.vcxproj">
+      <Project>{7a01aebd-767d-4d71-a500-3aefee76d1b7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
