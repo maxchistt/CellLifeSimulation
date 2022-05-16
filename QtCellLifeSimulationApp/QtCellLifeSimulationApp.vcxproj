@@ -66,7 +66,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);..\QtVision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>c3dvision.lib;c3d.lib;qtvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>xcopy /y "$(SolutionDir)C3D\Vision\$(Configuration)\c3dvision.dll" "$(SolutionDir)$(Platform)\$(Configuration)"
@@ -80,7 +80,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
       </PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>c3dvision.lib;c3d.lib;qtvision.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\C3D\Kernel\$(Configuration);..\C3D\Vision\$(Configuration);..\QtVision\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
