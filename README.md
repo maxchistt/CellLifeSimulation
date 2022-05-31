@@ -21,10 +21,10 @@ This project depends from C3D Toolkit! You can launch it without C3D, but, if yo
 - Uncomment "`#define C3D_USAGE`" in "C3D_USAGE.h" file in "QtCellLifeSimulationApp" project
 - Add "c3dvision.lib;c3d.lib;QtVision.lib;" to additional dependencies of "QtCellLifeSimulationApp" project in project settings
 
-![WPF](https://i.postimg.cc/YCcTkCyb/image.png)
+![WPF](https://i.postimg.cc/tCrvnCpt/image.png)
 
 ![Qt](https://i.postimg.cc/DZcR4smk/image.png)
 
-![ASP.NET](https://i.postimg.cc/R0vbwhtc/image.png)
+![ASP.NET](https://i.postimg.cc/90yR5f13/image-2.png)
 
 Inspired by [OnigiriScience](https://www.youtube.com/c/OnigiriScience)
