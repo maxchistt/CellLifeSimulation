@@ -3,6 +3,4 @@
 // Define actual licence key and licence signature
 
 //#define C3D_USAGE
-#define LKEY "qwerty.12345.[WIN][cnv][mdl][slv][vsn][bsh]"
-#define LSIGN "asdfghjkl=="
 

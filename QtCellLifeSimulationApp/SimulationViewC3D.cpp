@@ -16,12 +16,12 @@ static inline Image ConvertToImage(QImage image)
 	return result;
 }
 
-static void createShapeSegment(GeometryRep* pShapeRep, const MbVector3D& vecMove, const Color& color, SceneSegment* pParent)
+static NodeKey createShapeSegment(GeometryRep* pShapeRep, const MbVector3D& vecMove, const Color& color, SceneSegment* pParent)
 {
 	SceneSegment* pSegment = new SceneSegment(pShapeRep, pParent);
 	pSegment->SetColorPresentationMaterial(color);
-	MbMatrix3D relativeMatrix; relativeMatrix.Move(vecMove);
-	pSegment->CreateRelativeMatrix(relativeMatrix);
+	pSegment->GetTransform().Move(vecMove);
+	return pSegment->GetUniqueKey();
 }
 
 SimulationViewC3D::SimulationViewC3D(QWidget* parent)
@@ -30,6 +30,7 @@ SimulationViewC3D::SimulationViewC3D(QWidget* parent)
 	QtVision::setSurfaceFormat();
 	glWidget = new QtVision::QtOpenGLSceneWidget(this);
 	setCentralWidget(glWidget);
+	QtVision::createProcessesCameraControls(glWidget);
 	prepareScene();
 	checkLicense();
 }
@@ -51,12 +52,8 @@ void SimulationViewC3D::clear()
 
 void SimulationViewC3D::resize3DScene()
 {
-	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
-	Q_ASSERT(pTopSegment != nullptr);
 	glWidget->sceneContent()->GetContainer()->SetUseVertexBufferObjects(true);
-	QtVision::createProcessesCameraControls(glWidget->graphicsEngine()->GetTopEssence());
-	glWidget->viewport()->ZoomToFit(glWidget->sceneContent()->GetBoundingBox());
-	QRect geom = QApplication::desktop()->availableGeometry();
+	glWidget->ZoomToFit();
 }
 
 void SimulationViewC3D::frameComplete()
@@ -114,17 +111,14 @@ void SimulationViewC3D::prepareScene()
 	::createShapeSegment(SceneGenerator::Instance()->CreateBox(2.5, 2.5, 2.5), MbVector3D(5.0, -4.0, 0.0), Color(0, 0, 180), pTopSegment);
 
 	glWidget->sceneContent()->GetContainer()->SetUseVertexBufferObjects(true);
-	QtVision::createProcessesCameraControls(glWidget->graphicsEngine()->GetTopEssence());
 	glWidget->viewport()->ZoomToFit(glWidget->sceneContent()->GetBoundingBox());
 
 	glWidget->move(QPoint(200, 200));
-	QRect geom = QApplication::desktop()->availableGeometry();
 }
 
 void SimulationViewC3D::checkLicense()
 {
-	QtVision::setLicenseKeyValues(LKEY, LSIGN);
-	QtVision::checkLicenseWithInput();
+	QtVision::activateLicense();
 }
 
 #endif

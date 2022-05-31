@@ -12,15 +12,14 @@ There are five projects here :
 - WPF C# client
 - Web C# ASP.NET / Angular client
 
-This project depends from C3D Toolkit!
+At first, need to set up your VS for working with Qt to build this project.
 
-If you have it, you need to:
+This project depends from C3D Toolkit! You can launch it without C3D, but, if you have it, you need to:
 
-- Copy folder "QtVision" with QtVision static libray built from [this](https://github.com/maxchistt/QtVision-Static-Class-Library) (tag v1.1) project into solution folder
+- Copy folder "QtVision" with QtVision static libray, built from [this](https://github.com/maxchistt/QtVision-Static-Class-Library) project by running "QtVision.Export.ps1", into solution folder
 - Copy "Kernel" and "Vision" distribution folders into solution folder into "C3D" subfolder
-- Define actual licence key and licence signature in "C3D_USAGE.h" file in "QtCellLifeSimulationApp" project
 - Uncomment "`#define C3D_USAGE`" in "C3D_USAGE.h" file in "QtCellLifeSimulationApp" project
-- Add "c3dvision.lib;c3d.lib;qtvision.lib;" to additional dependencies of "QtCellLifeSimulationApp" project in project settings
+- Add "c3dvision.lib;c3d.lib;QtVision.lib;" to additional dependencies of "QtCellLifeSimulationApp" project in project settings
 
 ![WPF](https://i.postimg.cc/YCcTkCyb/image.png)
 
