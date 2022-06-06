@@ -59,10 +59,10 @@ void SimulationViewC3D::resize3DScene()
 void SimulationViewC3D::frameComplete()
 {
 	if (!processStartCheck())return;
+	glWidget->sceneContent()->Clear();
 	SceneSegment* pTopSegment = glWidget->sceneContent()->GetRootSegment();
 	Q_ASSERT(pTopSegment != nullptr);
 	std::vector<DrawItem> temp = frame;
-	pTopSegment->RemoveChildren();
 
 	for (auto item : temp) {
 		::createShapeSegment(
