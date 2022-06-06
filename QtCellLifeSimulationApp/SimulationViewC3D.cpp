@@ -73,6 +73,7 @@ void SimulationViewC3D::frameComplete()
 		);
 	}
 	frame.clear();
+	glWidget->update();
 	processEndCheck();
 }
 
